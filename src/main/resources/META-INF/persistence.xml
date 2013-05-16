@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence  http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+  <!--<persistence-unit name="JPAReservas" transaction-type="JTA">
+    <provider>org.eclipse</provider>
+    <jta-data-source>reservas_try2</jta-data-source>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.SunONETransactionManagerLookup"/>
+      
+      </properties>
+    </persistence-unit>-->
+  <persistence-unit name="JPAReservas" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <!--<jta-data-source>Reservas_mysql</jta-data-source>-->
+    <!--<non-jta-data-source>RESOURCE_LOCAL</non-jta-data-source>-->
+    <mapping-file>META-INF/mapping/User.xml</mapping-file>
+    <mapping-file>META-INF/mapping/Role.xml</mapping-file>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <!--<property name="eclipselink.target-database" value="MySQL"/>
+      <property name="eclipselink.ddl-generation" value="none"/>-->
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/reservas"/>
+      <property name="javax.persistence.jdbc.user" value="admin"/>
+      <property name="javax.persistence.jdbc.password" value="adminpassword"/>
+    </properties>
+  </persistence-unit>
+</persistence>
+<!--Dónde se encuentran las queires-->
+<!--<jta-data-source>com.citius.reservas</jta-data-source>-->
+<!--org.hibernate.transaction.SunONETransactionManagerLookup-->
+<!--org.hibernate.transaction.TransactionManagerLookup-->

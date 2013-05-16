@@ -1,0 +1,37 @@
+/*Colors*/
+#main_body {
+  /* Internet Explorer 10 */
+  display: -ms-flexbox;
+  -ms-flex-pack: center;
+  -ms-flex-align: center;
+  /* Firefox */
+  display: -moz-box;
+  -moz-box-pack: center;
+  -moz-box-align: center;
+  /* Safari, Opera, and Chrome */
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  /* W3C */
+  display: box;
+  box-pack: center;
+  box-align: center; }
+
+#login {
+  vertical-align: center;
+  background-color: white;
+  margin: auto;
+  width: 400px; }
+  #login label, #login input {
+    display: block;
+    margin: 2%; }
+  #login input[type="text"],
+  #login input[type="password"] {
+    width: 400px; }
+  #login input[type="submit"] {
+    display: inline-block;
+    width: 100px; }
+  #login input[type="checkbox"],
+  #login label[for="remember_pass"] {
+    font-size: 0.8em;
+    display: inline-block; }
