@@ -17,12 +17,14 @@ public class AccessController {
 
     @RequestMapping("/index")
     public String helloWorld() {
+        System.out.println("index");
         return "test";
     }
     
-    @RequestMapping("/login")
+@RequestMapping("/hello")
     public String login() {
-        return "login";
+        System.out.println("hello!!");
+        return "hello";
     }
 
     @RequestMapping("/login/failure")

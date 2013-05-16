@@ -83,10 +83,13 @@
             default-target-url="/secured/index.jsp"
             authentication-success-handler-ref="authSuccessHandler"/>
         <!--De más a menos restrictivo-->
+        <!--<s:intercept-url pattern="/rest/*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <s:intercept-url pattern="/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <s:intercept-url pattern="/secure/admin/**" access="ROLE_TIC" />      
         <s:intercept-url pattern="/secure/**" access="IS_AUTHENTICATED_FULLY" />    
-        <s:intercept-url pattern="/*" access="IS_AUTHENTICATED_FULLY" />
+        <s:intercept-url pattern="/*" access="IS_AUTHENTICATED_FULLY" />-->
+        
+        <s:intercept-url pattern="/*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 
         <!--<s:intercept-url pattern="/secure/admin" access="ROLE_TIC" />    
         <s:intercept-url pattern="/secure/user" access="ROLE_TIC, ROLE_USER" />    
