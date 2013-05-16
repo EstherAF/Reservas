@@ -23,7 +23,6 @@
     <tx:annotation-driven transaction-manager="transactionManager" />
     <context:annotation-config />
     
-    <!---->
     
     <beans>
    
@@ -36,6 +35,31 @@
                 
         <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
             <property name="entityManagerFactory" ref="EntityManagerFactory" />
+        </bean>
+        
+        <!--INTERNACIONALIZACIÓN-->
+        <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+            <property name="basename" value="classpath:messages" />
+            <property name="defaultEncoding" value="UTF-8" />
+            <property name="fileEncodings" value="UTF-8" />
+        </bean>
+        
+        <!--Procesa el cambio de idioma-->
+        <bean id="localeChangeInterceptor"
+              class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang" />
+        </bean>
+ 
+        <!--Se almacena y se recupera el idioma del usuario mediante cookies-->
+        <bean id="localeResolver"
+              class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+            <property name="defaultLocale" value="en"/>
+        </bean>
+ 
+        
+        <bean id="handlerMapping"
+              class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+            <property name="interceptors" ref="localeChangeInterceptor" />
         </bean>
         
     </beans>
