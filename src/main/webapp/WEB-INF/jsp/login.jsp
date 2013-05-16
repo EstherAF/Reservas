@@ -11,15 +11,15 @@
 		<title>Acceso</title>		
 		<meta content="text/html" charset="UTF-8" http-equiv="Content-type">
 		<meta name="Esther" content="">
-		<link rel="stylesheet" href="trusted/css/general.css" type="text/css" /> 
-		<link rel="stylesheet" href="trusted/css/login.css" type="text/css" /> 
+                <link rel="stylesheet" href="<c:url value="/resources/css/general.css" />" type="text/css" /> 
+                <link rel="stylesheet" href="<c:url value="/resources/css/login.css" />" type="text/css" /> 
 	</head>
 	<body>
 		<div id="body">
 			<header id="main_header">
 				<figure>
 					<img src="#"> 
-				<figure>
+				</figure>
 			</header>
 			<div id="main_body">
                                 <section class="error">

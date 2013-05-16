@@ -18,15 +18,14 @@ public class AccessController {
     @RequestMapping("/index")
     public String helloWorld() {
         System.out.println("index");
-        return "test";
-    }
-    
-@RequestMapping("/hello")
-    public String login() {
-        System.out.println("hello!!");
         return "hello";
     }
 
+    @RequestMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+    
     @RequestMapping("/login/failure")
     public String loginFailure(Model model) {
         model.addAttribute("error", "Hubo un error");
