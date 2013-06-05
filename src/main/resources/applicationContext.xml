@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+          http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+          http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+">
+    <context:component-scan base-package="com.citius.reservas" />
+
+    <jpa:repositories base-package="com.citius.reservas.repositories" />
+    
+    <tx:annotation-driven />
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <context:annotation-config />
+    
+    
+    <beans>
+   
+        <!--Persistencia-->
+        <bean id="EntityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+            <property name="persistenceUnitName" value="JPAReservas"/>
+        </bean>
+
+        <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+                
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+            <property name="entityManagerFactory" ref="EntityManagerFactory" />
+        </bean>
+        
+        <!--INTERNACIONALIZACIÓN-->
+        <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+            <property name="basename" value="classpath:/messages/messages" />
+            <property name="defaultEncoding" value="UTF-8" />
+            <property name="fileEncodings" value="UTF-8" />
+        </bean>
+        
+        <!--Procesa el cambio de idioma-->
+        <bean id="localeChangeInterceptor"
+              class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang" />
+        </bean>
+ 
+        <!--Se almacena y se recupera el idioma del usuario mediante cookies-->
+        <bean id="localeResolver"
+              class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+            <property name="defaultLocale" value="es"/>
+        </bean>
+ 
+        
+        <bean id="handlerMapping"
+              class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+            <property name="interceptors" ref="localeChangeInterceptor" />
+        </bean>
+        
+    </beans>
+    
+</beans>

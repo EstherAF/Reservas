@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" 
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd "
+>
+    <named-query name="FinalResource.findById">
+        <query>SELECT fr FROM FinalResource fr WHERE fr.id = :id</query>
+    </named-query>
+    
+    <named-query name="FinalResource.findByName">
+        <query>SELECT fr FROM FinalResource fr WHERE fr.name = :name</query>
+    </named-query>
+    
+    <named-query name="FinalResource.findByDescription">
+        <query>SELECT fr FROM FinalResource fr WHERE fr.description = :description</query>
+    </named-query>
+    
+    <named-query name="FinalResource.findAll">
+        <query>SELECT fr FROM FinalResource fr</query>
+    </named-query>
+    
+    <named-query name="FinalResource.findByParent">
+        <query>SELECT fr FROM FinalResource fr WHERE fr.parent = :parent</query>
+    </named-query>
+
+    <named-query name="FinalResource.findByQuantity">
+        <query>SELECT fr FROM FinalResource fr WHERE fr.quantity = :quantity</query>
+    </named-query>
+
+    <named-query name="FinalResource.findWithoutParent">
+        <query>SELECT fr FROM FinalResource fr WHERE fr.parent IS NULL</query>
+    </named-query>
+</entity-mappings>
+    

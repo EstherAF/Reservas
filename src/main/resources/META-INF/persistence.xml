@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence  http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+ 
+  <persistence-unit name="JPAReservas" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <!--<mapping-file>META-INF/mapping/User.xml</mapping-file>
+    <mapping-file>META-INF/mapping/Role.xml</mapping-file>
+    <mapping-file>META-INF/mapping/Resource.xml</mapping-file>
+    <mapping-file>META-INF/mapping/Reservation.xml</mapping-file>
+    <mapping-file>META-INF/mapping/FinalResource.xml</mapping-file>
+    <mapping-file>META-INF/mapping/ResourceGroup.xml</mapping-file>-->
+    
+    <class>com.citius.reservas.models.FinalResource</class>
+    <class>com.citius.reservas.models.FixedReservation</class>
+    <class>com.citius.reservas.models.Reservation</class>
+    <class>com.citius.reservas.models.ReservationInstance</class>
+    <class>com.citius.reservas.models.Resource</class>
+    <class>com.citius.reservas.models.ResourceGroup</class>
+    <class>com.citius.reservas.models.Role</class>
+    <class>com.citius.reservas.models.User</class>
+    
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <!--<property name="eclipselink.target-database" value="MySQL"/>
+      <property name="eclipselink.ddl-generation" value="none"/>-->
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/reservas"/>
+      <property name="javax.persistence.jdbc.user" value="admin"/>
+      <property name="javax.persistence.jdbc.password" value="adminpassword"/>
+    </properties>
+  </persistence-unit>
+</persistence>
