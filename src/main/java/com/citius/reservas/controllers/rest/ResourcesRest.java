@@ -2,6 +2,8 @@ package com.citius.reservas.controllers.rest;
 
 import com.citius.reservas.models.Resource;
 import com.citius.reservas.business.ResourceBusiness;
+import com.citius.reservas.business.ResourceGroupBusiness;
+import com.citius.reservas.models.ResourceGroup;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +21,15 @@ public class ResourcesRest {
     @Autowired
     private ResourceBusiness rs;
     
+    @Autowired
+    private ResourceGroupBusiness rgs;
+    
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public @ResponseBody Resource read() {
+    public @ResponseBody List<ResourceGroup> read() {
         System.out.println("Read resources");
-        Resource r = rs.readAll();
-        return r;
+        List<ResourceGroup> l = rgs.readAll();
+        return l;
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -33,41 +38,26 @@ public class ResourcesRest {
         return r;
     }
     
-    
+
     //@Secured("ROLE_TIC")
     @ResponseBody
-    @RequestMapping(value = "/resourceGroup", method = RequestMethod.POST)
-    public void createResourceGroup(@RequestBody String name) {
-            rs.createResourceGroup(name, 1);
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public Resource create(@RequestBody String name,  
+                        @RequestBody(required = false) String description,
+                        @RequestBody Integer quantity,
+                        @RequestBody(required = false) Integer groupId) {
+        return rs.create(name, groupId, description, quantity);
     }
     
     //@Secured("ROLE_TIC")
     @ResponseBody
-    @RequestMapping(value = "/finalResource", method = RequestMethod.POST)
-    public void createFinalResource(@RequestBody String name,  
-                                    @RequestBody(required = false) String description,
-                                    @RequestBody Integer quantity,
-                                    @RequestBody(required = false) Integer group_id) {
-        rs.createFinalResource(name, group_id, description, quantity);
-    }
-    
-    //@Secured("ROLE_TIC")
-    @ResponseBody
-    @RequestMapping(value = "/resourceGroup", method = RequestMethod.PUT)
-    public void updateResourceGroup(@RequestBody Integer id,
-                                    @RequestBody String name) {
-        rs.saveResourceGroup(id, name, 1);
-    }
-    
-    //@Secured("ROLE_TIC")
-    @ResponseBody
-    @RequestMapping(value = "/finalResource", method = RequestMethod.PUT)
-    public void updateFinalResource(@RequestBody Integer id,
-                                    @RequestBody String name,  
-                                    @RequestBody(required = false) String description,
-                                    @RequestBody Integer quantity,
-                                    @RequestBody(required = false) Integer group_id) {
-        rs.saveFinalResource(id, name, group_id, description, quantity);
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public Resource update(@RequestBody Integer id,
+                        @RequestBody String name,  
+                        @RequestBody(required = false) String description,
+                        @RequestBody Integer quantity,
+                        @RequestBody(required = false) Integer groupId) {
+        return rs.save(id, name, groupId, description, quantity);
     }
 
     //@Secured("ROLE_TIC")

@@ -69,6 +69,7 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
     @Override
     public T save(T t) {
         t = em.merge(t);
+        em.flush();
         return t;
     }
 
@@ -80,6 +81,8 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
             T ref = em.getReference(type, id);
             em.remove(ref);
         }
+        
+        em.flush();
     }
 
     @Override

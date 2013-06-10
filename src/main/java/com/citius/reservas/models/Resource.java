@@ -5,15 +5,10 @@
 package com.citius.reservas.models;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -29,44 +24,76 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Esther
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER, name = "IS_GROUP")
 @Table(name = "resources")
 @NamedQueries(value = {
-    @NamedQuery(name = "Resource.findById", query = "SELECT r FROM Resource r WHERE r.id = :id"),
-    @NamedQuery(name = "Resource.findByName", query = "SELECT r FROM Resource r WHERE r.name = :name"),
-    @NamedQuery(name = "Resource.findAll", query = "SELECT r FROM Resource r"),
-    @NamedQuery(name = "Resource.findByParent", query = "SELECT r FROM Resource r WHERE r.parent = :parent"),
-    @NamedQuery(name = "Resource.findWithoutParent", query = "SELECT r FROM Resource r WHERE r.parent IS NULL")})
+    @NamedQuery(name="Resource.findById", query = "SELECT r FROM Resource r WHERE r.id = :id"),
+    @NamedQuery(name="Resource.findByName", query = "SELECT r FROM Resource r WHERE r.name = :name"),
+    @NamedQuery(name="Resource.findAll", query = "SELECT r FROM Resource r"),
+    @NamedQuery(name="Resource.findByGroup", query = "SELECT r FROM Resource r WHERE r.group.name = :group_name"),
+    @NamedQuery(name="Resource.findWithoutGroup", query = "SELECT r FROM Resource r WHERE r.group IS NULL")
+})
 @XmlRootElement
-public abstract class Resource implements Serializable {
+public class Resource implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue
-    protected Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @NotNull
-    @Size(min = 1, max = 50)
-    protected String name;
-    @NotNull
+    @Size(min = 1, max = 100)
+    private String name;
+    
+    @Size(min = 1, max = 250)
+    private String description;
+    
     @Min(0)
-    protected Integer level;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent", referencedColumnName = "id")
-    protected Resource parent;
+    private Integer quantity;
+    
+    @ManyToOne()
+    @JoinColumn(name = "group_id", referencedColumnName = "id")
+    private ResourceGroup group;
 
     public Resource() {
+        super();
     }
 
-    public Resource(String name, Resource parent) {
+    public Resource(Integer id, String name, ResourceGroup group) {
+        this.id=id;
         this.name = name;
-        this.parent = parent;
+        this.group=group;
     }
     
-    public Resource(Integer id, String name, Resource parent) {
-        this.id = id;
+    public Resource(String name, ResourceGroup group, String description, Integer quantity) {
         this.name = name;
-        this.parent = parent;
+        this.group=group;
+        this.description = description;
+        this.quantity = quantity;
+    }
+    
+    public Resource(Integer id, String name, ResourceGroup group, String description, Integer quantity) {
+        this.id=id;
+        this.name = name;
+        this.group=group;
+        this.description = description;
+        this.quantity = quantity;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Integer getId() {
@@ -85,22 +112,12 @@ public abstract class Resource implements Serializable {
         this.name = name;
     }
 
-    public abstract Boolean isGroup();
-
-    public Resource getParent() {
-        return parent;
+    public ResourceGroup getGroup() {
+        return group;
     }
 
-    public void setParent(Resource parent) {
-        this.parent = parent;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
+    public void setGroup(ResourceGroup group) {
+        this.group = group;
     }
 
     @Override
@@ -112,7 +129,6 @@ public abstract class Resource implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Resource)) {
             return false;
         }
@@ -126,17 +142,13 @@ public abstract class Resource implements Serializable {
 
     @Override
     public String toString() {
-        String s = new String();
 
+        String s = new String();
         s += "id:" + id + "\n";
         s += "name:" + name + "\n";
-        s += "level:" + level + "\n";
-        s += "parent:" + parent.id + "\n";
-
+        s += "group:" + group.getName() + "\n";
+        s += "description:" + description + "\n";
+        s += "quantity:" + quantity + "\n";
         return s;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 }

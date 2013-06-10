@@ -7,7 +7,7 @@ package com.citius.reservas.business.helper;
 import com.citius.reservas.models.Repetition;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
-import com.citius.reservas.models.types.DayOfWeek;
+import com.citius.reservas.models.DayOfWeek;
 import java.util.Calendar;
 import java.util.List;
 

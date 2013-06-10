@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.citius.reservas.services;
+package com.citius.reservas.business;
 
 import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.models.User;
@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext-test.xml","classpath:applicationContext-security-test.xml"})
-public class AccessServiceTest {
+public class AccessBusinessTest {
 
     @Autowired
     private AccessBusiness as;

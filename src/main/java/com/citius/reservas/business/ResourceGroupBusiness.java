@@ -4,7 +4,7 @@
  */
 package com.citius.reservas.business;
 
-import com.citius.reservas.models.Resource;
+import com.citius.reservas.models.ResourceGroup;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
  * @author Esther
  */
 @Service
-public interface ResourceBusiness {
+public interface ResourceGroupBusiness {
     
     /* Lista ordenada de recursos (finales y grupos)*/
-    public List<Resource> readAll();
-    public Resource read(Integer id);
-    public Resource create(String name, Integer groupId, String description, Integer quantity);
-    public Resource save(Integer id, String name, Integer groupId, String description, Integer quantity);
+    public List<ResourceGroup> readAll();
+    public ResourceGroup read(Integer id);
+    public ResourceGroup create(String name);
+    public ResourceGroup save(Integer id, String name);
     public void delete(Integer id);
+    public void deleteWithResources(Integer id);
 }

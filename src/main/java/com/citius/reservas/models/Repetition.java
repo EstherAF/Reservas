@@ -4,8 +4,6 @@
  */
 package com.citius.reservas.models;
 
-import com.citius.reservas.models.types.DayOfWeek;
-import com.citius.reservas.models.types.RepetitionType;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CollectionTable;

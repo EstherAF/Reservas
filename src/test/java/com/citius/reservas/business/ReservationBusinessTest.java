@@ -2,22 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.citius.reservas.services;
+package com.citius.reservas.business;
 
 import com.citius.reservas.business.ReservationBusiness;
 import com.citius.reservas.models.Repetition;
 import com.citius.reservas.models.Reservation;
-import com.citius.reservas.models.User;
-import com.citius.reservas.models.types.DayOfWeek;
+import com.citius.reservas.models.DayOfWeek;
 import com.citius.reservas.repositories.UserRepository;
-import com.citius.reservas.models.types.RepetitionType;
+import com.citius.reservas.models.RepetitionType;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +29,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext-test.xml",
     "classpath:applicationContext-security-test.xml"})
-public class ReservationServiceTest {
+public class ReservationBusinessTest {
 
     @Autowired
     private ReservationBusiness rs;

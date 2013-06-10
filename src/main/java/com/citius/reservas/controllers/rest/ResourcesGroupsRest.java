@@ -1,0 +1,58 @@
+package com.citius.reservas.controllers.rest;
+
+import com.citius.reservas.models.Resource;
+import com.citius.reservas.business.ResourceBusiness;
+import com.citius.reservas.business.ResourceGroupBusiness;
+import com.citius.reservas.models.ResourceGroup;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+@RequestMapping(value="/resources/group")
+//@Secured("IS_AUTHENTICATED_FULLY")
+public class ResourcesGroupsRest {
+    @Autowired
+    private ResourceGroupBusiness rgs;
+    
+    @ResponseBody 
+    @RequestMapping(value = "/id", method = RequestMethod.GET)
+    public ResourceGroup read(@PathVariable Integer id) {
+        return rgs.read(id);
+    }
+    
+    //@Secured("ROLE_TIC")
+    @ResponseBody
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public ResourceGroup create(@RequestBody String name) {
+         return rgs.create(name);
+    }
+    
+    //@Secured("ROLE_TIC")
+    @ResponseBody
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public ResourceGroup update(@RequestBody Integer id,
+                                    @RequestBody String name) {
+        return rgs.save(id, name);
+    }
+    
+    //@Secured("ROLE_TIC")
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteOnlyGroup(@PathVariable Integer id) {
+        rgs.delete(id);
+    }
+    
+    //@Secured("ROLE_TIC")
+    @ResponseBody
+    @RequestMapping(value = "/{id}/all", method = RequestMethod.DELETE)
+    public void delete(@PathVariable Integer id) {
+        rgs.deleteWithResources(id);
+    }
+    
+}

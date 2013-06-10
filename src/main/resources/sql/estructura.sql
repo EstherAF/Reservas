@@ -52,19 +52,22 @@ CREATE TABLE users_roles(
 
 -- ---
 CREATE TABLE resources_groups(
-	name VARCHAR(50),
-	PRIMARY KEY (name)
+        id MEDIUMINT AUTO_INCREMENT,
+	name VARCHAR(100) UNIQUE NOT NULL,
+        description VARCHAR(250),
+	PRIMARY KEY (id)
 );
 
 
 CREATE TABLE resources(
 	id MEDIUMINT AUTO_INCREMENT,
+        name VARCHAR(100) NOT NULL UNIQUE,
 	description VARCHAR(250),
-	quantity SMALLINT,
-        group_name VARCHAR(50),
+	quantity SMALLINT DEFAULT 1,
+        group_id MEDIUMINT DEFAULT 1,
 	PRIMARY KEY (id),
-	FOREIGN KEY (gourp_name) REFERENCES resources_groups(name)
-		ON UPDATE CASCADE
+	FOREIGN KEY (group_id) REFERENCES resources_groups(id)
+		ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- -----------------------------------------------------

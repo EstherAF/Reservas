@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.citius.reservas.models.types;
+package com.citius.reservas.models;
 
 import java.util.Calendar;
 

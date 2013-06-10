@@ -4,15 +4,14 @@
  */
 package com.citius.reservas.business.impl;
 
-import com.citius.reservas.models.FinalResource;
 import com.citius.reservas.models.Resource;
 import com.citius.reservas.models.ResourceGroup;
-import com.citius.reservas.repositories.GenericResourceRepository;
 import com.citius.reservas.business.ResourceBusiness;
-import java.util.ArrayList;
+import com.citius.reservas.business.ResourceGroupBusiness;
+import com.citius.reservas.repositories.ResourceGroupRepository;
+import com.citius.reservas.repositories.ResourceRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,31 +23,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class ResourceBusinessImpl implements ResourceBusiness {
 
     @Autowired
-    @Qualifier("resourceRepository")
-    private GenericResourceRepository<Resource> resourceRepository;
+    private ResourceRepository resourceRepository;
     @Autowired
-    @Qualifier("finalResourceRepository")
-    private GenericResourceRepository<FinalResource> finalResourceRepository;
+    private ResourceGroupRepository resourceGroupRepository;
     @Autowired
-    @Qualifier("resourceGroupRepository")
-    private GenericResourceRepository<ResourceGroup> resourceGroupRepository;
-
-    /*Cambiar de sitio¿?*/
-    private void addSelf(List<Resource> list, Resource r) {
-        list.add(r);
-        if (r.getClass().equals(ResourceGroup.class)) {
-            for (Resource child : ((ResourceGroup) r).getChilds()) {
-                addSelf(list, child);
-            }
-        }
-    }
+    private ResourceGroupBusiness resourceGroupBusiness;
 
     @Transactional
     @Override
-    public Resource readAll() {
+    public List<Resource> readAll() {
 
-        Resource r = resourceRepository.findPath();
-        return r;
+        List<Resource> l = resourceRepository.findAll();
+        return l;
     }
 
     @Transactional
@@ -59,75 +45,39 @@ public class ResourceBusinessImpl implements ResourceBusiness {
     
     @Transactional
     @Override
-    public Resource createResourceGroup(String name, Integer parent_id){
+    public Resource create(String name, Integer group_id, String description, Integer quantity){
         
-        ResourceGroup parent;
-        if(parent_id!=null)
-            parent = resourceGroupRepository.find(parent_id);
-        else
-            parent = resourceGroupRepository.findPath();
-        
-        ResourceGroup r = new ResourceGroup(name, parent);
-
-        r = resourceGroupRepository.save(r);
+        Resource r = this.save(null, name, group_id, description, quantity);
         
         return r;
     }
     
     @Transactional
     @Override
-    public Resource createFinalResource(String name, Integer parent_id, String description, Integer quantity){
+    public Resource save(Integer id, String name, Integer group_id, 
+        String description, Integer quantity){
         
-        ResourceGroup parent;
+        ResourceGroup group;
         
-        if(parent_id!=null)
-            parent = resourceGroupRepository.find(parent_id);
+        //Check group
+        if(group_id!=null){
+            group = resourceGroupRepository.find(group_id);
+            if(group==null)
+                throw new IllegalArgumentException("Group "+id+" can't be found");
+        }
         else
-            parent = resourceGroupRepository.findPath();
+            group = resourceGroupRepository.findByName("default");
         
-        FinalResource r = new FinalResource(name, parent, description, quantity);
+        
+        
+        Resource r = new Resource(id, name, group, description, quantity);
 
-        r = finalResourceRepository.create(r);
-        
-        return r;
-    }
-
-    @Transactional
-    @Override
-    public Resource saveResourceGroup(Integer id, String name, Integer parent_id){
-        
-        ResourceGroup parent;
-        if(parent_id!=null)
-            parent = resourceGroupRepository.find(parent_id);
-        else
-            parent = resourceGroupRepository.findPath();
-        
-        ResourceGroup r = new ResourceGroup(id, name, parent);
-
-        r = resourceGroupRepository.save(r);
+        r = resourceRepository.save(r);
         
         return r;
     }
     
     @Transactional
-    @Override
-    public Resource saveFinalResource(Integer id, String name, Integer parent_id, String description, Integer quantity){
-        
-        ResourceGroup parent;
-        
-        if(parent_id!=null)
-            parent = resourceGroupRepository.find(parent_id);
-        else
-            parent = resourceGroupRepository.findPath();
-        
-        FinalResource r = new FinalResource(id, name, parent, description, quantity);
-
-        r = finalResourceRepository.save(r);
-        
-        return r;
-    }
-    
-
     @Override
     public void delete(Integer id) {
         resourceRepository.delete(id);

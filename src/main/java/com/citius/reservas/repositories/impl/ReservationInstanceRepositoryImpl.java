@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  * @author Esther Álvarez Feijoo
  */
 @Repository
-public class ReservationInstanceRepositoryImpl extends GenericResourceRepositoryImpl<ReservationInstance> implements ReservationInstanceRepository{
+public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<ReservationInstance> implements ReservationInstanceRepository{
 
     private static final Logger logger = Logger.getLogger(ReservationInstanceRepositoryImpl.class);
     
