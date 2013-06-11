@@ -6,6 +6,7 @@ package com.citius.reservas.models;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -110,23 +112,33 @@ public class ReservationInstance implements Serializable {
 
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
-    }
+    } 
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.startTimeDate);
+        hash = 37 * hash + Objects.hashCode(this.endTimeDate);
+        hash = 37 * hash + Objects.hashCode(this.reservation);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ReservationInstance)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        ReservationInstance other = (ReservationInstance) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ReservationInstance other = (ReservationInstance) obj;
+        if (!Objects.equals(this.startTimeDate, other.startTimeDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.endTimeDate, other.endTimeDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.reservation, other.reservation)) {
             return false;
         }
         return true;
@@ -134,7 +146,11 @@ public class ReservationInstance implements Serializable {
 
     @Override
     public String toString() {
-        return "com.citius.reservas.models.ReservationInstance[ id=" + id + " ]";
+        return "ReservationInstance{" + "id=" + id + ", startTimeDate=" + startTimeDate + ", endTimeDate=" + endTimeDate + ", reservationId=" + reservation.getId() + '}';
     }
+    
+    
+
+
     
 }

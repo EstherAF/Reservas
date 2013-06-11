@@ -6,6 +6,7 @@ package com.citius.reservas.models;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -99,38 +100,31 @@ public class ResourceGroup implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    
-    
-    
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (name != null ? name.hashCode() : 0);
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ResourceGroup)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        ResourceGroup other = (ResourceGroup) object;
-        if (this.name == null ? other.name != null : !this.name.equals(other.name)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-
+        final ResourceGroup other = (ResourceGroup) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        String s = new String();
-        s += "name:" + name + "\n";
-        for (Resource r : resources) {
-            s += "resource:" + r.getId() + "\n";
-        }
-        return s;
+        return "ResourceGroup{" + "id=" + id + ", name=" + name + ", description=" + description + '}';
     }
 }

@@ -6,6 +6,7 @@ package com.citius.reservas.models;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -79,38 +80,38 @@ public class Repetition implements Serializable {
         this.weekDays = weekDays;
     }
 
-//    public int getMonthlyRelativeWeek() {
-//        return monthlyRelativeWeek;
-//    }
-//
-//    public void setMonthlyRelativeWeek(int monthlyRelativeWeek) {
-//        this.monthlyRelativeWeek = monthlyRelativeWeek;
-//    }
     @Override
     public int hashCode() {
-        int hash = 0;
-        //queda por hacer!!
+        int hash = 3;
+        hash = 29 * hash + (this.type != null ? this.type.hashCode() : 0);
+        hash = 29 * hash + this.interval;
+        hash = 29 * hash + Objects.hashCode(this.weekDays);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (object.getClass().equals(Repetition.class)) {
-            Repetition r = (Repetition) object;
-
-            return (weekDays == r.getDays()
-                    && interval == r.getInterval()
-                    && type == r.getType());
-//                    &&
-//               monthlyRelativeWeek == r.getMonthlyRelativeWeek());
-        } else {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Repetition other = (Repetition) obj;
+        if (this.type != other.type) {
+            return false;
+        }
+        if (this.interval != other.interval) {
+            return false;
+        }
+        if (!Objects.equals(this.weekDays, other.weekDays)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        //queda por hacer
-        return null;
+        return "Repetition{" + "type=" + type + ", interval=" + interval + ", weekDays=" + weekDays + '}';
     }
 }

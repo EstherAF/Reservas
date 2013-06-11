@@ -5,6 +5,7 @@
 package com.citius.reservas.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -65,29 +66,23 @@ public class Role implements Serializable {
         this.name = name;
     }
 
-//    @XmlTransient
-//    public List<User> getUserList() {
-//        return userList;
-//    }
-//
-//    public void setUserList(List<User> userList) {
-//        this.userList = userList;
-//    }
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Role other = (Role) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Role other = (Role) obj;
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;
@@ -95,6 +90,8 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "com.citius.reservas.model.Role[ id=" + id + " ]";
+        return "Role{" + "id=" + id + ", name=" + name + '}';
     }
+    
+    
 }

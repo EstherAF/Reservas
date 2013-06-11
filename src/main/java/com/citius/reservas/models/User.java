@@ -7,6 +7,7 @@ package com.citius.reservas.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,21 +42,26 @@ import javax.xml.bind.annotation.XmlTransient;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "unique_name")
     private String uniqueName;
+    
     @NotNull
     @Size(min = 1, max = 150)
     @Column(name = "full_name")
     private String fullName;
+    
     // (regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @NotNull
     @Size(min = 1, max = 50)
     private String email;
+    
     @ManyToMany
     @JoinTable(
             name = "users_roles",
@@ -64,9 +71,9 @@ public class User implements Serializable {
         @JoinColumn(name = "rol_id", referencedColumnName = "id")})
     private List<Role> roleList;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerId")
-//    @Basic(fetch = FetchType.LAZY)
-//    private List<Reservation> reservationList;
+    @OneToMany(mappedBy = "owner")
+    private List<Reservation> reservations;
+    
     public User() {
         this.roleList = new ArrayList();
     }
@@ -139,28 +146,31 @@ public class User implements Serializable {
         return this.roleList.remove(role);
     }
 
-//    public List<Reservation> getReservationList() {
-//        return reservationList;
-//    }
-//
-//    public void setReservationList(List<Reservation> reservationList) {
-//        this.reservationList = reservationList;
-//    }
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.uniqueName);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        User other = (User) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.uniqueName, other.uniqueName)) {
             return false;
         }
         return true;
@@ -168,15 +178,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        String s = new String();
-
-        s += "Id:" + this.id + "\n";
-        s += "UniqueName:" + uniqueName + "\n";
-        s += "FullName:" + fullName + "\n";
-        s += "Email:" + email + "\n";
-        s += "RoleId:" + roleList.get(0).getId() + "\n";
-
-        return s;
-
+        return "User{" + "id=" + id + ", uniqueName=" + uniqueName + ", fullName=" + fullName + ", email=" + email + ", roleList=" + roleList + '}';
     }
+
 }

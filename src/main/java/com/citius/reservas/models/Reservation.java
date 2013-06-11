@@ -7,6 +7,7 @@ package com.citius.reservas.models;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,24 +33,31 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
     @NotNull
     @Size(max = 50)
     private String name;
+    
     @Size(max = 250)
     private String description;
+    
     @ManyToOne()
     @JoinColumn(name = "owner_id",
             referencedColumnName = "id")
     private User owner;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name = "start_date")
     private Calendar startDate;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name = "end_date")
     private Calendar endDate;
+    
     @Temporal(javax.persistence.TemporalType.TIME)
     @Column(name = "start_time")
     private Calendar startTime;
+    
     @Temporal(javax.persistence.TemporalType.TIME)
     @Column(name = "end_time")
     private Calendar endTime;
@@ -61,6 +69,10 @@ public class Reservation implements Serializable {
             mappedBy = "reservation",
             cascade = CascadeType.ALL)
     private List<ReservationInstance> instances;
+    
+    @OneToMany(mappedBy = "reservations",
+            cascade = CascadeType.ALL)
+    private List<Resource> resources;
 
     public Reservation() {
     }
@@ -175,21 +187,35 @@ public class Reservation implements Serializable {
         this.endTime = endTime;
     }
 
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.name);
+        hash = 37 * hash + Objects.hashCode(this.startDate);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Reservation)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Reservation other = (Reservation) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Reservation other = (Reservation) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.startDate, other.startDate)) {
             return false;
         }
         return true;
@@ -197,6 +223,7 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "com.citius.reservas.models.Reservation[ id=" + id + " ]";
+        return "Reservation{" + "id=" + id + ", name=" + name + ", description=" + description + ", owner=" + owner + ", startDate=" + startDate + ", endDate=" + endDate + ", startTime=" + startTime + ", endTime=" + endTime + ", repetition=" + repetition + '}';
     }
+
 }
