@@ -5,7 +5,6 @@
 package com.citius.reservas.repositories;
 
 import com.citius.reservas.models.Resource;
-import com.citius.reservas.models.Role;
 import java.util.List;
 
 /**

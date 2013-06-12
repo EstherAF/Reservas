@@ -5,6 +5,7 @@
 package com.citius.reservas.repositories;
 
 import com.citius.reservas.models.Reservation;
+import com.citius.reservas.models.Resource;
 import com.citius.reservas.models.User;
 import java.util.Calendar;
 import java.util.List;

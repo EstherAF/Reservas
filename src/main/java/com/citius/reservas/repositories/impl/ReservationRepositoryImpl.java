@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import com.citius.reservas.models.RepetitionType;
+import com.citius.reservas.models.Resource;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 

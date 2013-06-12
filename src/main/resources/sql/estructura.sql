@@ -132,8 +132,10 @@ CREATE TABLE reserved_resources (
 	resource_id MEDIUMINT,
 	reservation_id INT,
 	PRIMARY KEY (resource_id, reservation_id),
-	FOREIGN KEY (resource_id) REFERENCES resources (id),
+	FOREIGN KEY (resource_id) REFERENCES resources (id)
+            ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (reservation_id) REFERENCES reservations (id)
+            ON DELETE CASCADE ON UPDATE CASCADE,
 );
 
 

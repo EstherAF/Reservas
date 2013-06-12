@@ -4,6 +4,7 @@
  */
 package com.citius.reservas.business;
 
+import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
 import java.util.Calendar;
@@ -16,13 +17,16 @@ import java.util.List;
 public interface ReservationBusiness {
         
     
-public Reservation createReservation(String name, String description, String ownerUniqueName,
+public Reservation createReservation(String name, String description, 
+            String ownerUniqueName,
             Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime,
-            String rType, int interval, List<Integer> days) ;
+            String rType, int interval, List<Integer> days,
+            List<Integer> resourcesId) throws NotAvaliableException;
 
     public Reservation saveReservation(Integer id, String name, String description,
-        Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime, 
-        String rType, int interval, List<Integer> days);
+            Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime,
+            String rType, int interval, List<Integer> days,
+            List<Integer> resourcesId) throws NotAvaliableException;
     
     public void deleteReservation(Integer id);
     

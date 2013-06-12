@@ -10,10 +10,10 @@ import com.citius.reservas.repositories.ReservationInstanceRepository;
 import com.citius.reservas.repositories.ReservationRepository;
 import com.citius.reservas.business.ReservationBusiness;
 import com.citius.reservas.business.helper.ReservationBusinessHelper;
+import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.models.Repetition;
 import com.citius.reservas.models.User;
-import com.citius.reservas.models.DayOfWeek;
-import com.citius.reservas.models.RepetitionType;
+import com.citius.reservas.models.Resource;
 import com.citius.reservas.repositories.UserRepository;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,35 +40,28 @@ public class ReservationBusinessImpl implements ReservationBusiness {
 
     @Override
     @Transactional
-    public Reservation createReservation(String name, String description, String ownerUniqueName,
+    public Reservation createReservation(
+            String name, 
+            String description, 
+            String ownerUniqueName,
             Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime,
-            String rType, int interval, List<Integer> days) {
-
-        RepetitionType repetitionType = RepetitionType.valueOf(rType);
+            String rType, int interval, List<Integer> days,
+            List<Integer> resourcesId) throws NotAvaliableException{
         
-        //Create ReservationInstances
+        if(resourcesId==null || resourcesId.isEmpty())
+            throw new IllegalArgumentException("Reservation without resources can't be created");
+        
         User owner = ur.findByUniqueName(ownerUniqueName);
-
-        //Cast List<Integer> daysOfWeek to List<DayOfWeek>
-        List<DayOfWeek> daysOfWeek = new ArrayList<>();
-
-        if (repetitionType.equals(RepetitionType.WEEKLY))
-            for (Integer d : days)
-                daysOfWeek.add(DayOfWeek.fromInteger(d));
-
-        if (interval == 0 && !repetitionType.equals(RepetitionType.ONCE))
-            interval = 1;
         
-
-        Repetition rep = new Repetition(repetitionType, interval, daysOfWeek);
-
         Reservation r = new Reservation(name, description, owner,
-                startDate, endDate, startTime, endTime, rep);
+                startDate, endDate, startTime, endTime);
+        
+        r.setRepetition(rbh.createRepetition(rType, interval, days));
+        r.setInstances(rbh.generateInstances(r));     
+        r.setResources(rbh.checkAvaliability(resourcesId, r.getInstances()));
         
         rbh.cleanTimeDate(r);
-
-        //Reservation's instances
-        r.setInstances(rbh.generateInstances(r));
+        
         r = rr.create(r);
 
         return r;
@@ -78,43 +71,55 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     @Transactional
     public Reservation saveReservation(Integer id, String name, String description,
             Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime,
-            String rType, int interval, List<Integer> days) {
+            String rType, int interval, List<Integer> days,
+            List<Integer> resourcesId) throws NotAvaliableException{
 
         Reservation found = rr.find(id);
         found.setName(name);
         found.setName(description);
 
-        RepetitionType repetitionType = RepetitionType.valueOf(rType);
+        Repetition repetition = rbh.createRepetition(rType, interval, days);
 
-        List<DayOfWeek> daysOfWeek = new ArrayList<>();
-
-        if (repetitionType.equals(RepetitionType.WEEKLY)) {
-            for (Integer d : days) {
-                daysOfWeek.add(DayOfWeek.fromInteger(d));
-            }
-        }
-        
-        if (interval == 0 && !repetitionType.equals(RepetitionType.ONCE)) {
-            interval = 1;
-        }
-
-        Repetition r = new Repetition(repetitionType, interval, daysOfWeek);
-
+        //Have to update the instances
         if (!found.getEndDate().equals(endDate)
                 || !found.getStartDate().equals(startDate)
                 || !found.getEndTime().equals(endTime)
                 || !found.getStartTime().equals(startTime)
-                || !found.getRepetition().equals(r)) {
+                || !found.getRepetition().equals(repetition)) {
 
             found.setDateTime(startDate, endDate, startTime, endTime);
             rbh.cleanTimeDate(found);
             
-            found.setRepetition(r);
+            found.setRepetition(repetition);
 
             found.setInstances(rbh.generateInstances(found));
 
         }
-
+        
+        //Resources have changed?
+        List<Integer> haveToCheck = new ArrayList<>();
+        List<Resource> newResourceList=new ArrayList<>();
+        if(resourcesId.size()>found.getResources().size()){
+            //There are new resources
+            for(Integer idResource: resourcesId){
+                Resource alreadyReserved = rbh.contains(found.getResources(), idResource);
+                if(alreadyReserved==null){
+                    haveToCheck.add(idResource);
+                }else
+                    newResourceList.add(alreadyReserved);
+            }
+        }
+        
+        if(!haveToCheck.isEmpty()){
+            newResourceList.addAll(
+                        rbh.checkAvaliability(haveToCheck, found.getInstances()));
+            found.setResources(newResourceList);
+        }
+        else if(resourcesId.size() != found.getResources().size()){
+            found.setResources(newResourceList);
+        }
+        
+        //If haveToCheck.isEmpty and sizes are equals, resources don't change
         return rr.save(found);
 
     }

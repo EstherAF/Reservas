@@ -5,19 +5,25 @@
 package com.citius.reservas.business.helper.impl;
 
 import com.citius.reservas.business.helper.ReservationBusinessHelper;
+import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.models.Repetition;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
 import com.citius.reservas.models.DayOfWeek;
+import com.citius.reservas.models.RepetitionType;
 import static com.citius.reservas.models.RepetitionType.DAILY;
 import static com.citius.reservas.models.RepetitionType.MONTHLY;
 import static com.citius.reservas.models.RepetitionType.MONTHLY_RELATIVE;
 import static com.citius.reservas.models.RepetitionType.ONCE;
 import static com.citius.reservas.models.RepetitionType.WEEKLY;
+import com.citius.reservas.models.Resource;
+import com.citius.reservas.repositories.ReservationInstanceRepository;
+import com.citius.reservas.repositories.ResourceRepository;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,6 +32,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ReservationBusinessHelperImpl implements ReservationBusinessHelper {
+    
+    @Autowired
+    private ResourceRepository resourceR;
+    @Autowired
+    private ReservationInstanceRepository instanceR;
 
     @Override
     public Repetition createWeeklyRepetition(int Interval, List<DayOfWeek> DaysOfWeek) {
@@ -182,8 +193,9 @@ public class ReservationBusinessHelperImpl implements ReservationBusinessHelper 
         //Generación de las instancias de la reserva
         switch (r.getRepetition().getType()) {
             case ONCE:
+                r.setEndDate(r.getStartDate());
                 sTD = createDateTime(r.getStartDate(),r.getStartTime());
-                eTD = createDateTime(r.getEndDate(),r.getEndTime());
+                eTD = createDateTime(r.getStartDate(),r.getEndTime());
                 l.add(new ReservationInstance(r, sTD, eTD));
                 break;
             case DAILY:
@@ -262,6 +274,51 @@ public class ReservationBusinessHelperImpl implements ReservationBusinessHelper 
 
         end.set(start.get(Calendar.YEAR), start.get(Calendar.MONTH), start.get(Calendar.DATE));
     }
-    
+
+    @Override
+    public Repetition createRepetition(String rType, Integer interval, List<Integer> days) {
+         RepetitionType repetitionType = RepetitionType.valueOf(rType);
+
+        List<DayOfWeek> daysOfWeek = null;
+        if (repetitionType.equals(RepetitionType.WEEKLY)) 
+            daysOfWeek = DayOfWeek.fromInteger(days);
+        
+        if(repetitionType.equals(RepetitionType.ONCE))
+            interval=0;
+        else if(interval == 0 && !repetitionType.equals(RepetitionType.ONCE))
+            interval = 1;
+
+        Repetition r = new Repetition(repetitionType, interval, daysOfWeek);
+        
+        return r;
+    }
+
+    @Override
+    public List<Resource> checkAvaliability(List<Integer> resourcesId, List<ReservationInstance> instances) throws NotAvaliableException {
+        List<Resource> resources = new ArrayList<>();
+        for (Integer id : resourcesId) {
+            Resource resource = resourceR.find(id);
+            if(resource==null)
+                throw new IllegalArgumentException("Resource " + id + " can't be found");
+            else{
+                //Check if resource is avaliable
+                for(ReservationInstance instance:instances){
+                    if(!instanceR.isAvaliable(resource, instance.getStartTimeDate(), instance.getEndTimeDate()))
+                        throw new NotAvaliableException("Resource "+resource.getName()+" is already reserved");
+                }
+                resources.add(resource);
+            }
+        }
+        return resources;
+    }
+
+    @Override
+    public Resource contains(List<Resource> resources, Integer id) {
+        for(Resource r: resources){
+            if(r.getId().equals(id))
+                return r;
+        }
+        return null;
+    }
 }
 

@@ -4,10 +4,13 @@
  */
 package com.citius.reservas.business.helper;
 
+import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.models.Repetition;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
 import com.citius.reservas.models.DayOfWeek;
+import com.citius.reservas.models.RepetitionType;
+import com.citius.reservas.models.Resource;
 import java.util.Calendar;
 import java.util.List;
 
@@ -22,7 +25,7 @@ public interface ReservationBusinessHelper {
     
     public List<ReservationInstance> generateInstances(Reservation r);
     
-    public  List<ReservationInstance> dailyInstances(Reservation r);
+    public List<ReservationInstance> dailyInstances(Reservation r);
     
     public List<ReservationInstance> weeklyInstances(Reservation r);
     
@@ -33,4 +36,13 @@ public interface ReservationBusinessHelper {
     public void deleteTime(Calendar c);
     
     public void cleanTimeDate(Reservation r);
+    
+    public Repetition createRepetition(String repetitionType, Integer interval, List<Integer> daysOfWeek);
+    
+    public List<Resource> checkAvaliability(List<Integer> resourcesId, List<ReservationInstance> instances) throws NotAvaliableException;
+    
+    //public Integer compareResources(List<Resource> a, List<Resource> b);
+    
+    public Resource contains(List<Resource> listResources, Integer id);
+    //public Resource getIfContains(List<Integer> listIds, Resource content);
 }

@@ -4,7 +4,9 @@
  */
 package com.citius.reservas.models;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -49,6 +51,14 @@ public enum DayOfWeek {
                 return null;
         }
         
+    }
+    
+    public static List<DayOfWeek> fromInteger(List<Integer> x) {
+        List<DayOfWeek> daysOfWeek = new ArrayList<>();
+        for (Integer d : x) 
+            daysOfWeek.add(DayOfWeek.fromInteger(d));
+        
+        return daysOfWeek;
     }
     
     public static DayOfWeek fromCalendarDate(Calendar day) {

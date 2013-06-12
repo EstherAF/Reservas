@@ -32,21 +32,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "reservation_instances")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ReservationInstance.findAll", query = "SELECT r FROM ReservationInstance r"),
-    @NamedQuery(name = "ReservationInstance.findById", query = "SELECT r FROM ReservationInstance r WHERE r.id = :id"),
-    @NamedQuery(name = "ReservationInstance.findByReservation", query = "SELECT r FROM ReservationInstance r WHERE r.reservation.id = :reservationId"),
+    @NamedQuery(name = "ReservationInstance.findAll", 
+            query = "SELECT r FROM ReservationInstance r"),
+    @NamedQuery(name = "ReservationInstance.findByReservation", 
+            query = "SELECT r FROM ReservationInstance r WHERE "
+            + "r.reservation.id = :reservationId"),
     @NamedQuery(name = "ReservationInstance.findBetweenDates", 
-        query = "SELECT r FROM ReservationInstance r WHERE r.startTimeDate <= :endTimeDate OR r.endTimeDate >= :startTimeDate"),
+            query = "SELECT r FROM ReservationInstance r WHERE "
+            + "r.startTimeDate <= :endTimeDate OR r.endTimeDate >= :startTimeDate"),
     @NamedQuery(name = "ReservationInstance.findBetweenDatesByOwner", 
-        query = "SELECT r FROM ReservationInstance r WHERE "
-        + "(r.startTimeDate <= :endTimeDate OR r.endTimeDate >= :startTimeDate) "
-        + "AND r.reservation.owner.uniqueName = :ownerUniqueName"),
+            query = "SELECT r FROM ReservationInstance r WHERE "
+            + "(r.startTimeDate <= :endTimeDate OR r.endTimeDate >= :startTimeDate) "
+            + "AND r.reservation.owner.uniqueName = :ownerUniqueName"),
     @NamedQuery(name = "ReservationInstance.findByOwner", 
-        query = "SELECT r FROM ReservationInstance r WHERE r.reservation.owner.id = :ownerUniqueName "),
+            query = "SELECT r FROM ReservationInstance r WHERE r.reservation.owner.id = :ownerUniqueName "),
     @NamedQuery(name = "ReservationInstance.findAfterDateByOwner", 
-        query = "SELECT r FROM ReservationInstance r WHERE "
-        + "r.endTimeDate >= :startTimeDate "
-        + "AND r.reservation.owner.uniqueName = :ownerUniqueName"),
+            query = "SELECT r FROM ReservationInstance r WHERE "
+            + "r.endTimeDate >= :startTimeDate "
+            + "AND r.reservation.owner.uniqueName = :ownerUniqueName"),
+    @NamedQuery(name = "ReservationInstance.findByResource", 
+            query = "SELECT r FROM ReservationInstance r WHERE "
+            + ":resource MEMBER OF r.reservation.resources"),
+    @NamedQuery(name = "ReservationInstance.findBetweenDatesByResource", 
+            query = "SELECT r FROM ReservationInstance r WHERE "
+            + "(r.startTimeDate <= :endTimeDate OR r.endTimeDate >= :startTimeDate) "
+            + "AND :resource MEMBER OF r.reservation.resources"),
 })
 public class ReservationInstance implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -59,14 +59,14 @@ public class Resource implements Serializable {
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private ResourceGroup group;
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "reserved_resources",
-            joinColumns = {
-        @JoinColumn(name = "resource_id", referencedColumnName = "id")},
-            inverseJoinColumns = {
-        @JoinColumn(name = "reservation_id", referencedColumnName = "id")})
-    private List<Reservation> reservations;
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "reserved_resources",
+//            joinColumns = {
+//        @JoinColumn(name = "resource_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {
+//        @JoinColumn(name = "reservation_id", referencedColumnName = "id")})
+//    private List<Reservation> reservations;
 
     public Resource() {
         super();
@@ -133,13 +133,13 @@ public class Resource implements Serializable {
         this.group = group;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
-    }
+//    public List<Reservation> getReservations() {
+//        return reservations;
+//    }
+//
+//    public void setReservations(List<Reservation> reservations) {
+//        this.reservations = reservations;
+//    }
     
     @Override
     public int hashCode() {

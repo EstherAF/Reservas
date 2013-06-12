@@ -6,6 +6,7 @@ package com.citius.reservas.repositories.impl;
 
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
+import com.citius.reservas.models.Resource;
 import com.citius.reservas.repositories.ReservationInstanceRepository;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -91,5 +92,18 @@ public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<Res
     }
     
     
+    @Override
+    public Boolean isAvaliable(Resource resource, Calendar startDate, Calendar endDate) {
+        logger.debug("Reservation.findBetweenDatesByResource:"+resource.getId()+","+startDate+","+endDate);
+        
+        Query q = this.em.createNamedQuery("ReservationInstance.findBetweenDatesByResource");
+        q.setParameter("startTimeDate", startDate);
+        q.setParameter("endTimeDate", endDate);
+        q.setParameter("resource", resource);
+        List<ReservationInstance> l = this.listQuery(q);
+        
+        logger.debug("Found "+l.size()+" results");
+        return l.isEmpty();
+    }
     
 }

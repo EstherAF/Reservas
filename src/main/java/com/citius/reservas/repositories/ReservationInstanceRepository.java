@@ -5,6 +5,7 @@
 package com.citius.reservas.repositories;
 
 import com.citius.reservas.models.ReservationInstance;
+import com.citius.reservas.models.Resource;
 import java.util.Calendar;
 import java.util.List;
 
@@ -17,5 +18,6 @@ public interface ReservationInstanceRepository extends GenericRepository<Reserva
     public List<ReservationInstance> findAfterDate(String ownerUniqueName, Calendar startTimeDate);
     public List<ReservationInstance> findByDay(String ownerUniqueName, Calendar day);
     public List<ReservationInstance> findByReservation(Integer reservationId);
+    public Boolean isAvaliable(Resource resource, Calendar startDate, Calendar endDate);
     
 }

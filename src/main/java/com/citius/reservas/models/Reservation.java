@@ -5,6 +5,7 @@
 package com.citius.reservas.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reservation.findByName", query = "SELECT r FROM Reservation r WHERE r.name = :name"),
     @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
     @NamedQuery(name = "Reservation.findByOwner", query = "SELECT r FROM Reservation r WHERE r.owner = :owner"),
-    @NamedQuery(name = "Reservation.findBetweenDates", query = "SELECT r FROM Reservation r WHERE r.startDate <= :endDate OR r.endDate >= :startDate")
+    @NamedQuery(name = "Reservation.findBetweenDates", query = "SELECT r FROM Reservation r WHERE r.startDate <= :endDate OR r.endDate >= :startDate"),
+    @NamedQuery(name = "Reservation.findByResource", query = "SELECT r FROM Reservation r WHERE :resource MEMBER OF r.resources"),
+
 })
 @XmlRootElement
 public class Reservation implements Serializable {
@@ -70,11 +73,27 @@ public class Reservation implements Serializable {
             cascade = CascadeType.ALL)
     private List<ReservationInstance> instances;
     
-    @OneToMany(mappedBy = "reservations",
-            cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "reserved_resources",
+            joinColumns = {
+                @JoinColumn(name = "reservation_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "resource_id", referencedColumnName = "id")})
     private List<Resource> resources;
 
     public Reservation() {
+        this.resources = new ArrayList<>();
+    }
+    
+    public Reservation(String name, String description, User owner, Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime) {
+        this.name = name;
+        this.description = description;
+        this.owner = owner;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public Reservation(String name, String description, User owner, Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime, Repetition repetition) {
