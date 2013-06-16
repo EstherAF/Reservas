@@ -12,6 +12,7 @@ import com.citius.reservas.models.DayOfWeek;
 import com.citius.reservas.models.RepetitionType;
 import com.citius.reservas.models.Resource;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,19 +22,22 @@ import java.util.List;
 public interface ReservationBusinessHelper {
     public Repetition createWeeklyRepetition(int Interval, List<DayOfWeek> DaysOfWeek);
     
-    public Calendar createDateTime(Calendar date, Calendar time);
+    public Date createDateTime(Calendar date, Calendar time);
+    public Calendar createDateTimeAsCalendar(Calendar date, Calendar time);
     
     public List<ReservationInstance> generateInstances(Reservation r);
     
-    public List<ReservationInstance> dailyInstances(Reservation r);
+//    public List<ReservationInstance> dailyInstances(Reservation r);
+//    
+//    public List<ReservationInstance> weeklyInstances(Reservation r);
+//    
+//    public List<ReservationInstance> monthlyRelativeInstances(Reservation r);
+//    
+//    public List<ReservationInstance> monthlyInstances(Reservation r);
     
-    public List<ReservationInstance> weeklyInstances(Reservation r);
+    public Date deleteTime(Date d);
     
-    public List<ReservationInstance> monthlyRelativeInstances(Reservation r);
-    
-    public List<ReservationInstance> monthlyInstances(Reservation r);
-    
-    public void deleteTime(Calendar c);
+    public void deleteTime(Calendar d);
     
     public void cleanTimeDate(Reservation r);
     

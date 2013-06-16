@@ -45,9 +45,9 @@ public class ResourceBusinessImpl implements ResourceBusiness {
     
     @Transactional
     @Override
-    public Resource create(String name, Integer group_id, String description, Integer quantity){
+    public Resource create(String name, Integer group_id, String description){
         
-        Resource r = this.save(null, name, group_id, description, quantity);
+        Resource r = this.save(null, name, group_id, description);
         
         return r;
     }
@@ -55,7 +55,7 @@ public class ResourceBusinessImpl implements ResourceBusiness {
     @Transactional
     @Override
     public Resource save(Integer id, String name, Integer group_id, 
-        String description, Integer quantity){
+        String description){
         
         ResourceGroup group;
         
@@ -70,7 +70,7 @@ public class ResourceBusinessImpl implements ResourceBusiness {
         
         
         
-        Resource r = new Resource(id, name, group, description, quantity);
+        Resource r = new Resource(id, name, group, description);
 
         r = resourceRepository.save(r);
         

@@ -20,7 +20,7 @@ public class ResourceGroupRepositoryImpl extends GenericRepositoryImpl<ResourceG
 
     @Override
     public ResourceGroup findByName(String name) {
-        Query q = this.em.createNamedQuery("Role.findByName");
+        Query q = this.em.createNamedQuery("ResourceGroup.findByName");
         q.setParameter("name", name);
         return this.singleQuery(q);
     }

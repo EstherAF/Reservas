@@ -11,12 +11,14 @@ import com.citius.reservas.repositories.ReservationRepository;
 import com.citius.reservas.business.ReservationBusiness;
 import com.citius.reservas.business.helper.ReservationBusinessHelper;
 import com.citius.reservas.exceptions.NotAvaliableException;
+import com.citius.reservas.models.EventTimeDate;
 import com.citius.reservas.models.Repetition;
 import com.citius.reservas.models.User;
 import com.citius.reservas.models.Resource;
 import com.citius.reservas.repositories.UserRepository;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,11 +42,30 @@ public class ReservationBusinessImpl implements ReservationBusiness {
 
     @Override
     @Transactional
+    public Reservation createReservation(Reservation r) throws NotAvaliableException{
+        r.setId(null);
+        User owner = ur.findByUniqueName(r.getOwner().getUniqueName());
+        
+        r.setInstances(rbh.generateInstances(r));     
+        
+        List<Integer> resourcesId = new ArrayList<>();
+        for(Resource res:r.getResources())
+            resourcesId.add(res.getId());
+        
+        r.setResources(rbh.checkAvaliability(resourcesId, r.getInstances()));
+        
+        rbh.cleanTimeDate(r);
+        r = rr.create(r);
+        return r;
+    }
+    
+    @Override
+    @Transactional
     public Reservation createReservation(
             String name, 
             String description, 
             String ownerUniqueName,
-            Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime,
+            Date startDate, Date endDate, Date startTime, Date endTime,
             String rType, int interval, List<Integer> days,
             List<Integer> resourcesId) throws NotAvaliableException{
         
@@ -53,8 +74,8 @@ public class ReservationBusinessImpl implements ReservationBusiness {
         
         User owner = ur.findByUniqueName(ownerUniqueName);
         
-        Reservation r = new Reservation(name, description, owner,
-                startDate, endDate, startTime, endTime);
+        EventTimeDate timeDate= new EventTimeDate(startDate, endDate, startTime, endTime);
+        Reservation r = new Reservation(name, description, owner, timeDate);
         
         r.setRepetition(rbh.createRepetition(rType, interval, days));
         r.setInstances(rbh.generateInstances(r));     
@@ -70,7 +91,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     @Override
     @Transactional
     public Reservation saveReservation(Integer id, String name, String description,
-            Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime,
+            Date startDate, Date endDate, Date startTime, Date endTime,
             String rType, int interval, List<Integer> days,
             List<Integer> resourcesId) throws NotAvaliableException{
 
@@ -81,13 +102,10 @@ public class ReservationBusinessImpl implements ReservationBusiness {
         Repetition repetition = rbh.createRepetition(rType, interval, days);
 
         //Have to update the instances
-        if (!found.getEndDate().equals(endDate)
-                || !found.getStartDate().equals(startDate)
-                || !found.getEndTime().equals(endTime)
-                || !found.getStartTime().equals(startTime)
+        if (!found.getEventTimeDate().equals(found.getEventTimeDate())
                 || !found.getRepetition().equals(repetition)) {
 
-            found.setDateTime(startDate, endDate, startTime, endTime);
+            found.setEventTimeDate(new EventTimeDate(startDate, endDate, startTime, endTime));
             rbh.cleanTimeDate(found);
             
             found.setRepetition(repetition);
@@ -125,6 +143,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     }
 
     @Override
+    @Transactional
     public void deleteReservation(Integer id) {
         rr.delete(id);
     }
@@ -149,7 +168,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
         nextMonday.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         nextMonday.add(Calendar.DATE, 1);
 
-        return rir.findBetweenDates(ownerUniqueName, monday, nextMonday);
+        return rir.findBetweenDates(ownerUniqueName, monday.getTime(), nextMonday.getTime());
     }
 
     @Override
@@ -166,12 +185,12 @@ public class ReservationBusinessImpl implements ReservationBusiness {
         Calendar last = (Calendar) first.clone();
         last.add(Calendar.MONTH, 1);
 
-        return rir.findBetweenDates(ownerUniqueName, first, last);
+        return rir.findBetweenDates(ownerUniqueName, first.getTime(), last.getTime());
     }
 
     @Override
     @Transactional
-    public List<ReservationInstance> readByOwnerAfterDate(String ownerUniqueName, Calendar startDate) {
+    public List<ReservationInstance> readByOwnerAfterDate(String ownerUniqueName, Date startDate) {
         return rir.findAfterDate(ownerUniqueName, startDate);
     }
 

@@ -18,7 +18,7 @@ public interface ResourceBusiness {
     /* Lista ordenada de recursos (finales y grupos)*/
     public List<Resource> readAll();
     public Resource read(Integer id);
-    public Resource create(String name, Integer groupId, String description, Integer quantity);
-    public Resource save(Integer id, String name, Integer groupId, String description, Integer quantity);
+    public Resource create(String name, Integer groupId, String description);
+    public Resource save(Integer id, String name, Integer groupId, String description);
     public void delete(Integer id);
 }

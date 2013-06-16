@@ -5,24 +5,20 @@
 package com.citius.reservas.models;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.annotate.JsonBackReference;
 
 /**
  *
@@ -52,20 +48,13 @@ public class Resource implements Serializable {
     @Size(min = 1, max = 250)
     private String description;
     
-    @Min(0)
-    private Integer quantity;
-    
+    //Parent- not serialized
+    @JsonBackReference
     @ManyToOne()
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private ResourceGroup group;
     
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "reserved_resources",
-//            joinColumns = {
-//        @JoinColumn(name = "resource_id", referencedColumnName = "id")},
-//            inverseJoinColumns = {
-//        @JoinColumn(name = "reservation_id", referencedColumnName = "id")})
+//    @ManyToMany(mappedBy="resources")
 //    private List<Reservation> reservations;
 
     public Resource() {
@@ -78,19 +67,17 @@ public class Resource implements Serializable {
         this.group = group;
     }
 
-    public Resource(String name, ResourceGroup group, String description, Integer quantity) {
+    public Resource(String name, ResourceGroup group, String description) {
         this.name = name;
         this.group = group;
         this.description = description;
-        this.quantity = quantity;
     }
 
-    public Resource(Integer id, String name, ResourceGroup group, String description, Integer quantity) {
+    public Resource(Integer id, String name, ResourceGroup group, String description) {
         this.id = id;
         this.name = name;
         this.group = group;
         this.description = description;
-        this.quantity = quantity;
     }
 
     public String getDescription() {
@@ -99,14 +86,6 @@ public class Resource implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public Integer getId() {
@@ -165,7 +144,7 @@ public class Resource implements Serializable {
 
     @Override
     public String toString() {
-        return "Resource{" + "id=" + id + ", name=" + name + ", description=" + description + ", quantity=" + quantity + ", group=" + group + '}';
+        return "Resource{" + "id=" + id + ", name=" + name + ", description=" + description + ", group=" + group + '}';
     }
 
 }

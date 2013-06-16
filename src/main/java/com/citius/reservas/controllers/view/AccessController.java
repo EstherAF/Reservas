@@ -14,16 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Esther
  */
 @Controller
+@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 public class AccessController {
 
     @RequestMapping("/login")
-    @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
     public String login(Model model) {
         return "login";
     }
     
     @RequestMapping("/login/failure")
-    @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
     public String loginFailure(Model model) {
         model.addAttribute("error", true);
         return "login";

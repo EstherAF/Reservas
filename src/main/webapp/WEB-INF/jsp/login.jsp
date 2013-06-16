@@ -17,20 +17,8 @@
 	</head>
 	<body>
 		<div id="body">
-			<header id="main_header">
-				<figure>
-					<img src="#"> 
-				</figure>
-                                <nav>
-                                    <ul>
-                                        <li><a href="?lang=en">en</a></li>
-                                        <li><a href="?lang=es">es</a></li>
-                                        <li><a href="?lang=ga">ga</a></li>
-                                    </ul>
-                                        
-                                </nav>
-			</header>
                     
+                        <jsp:include page="/WEB-INF/jsp/templates/simple_header.jsp" flush="true"/>
                     
 			<div id="main_body">
                                 <section class="error">

@@ -3,7 +3,6 @@ package com.citius.reservas.repositories;
 import com.citius.reservas.models.User;
 import java.util.List;
 import org.springframework.ldap.core.LdapTemplate;
-import org.springframework.stereotype.Repository;
 
 /**
  *

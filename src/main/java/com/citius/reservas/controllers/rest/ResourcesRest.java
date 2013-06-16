@@ -6,6 +6,7 @@ import com.citius.reservas.business.ResourceGroupBusiness;
 import com.citius.reservas.models.ResourceGroup;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,9 +45,8 @@ public class ResourcesRest {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public Resource create(@RequestBody String name,  
                         @RequestBody(required = false) String description,
-                        @RequestBody Integer quantity,
                         @RequestBody(required = false) Integer groupId) {
-        return rs.create(name, groupId, description, quantity);
+        return rs.create(name, groupId, description);
     }
     
     //@Secured("ROLE_TIC")
@@ -55,9 +55,8 @@ public class ResourcesRest {
     public Resource update(@RequestBody Integer id,
                         @RequestBody String name,  
                         @RequestBody(required = false) String description,
-                        @RequestBody Integer quantity,
                         @RequestBody(required = false) Integer groupId) {
-        return rs.save(id, name, groupId, description, quantity);
+        return rs.save(id, name, groupId, description);
     }
 
     //@Secured("ROLE_TIC")

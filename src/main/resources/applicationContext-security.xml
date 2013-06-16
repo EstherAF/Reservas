@@ -10,8 +10,6 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
        ">
 
-
-    <s:global-method-security secured-annotations="enabled" />
     
     <!--Bean que se ejecuta cuando el usuario se loguea correctamente-->
     <bean id="authSuccessHandler" class="com.citius.reservas.security.AuthenticationSuccessHandlerImpl" />
@@ -53,7 +51,7 @@
                           class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
                         <constructor-arg index="0" value=""/>
                         <constructor-arg index="1" value="(uid={0})"/>
-                       <constructor-arg index="2" ref="contextSource" />
+                        <constructor-arg index="2" ref="contextSource" />
                     </bean> 
                 </property>
             </bean>
@@ -72,22 +70,24 @@
         <property name="userDetailsContextMapper" ref = "userDetailsContextMapper"/> 
     </bean>
     
-    
-    <!--Filtrado por URL-->
-    <!--<s:filter-chain pattern="/trusted/*" filters="none"/> -->
-    
-    <s:http>
+
+    <!--Securización de los controladores-->
+    <s:http auto-config="true" use-expressions="true">
+        
         <s:form-login 
             username-parameter="id"
             password-parameter="pass"
             login-page="/login"
-            default-target-url="/index"
+            default-target-url="/"
             authentication-failure-url="/login/failure"
             authentication-success-handler-ref="authSuccessHandler"
         />
         
+        <s:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <s:intercept-url pattern="/admin**" access="ROLE_TIC" />
+        <s:intercept-url pattern="/*" access="IS_AUTHENTICATED_FULLY" />
         
-        <s:form-login />
+        <s:http-basic />
         <s:anonymous />
         <s:logout />
         

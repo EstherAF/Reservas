@@ -40,11 +40,11 @@ public class ReservationRepositoryImpl extends GenericRepositoryImpl<Reservation
     }
 
     @Override
-    public List<Reservation> findByOwner(User owner) {
-        logger.debug("Reservation.findByOwner:"+owner.getUniqueName());
+    public List<Reservation> findByOwner(String unique_name) {
+        logger.debug("Reservation.findByOwner:"+unique_name);
         
         Query q = this.em.createNamedQuery("Reservation.findByOwner");
-        q.setParameter("owner", owner);
+        q.setParameter("ownerUniqueName", unique_name);
         List<Reservation> l = this.listQuery(q);
         
         logger.debug("Found "+l.size()+" results");

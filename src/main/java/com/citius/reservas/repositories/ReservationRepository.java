@@ -5,8 +5,6 @@
 package com.citius.reservas.repositories;
 
 import com.citius.reservas.models.Reservation;
-import com.citius.reservas.models.Resource;
-import com.citius.reservas.models.User;
 import java.util.Calendar;
 import java.util.List;
 
@@ -16,6 +14,6 @@ import java.util.List;
  */
 public interface ReservationRepository extends GenericRepository<Reservation>{
     public List<Reservation> findByName(String name);
-    public List<Reservation> findByOwner(User owner);
+    public List<Reservation> findByOwner(String unique_name);
     public List<Reservation> findBetweenDates(Calendar startDate, Calendar endDate);
 }

@@ -4,7 +4,6 @@
  */
 package com.citius.reservas.business;
 
-import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.models.User;
 import org.junit.Test;
 import static org.junit.Assert.*;

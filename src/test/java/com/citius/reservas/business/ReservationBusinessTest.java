@@ -4,9 +4,7 @@
  */
 package com.citius.reservas.business;
 
-import com.citius.reservas.business.ReservationBusiness;
 import com.citius.reservas.exceptions.NotAvaliableException;
-import com.citius.reservas.models.Repetition;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.DayOfWeek;
 import com.citius.reservas.repositories.UserRepository;
@@ -71,34 +69,47 @@ public class ReservationBusinessTest {
         Reservation r;
         
         List<Integer> l = new ArrayList<>();
-//        Resource a = resourceB.create("test", 1, null, 2);
-//        Resource b = resourceB.create("test2", 1, null, 2);
-        l.add(resourceB.read(16).getId());
-        l.add(resourceB.read(17).getId());
+        Resource a = resourceB.create("test", 1, null);
+        Resource b = resourceB.create("test2", 1, null);
+        Integer id=0;
+        l.add(a.getId());
+        l.add(b.getId());
         
-        r = rs.createReservation("Nombre", "Descripcion", "perico", sD, eD, sT, eT, RepetitionType.ONCE.toString(), 1, days,l);
-        
+        r = rs.createReservation("Nombre", "Descripcion", "perico", sD.getTime(), eD.getTime(), sT.getTime(), eT.getTime(), RepetitionType.ONCE.toString(), 1, days,l);
+        id=r.getId();
         assertNotNull("Id nulo",r.getId());
         assertNotNull("No se han creado instancias",r.getInstances());
         assertFalse("No se han creado instancias",r.getInstances().isEmpty());
         
+        r = rs.read(r.getId());
+        assertNotNull("There is no resources:NULL",r.getResources());
+        assertFalse("There is no resources:EMPTY",r.getResources().isEmpty());
+        
         Boolean exception = false;
         
         try{
-            rs.createReservation("Nombre2", "Descripcion", "perico", sD, eD, sT, eT, RepetitionType.ONCE.toString(), 1, days,l);
+            rs.createReservation("Nombre2", "Descripcion", "perico", sD.getTime(), eD.getTime(), sT.getTime(), eT.getTime(), RepetitionType.ONCE.toString(), 1, days,l);
         }catch(NotAvaliableException e){
             exception=true;
         }
         
         assertTrue("Exception wasn't thrown",exception);
+        
+        rs.deleteReservation(id);
+        resourceB.delete(a.getId());
+        resourceB.delete(b.getId());
+        
     }
 
 //    @Test
 //    public void createWeeklyReservation() throws NotAvaliableException {
 //        Reservation r;
 //        
-//        List<Integer> l = new ArrayList<>();
-//        l.add(resourceB.create("test", 1, null, 2).getId());
+//                List<Integer> l = new ArrayList<>();
+//        Resource a = resourceB.create("test", 1, null);
+//        Resource b = resourceB.create("test2", 1, null);
+//        l.add(a.getId());
+//        l.add(b.getId());
 //        
 //        r = rs.createReservation("Nombre", "Descripcion", "perico", sD, eD, sT, eT, RepetitionType.WEEKLY.toString(), 1, days,l);
 //        

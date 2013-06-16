@@ -8,6 +8,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx" 
        xmlns:jee="http://www.springframework.org/schema/jee"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:s="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
@@ -15,7 +16,11 @@
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+          http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 ">
+    <!--Habilitar anotaciones de seguridad-->
+    <s:global-method-security secured-annotations="enabled" />
+    
     <context:component-scan base-package="com.citius.reservas" />
     <mvc:annotation-driven />
     <tx:annotation-driven />
@@ -27,7 +32,16 @@
             <property name="suffix" value=".jsp"/>
         </bean>
         
-      <!--<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />-->
-        
     
+    <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+    
+    <bean
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonMessageConverter" />
+            </list>
+        </property>
+    </bean> 
+        
 </beans>

@@ -21,21 +21,21 @@ public class ResourceRepositoryImpl extends GenericRepositoryImpl<Resource> impl
 
     @Override
     public Resource findByName(String name) {
-        Query q = this.em.createNamedQuery("Role.findByName");
+        Query q = this.em.createNamedQuery("Resource.findByName");
         q.setParameter("name", name);
         return this.singleQuery(q);
     }
 
     @Override
     public List<Resource> findByGroup(String group_name) {
-        Query q = this.em.createNamedQuery("Role.findByGroup");
+        Query q = this.em.createNamedQuery("Resource.findByGroup");
         q.setParameter("group_name", group_name);
         return this.listQuery(q);
     }
 
     @Override
     public List<Resource> findWithoutGroup() {
-        Query q = this.em.createNamedQuery("Role.findWithoutGroup");
+        Query q = this.em.createNamedQuery("Resource.findWithoutGroup");
         return this.listQuery(q);
     }
 }

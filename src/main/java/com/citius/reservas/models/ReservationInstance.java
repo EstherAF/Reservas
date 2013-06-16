@@ -6,8 +6,8 @@ package com.citius.reservas.models;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,28 +31,44 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "reservation_instances")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ReservationInstance.findAll", 
+    @NamedQuery(name = "ReservationInstance."
+    + "findAll", 
             query = "SELECT r FROM ReservationInstance r"),
-    @NamedQuery(name = "ReservationInstance.findByReservation", 
+    
+    @NamedQuery(name = "ReservationInstance."
+    + "findByReservation", 
             query = "SELECT r FROM ReservationInstance r WHERE "
             + "r.reservation.id = :reservationId"),
-    @NamedQuery(name = "ReservationInstance.findBetweenDates", 
+    
+    @NamedQuery(name = "ReservationInstance."
+    + "findBetweenDates", 
             query = "SELECT r FROM ReservationInstance r WHERE "
             + "r.startTimeDate <= :endTimeDate OR r.endTimeDate >= :startTimeDate"),
-    @NamedQuery(name = "ReservationInstance.findBetweenDatesByOwner", 
+    
+    @NamedQuery(name = "ReservationInstance."
+    + "findBetweenDatesByOwner", 
             query = "SELECT r FROM ReservationInstance r WHERE "
             + "(r.startTimeDate <= :endTimeDate OR r.endTimeDate >= :startTimeDate) "
             + "AND r.reservation.owner.uniqueName = :ownerUniqueName"),
-    @NamedQuery(name = "ReservationInstance.findByOwner", 
-            query = "SELECT r FROM ReservationInstance r WHERE r.reservation.owner.id = :ownerUniqueName "),
-    @NamedQuery(name = "ReservationInstance.findAfterDateByOwner", 
+    
+    @NamedQuery(name = "ReservationInstance."
+    + "findByOwner", 
+            query = "SELECT r FROM ReservationInstance r WHERE "
+            + "r.reservation.owner.uniqueName = :ownerUniqueName "),
+    
+    @NamedQuery(name = "ReservationInstance."
+    + "findAfterDateByOwner", 
             query = "SELECT r FROM ReservationInstance r WHERE "
             + "r.endTimeDate >= :startTimeDate "
             + "AND r.reservation.owner.uniqueName = :ownerUniqueName"),
-    @NamedQuery(name = "ReservationInstance.findByResource", 
+    
+    @NamedQuery(name = "ReservationInstance."
+    + "findByResource", 
             query = "SELECT r FROM ReservationInstance r WHERE "
             + ":resource MEMBER OF r.reservation.resources"),
-    @NamedQuery(name = "ReservationInstance.findBetweenDatesByResource", 
+    
+    @NamedQuery(name = "ReservationInstance."
+    + "findBetweenDatesByResource", 
             query = "SELECT r FROM ReservationInstance r WHERE "
             + "(r.startTimeDate <= :endTimeDate OR r.endTimeDate >= :startTimeDate) "
             + "AND :resource MEMBER OF r.reservation.resources"),
@@ -68,12 +83,12 @@ public class ReservationInstance implements Serializable {
     @NotNull
     @Column(name = "start_time_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar startTimeDate;
+    private Date startTimeDate;
     
     @NotNull
     @Column(name = "end_time_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar endTimeDate;
+    private Date endTimeDate;
     
     @JoinColumn(name = "reservation_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -86,7 +101,7 @@ public class ReservationInstance implements Serializable {
         this.id = id;
     }
 
-    public ReservationInstance(Reservation reservation, Calendar startTimeDate, Calendar endTimeDate) {
+    public ReservationInstance(Reservation reservation, Date startTimeDate, Date endTimeDate) {
         this.reservation = reservation;
         this.startTimeDate = startTimeDate;
         this.endTimeDate = endTimeDate;
@@ -100,19 +115,19 @@ public class ReservationInstance implements Serializable {
         this.id = id;
     }
 
-    public Calendar getStartTimeDate() {
+    public Date getStartTimeDate() {
         return startTimeDate;
     }
 
-    public void setStartTimeDate(Calendar startTimeDate) {
+    public void setStartTimeDate(Date startTimeDate) {
         this.startTimeDate = startTimeDate;
     }
 
-    public Calendar getEndTimeDate() {
+    public Date getEndTimeDate() {
         return endTimeDate;
     }
 
-    public void setEndTimeDate(Calendar endTimeDate) {
+    public void setEndTimeDate(Date endTimeDate) {
         this.endTimeDate = endTimeDate;
     }
 

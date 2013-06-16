@@ -28,7 +28,7 @@ public class AuthenticationSuccessHandlerImpl extends SavedRequestAwareAuthentic
 
 
         LdapUserDetailsImpl userDetails = (LdapUserDetailsImpl) authentication.getPrincipal();
-        User u = accessService.getLoggedUser(userDetails);
+        User u = accessService.logInUser(userDetails);
         System.out.println(u.getUniqueName() + " logged"); //LdC
         super.onAuthenticationSuccess(request, response, authentication);
     }

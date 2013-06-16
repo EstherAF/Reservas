@@ -6,7 +6,6 @@ package com.citius.reservas.repositories;
 
 import com.citius.reservas.models.User;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 /**
  *

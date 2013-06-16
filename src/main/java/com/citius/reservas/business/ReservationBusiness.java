@@ -7,7 +7,7 @@ package com.citius.reservas.business;
 import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,14 +17,16 @@ import java.util.List;
 public interface ReservationBusiness {
         
     
-public Reservation createReservation(String name, String description, 
+    public Reservation createReservation(Reservation reservation) throws NotAvaliableException;
+    
+    public Reservation createReservation(String name, String description, 
             String ownerUniqueName,
-            Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime,
+            Date startDate, Date endDate, Date startTime, Date endTime,
             String rType, int interval, List<Integer> days,
             List<Integer> resourcesId) throws NotAvaliableException;
 
     public Reservation saveReservation(Integer id, String name, String description,
-            Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime,
+            Date startDate, Date endDate, Date startTime, Date endTime,
             String rType, int interval, List<Integer> days,
             List<Integer> resourcesId) throws NotAvaliableException;
     
@@ -34,15 +36,15 @@ public Reservation createReservation(String name, String description,
     
     public Boolean isOwner(Integer reservationId, String ownerUniqueName);
     
-    //public List<ReservationInstance> readBetweenDates(Calendar startDate, Calendar endDate);
+    //public List<ReservationInstance> readBetweenDates(Date startDate, Date endDate);
     
-    //public List<ReservationInstance> readBetweenDates(Integer owner_id, Calendar startDate, Calendar endDate);
+    //public List<ReservationInstance> readBetweenDates(Integer owner_id, Date startDate, Date endDate);
     
     public List<ReservationInstance> readByWeek(String ownerUniqueName, Integer week, Integer year);
     
     public List<ReservationInstance> readByMonth(String ownerUniqueName, Integer month, Integer year);
     
-    public List<ReservationInstance> readByOwnerAfterDate(String ownerUniqueName, Calendar startDate);
+    public List<ReservationInstance> readByOwnerAfterDate(String ownerUniqueName, Date startDate);
     
     //public List<ReservationInstance> readInstances(Integer reservation_id);
     

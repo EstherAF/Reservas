@@ -6,7 +6,6 @@ package com.citius.reservas.repositories.impl;
 
 import com.citius.reservas.repositories.LdapRepository;
 import com.citius.reservas.models.User;
-import com.citius.reservas.repositories.RoleRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingEnumeration;
@@ -25,7 +24,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class LdapRepositoryImpl implements LdapRepository{
     
-    private static final Logger logger = Logger.getLogger(RoleRepository.class);
+    private static final Logger logger = Logger.getLogger(LdapRepository.class);
     
     @Autowired
     private LdapTemplate ldapTemplate;

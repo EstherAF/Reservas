@@ -12,7 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author Esther
  */
 public interface AccessBusiness {
-    User getLoggedUser(UserDetails details);   
     
+    User logInUser(UserDetails details);
     User findUser(String uniqueName);   
+    String getLoggedUser();
 }

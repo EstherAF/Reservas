@@ -1,18 +1,11 @@
 package com.citius.reservas.controllers.rest;
 
-import com.citius.reservas.models.Resource;
-import com.citius.reservas.business.ResourceBusiness;
 import com.citius.reservas.business.ResourceGroupBusiness;
 import com.citius.reservas.models.ResourceGroup;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping(value="/resources/group")
 //@Secured("IS_AUTHENTICATED_FULLY")

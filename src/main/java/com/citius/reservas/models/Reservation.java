@@ -6,13 +6,13 @@ package com.citius.reservas.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -24,8 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reservation.findById", query = "SELECT r FROM Reservation r WHERE r.id = :id"),
     @NamedQuery(name = "Reservation.findByName", query = "SELECT r FROM Reservation r WHERE r.name = :name"),
     @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
-    @NamedQuery(name = "Reservation.findByOwner", query = "SELECT r FROM Reservation r WHERE r.owner = :owner"),
-    @NamedQuery(name = "Reservation.findBetweenDates", query = "SELECT r FROM Reservation r WHERE r.startDate <= :endDate OR r.endDate >= :startDate"),
+    @NamedQuery(name = "Reservation.findByOwner", query = "SELECT r FROM Reservation r WHERE r.owner.uniqueName = :ownerUniqueName"),
+    @NamedQuery(name = "Reservation.findBetweenDates", query = "SELECT r FROM Reservation r WHERE r.eventTimeDate.startDate <= :endDate OR r.eventTimeDate.endDate >= :startDate"),
     @NamedQuery(name = "Reservation.findByResource", query = "SELECT r FROM Reservation r WHERE :resource MEMBER OF r.resources"),
 
 })
@@ -45,29 +45,17 @@ public class Reservation implements Serializable {
     private String description;
     
     @ManyToOne()
-    @JoinColumn(name = "owner_id",
-            referencedColumnName = "id")
+    @JoinColumn(name = "owner",
+            referencedColumnName = "unique_name")
     private User owner;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(name = "start_date")
-    private Calendar startDate;
-    
-    @Temporal(javax.persistence.TemporalType.DATE)
-    @Column(name = "end_date")
-    private Calendar endDate;
-    
-    @Temporal(javax.persistence.TemporalType.TIME)
-    @Column(name = "start_time")
-    private Calendar startTime;
-    
-    @Temporal(javax.persistence.TemporalType.TIME)
-    @Column(name = "end_time")
-    private Calendar endTime;
+    @Embedded
+    private EventTimeDate eventTimeDate;
     
     @Embedded
     private Repetition repetition;
     
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "reservation",
             cascade = CascadeType.ALL)
@@ -86,36 +74,27 @@ public class Reservation implements Serializable {
         this.resources = new ArrayList<>();
     }
     
-    public Reservation(String name, String description, User owner, Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime) {
+    public Reservation(String name, String description, User owner, EventTimeDate eventTimeDate) {
         this.name = name;
         this.description = description;
         this.owner = owner;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.eventTimeDate = eventTimeDate;
     }
 
-    public Reservation(String name, String description, User owner, Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime, Repetition repetition) {
+    public Reservation(String name, String description, User owner, EventTimeDate eventTimeDate, Repetition repetition) {
         this.name = name;
         this.description = description;
         this.owner = owner;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
         this.repetition = repetition;
+        this.eventTimeDate = eventTimeDate;
     }
 
-    public Reservation(Integer id, String name, String description, User owner, Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime, Repetition repetition) {
+    public Reservation(Integer id, String name, String description, User owner, EventTimeDate eventTimeDate, Repetition repetition) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.owner = owner;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.eventTimeDate = eventTimeDate;
         this.repetition = repetition;
     }
 
@@ -151,36 +130,12 @@ public class Reservation implements Serializable {
         this.owner = owner;
     }
 
-    public Calendar getStartDate() {
-        return startDate;
+    public EventTimeDate getEventTimeDate() {
+        return eventTimeDate;
     }
 
-    public void setStartDate(Calendar startDate) {
-        this.startDate = startDate;
-    }
-
-    public Calendar getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Calendar endDate) {
-        this.endDate = endDate;
-    }
-
-    public Calendar getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Calendar startTime) {
-        this.startTime = startTime;
-    }
-
-    public Calendar getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Calendar endTime) {
-        this.endTime = endTime;
+    public void setEventTimeDate(EventTimeDate eventTimeDate) {
+        this.eventTimeDate = eventTimeDate;
     }
 
     public Repetition getRepetition() {
@@ -198,13 +153,6 @@ public class Reservation implements Serializable {
     public void setInstances(List<ReservationInstance> instances) {
         this.instances = instances;
     }
-    
-    public void setDateTime(Calendar startDate, Calendar endDate, Calendar startTime, Calendar endTime){
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
 
     public List<Resource> getResources() {
         return resources;
@@ -218,7 +166,7 @@ public class Reservation implements Serializable {
     public int hashCode() {
         int hash = 7;
         hash = 37 * hash + Objects.hashCode(this.name);
-        hash = 37 * hash + Objects.hashCode(this.startDate);
+        hash = 37 * hash + Objects.hashCode(this.eventTimeDate);
         return hash;
     }
 
@@ -234,7 +182,7 @@ public class Reservation implements Serializable {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.startDate, other.startDate)) {
+        if (!Objects.equals(this.eventTimeDate, other.eventTimeDate)) {
             return false;
         }
         return true;
@@ -242,7 +190,7 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "Reservation{" + "id=" + id + ", name=" + name + ", description=" + description + ", owner=" + owner + ", startDate=" + startDate + ", endDate=" + endDate + ", startTime=" + startTime + ", endTime=" + endTime + ", repetition=" + repetition + '}';
+        return "Reservation{" + "id=" + id + ", name=" + name + ", description=" + description + ", owner=" + owner + ", eventTimeDate=" + eventTimeDate + ", repetition=" + repetition + '}';
     }
 
 }

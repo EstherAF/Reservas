@@ -13,18 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Esther
  */
 @Controller
-@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
-public class OtherController {
+@Secured("ROLE_TIC")
+public class AdminController {   
     
-    @RequestMapping("/")
-    public String redirectIndex() {
+    @RequestMapping("/admin")
+    public String adminIndex() {
         System.out.println("index");
-        return "secure/index";
-    }
-    
-    @RequestMapping("/index")
-    public String index() {
-        System.out.println("index");
-        return "secure/index";
+        return "admin/secured";
     }
 }

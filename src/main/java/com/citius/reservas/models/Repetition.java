@@ -7,7 +7,6 @@ package com.citius.reservas.models;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
@@ -15,7 +14,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 
 /**
  *
