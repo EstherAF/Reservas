@@ -72,7 +72,7 @@
     
 
     <!--Securización de los controladores-->
-    <s:http auto-config="true" use-expressions="true">
+    <s:http auto-config="true">
         
         <s:form-login 
             username-parameter="id"
@@ -84,6 +84,7 @@
         />
         
         <s:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <s:intercept-url pattern="/test*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <s:intercept-url pattern="/admin**" access="ROLE_TIC" />
         <s:intercept-url pattern="/*" access="IS_AUTHENTICATED_FULLY" />
         

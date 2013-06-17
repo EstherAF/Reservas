@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
-public class OtherController {
+public class IndexController {
     
     @RequestMapping("/")
     public String redirectIndex() {

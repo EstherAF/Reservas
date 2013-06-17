@@ -4,6 +4,7 @@
  */
 package com.citius.reservas.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -26,7 +26,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
     @NamedQuery(name = "Reservation.findByOwner", query = "SELECT r FROM Reservation r WHERE r.owner.uniqueName = :ownerUniqueName"),
     @NamedQuery(name = "Reservation.findBetweenDates", query = "SELECT r FROM Reservation r WHERE r.eventTimeDate.startDate <= :endDate OR r.eventTimeDate.endDate >= :startDate"),
-    @NamedQuery(name = "Reservation.findByResource", query = "SELECT r FROM Reservation r WHERE :resource MEMBER OF r.resources"),
+    //@NamedQuery(name = "Reservation.findByResource", query = "SELECT r FROM Reservation r WHERE :resource MEMBER OF r.resources"),
 
 })
 @XmlRootElement

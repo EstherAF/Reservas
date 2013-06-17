@@ -46,9 +46,9 @@ public class ReservationBusinessTest {
     public static void initilization() {
         
 
-        sD = new GregorianCalendar(2013, 5, 1);
+        sD = new GregorianCalendar(2013, 5, 25);
 
-        eD = new GregorianCalendar(2013, 5, 15);
+        eD = new GregorianCalendar(2013, 5, 27);
 
         sT = Calendar.getInstance();
         sT.set(Calendar.HOUR_OF_DAY, 15);
@@ -69,8 +69,10 @@ public class ReservationBusinessTest {
         Reservation r;
         
         List<Integer> l = new ArrayList<>();
-        Resource a = resourceB.create("test", 1, null);
-        Resource b = resourceB.create("test2", 1, null);
+        //Resource a = resourceB.create("test", 1, null);
+        //Resource b = resourceB.create("test2", 1, null);
+        Resource a = resourceB.read(260);
+        Resource b = resourceB.read(261);
         Integer id=0;
         l.add(a.getId());
         l.add(b.getId());
@@ -96,8 +98,8 @@ public class ReservationBusinessTest {
         assertTrue("Exception wasn't thrown",exception);
         
         rs.deleteReservation(id);
-        resourceB.delete(a.getId());
-        resourceB.delete(b.getId());
+        //resourceB.delete(a.getId());
+        //resourceB.delete(b.getId());
         
     }
 

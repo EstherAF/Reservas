@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping(value="/resources/group")
-//@Secured("IS_AUTHENTICATED_FULLY")
+@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 public class ResourcesGroupsRest {
     @Autowired
     private ResourceGroupBusiness rgs;

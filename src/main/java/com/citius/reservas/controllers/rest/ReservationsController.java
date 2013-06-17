@@ -6,12 +6,13 @@ import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.models.RepetitionType;
 import com.citius.reservas.models.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(value="/reservations")
-//@Secured("IS_AUTHENTICATED_FULLY")
+@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 public class ReservationsController {
     
     @Autowired
@@ -43,6 +44,8 @@ public class ReservationsController {
                     throw new IllegalArgumentException();
         
         String unique_name = ab.getLoggedUser();
+        //r.getOwner().setUniqueName(unique_name);
+        
         Reservation created = rb.createReservation(r);
         return created;
     }

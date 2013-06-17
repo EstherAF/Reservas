@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value="/resources")
-//@Secured("IS_AUTHENTICATED_FULLY")
+@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 public class ResourcesRest {
     
     @Autowired

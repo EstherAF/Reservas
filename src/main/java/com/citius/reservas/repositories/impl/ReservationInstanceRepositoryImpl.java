@@ -14,6 +14,7 @@ import java.util.List;
 import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -25,6 +26,7 @@ public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<Res
     private static final Logger logger = Logger.getLogger(ReservationInstanceRepositoryImpl.class);
     
     @Override
+    @Transactional
     public List<ReservationInstance> findBetweenDates(String ownerUniqueName, Date startTimeDate, Date endTimeDate) {
         logger.debug("ReservationInstance.findBetweenDatesByOwner:"+startTimeDate+","+endTimeDate);
         
@@ -39,6 +41,7 @@ public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<Res
     }
 
     @Override
+    @Transactional
     public List<ReservationInstance> findByDay(String ownerUniqueName, Date day) {
         Calendar startTimeDate, endTimeDate, dayCalendar;
         dayCalendar = Calendar.getInstance();
@@ -68,6 +71,7 @@ public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<Res
     }
 
     @Override
+    @Transactional
     public List<ReservationInstance> findByReservation(Integer reservationId) {
         logger.debug("ReservationInstance.findByReservation:"+reservationId);
         
@@ -80,6 +84,7 @@ public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<Res
     }
 
     @Override
+    @Transactional
     public List<ReservationInstance> findAfterDate(String ownerUniqueName, Date startTimeDate) {
         String query = "ReservationInstance.findAfterDateByOwner";
         logger.debug(query+":"+startTimeDate+","+ownerUniqueName);
@@ -95,6 +100,7 @@ public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<Res
     
     
     @Override
+    @Transactional
     public Boolean isAvaliable(Resource resource, Date startTimeDate, Date endTimeDate) {
         logger.debug("Reservation.findBetweenDatesByResource:"+resource.getId()+","+startTimeDate+","+endTimeDate);
         

@@ -40,6 +40,8 @@ public interface ReservationBusiness {
     
     //public List<ReservationInstance> readBetweenDates(Integer owner_id, Date startDate, Date endDate);
     
+    public List<ReservationInstance> readAll();
+    
     public List<ReservationInstance> readByWeek(String ownerUniqueName, Integer week, Integer year);
     
     public List<ReservationInstance> readByMonth(String ownerUniqueName, Integer month, Integer year);

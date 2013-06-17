@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 @Embeddable
 public class EventTimeDate implements Serializable{
     
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name = "start_date")
     private Date startDate;

@@ -158,8 +158,14 @@ public class ReservationBusinessHelperImpl implements ReservationBusinessHelper 
     public void cleanTimeDate(Reservation r) {
         Date startDateD = deleteTime(r.getEventTimeDate().getStartDate());
         Date endDateD = deleteTime(r.getEventTimeDate().getEndDate());
+        
+        Date startTimeD = cleanSeconds(r.getEventTimeDate().getStartTime());
+        Date endTimeD = cleanSeconds(r.getEventTimeDate().getEndTime());
+        
         r.getEventTimeDate().setStartDate(startDateD);
         r.getEventTimeDate().setEndDate(endDateD);
+        r.getEventTimeDate().setStartTime(startTimeD);
+        r.getEventTimeDate().setEndTime(endTimeD);
     }
     
     @Override
@@ -337,5 +343,12 @@ public class ReservationBusinessHelperImpl implements ReservationBusinessHelper 
         return new ReservationInstance(reservation,
                 createDateTime(date, startTime),
                 createDateTime(date, endTime));
+    }
+    
+    private Date cleanSeconds(Date d){
+        Calendar c = Calendar.getInstance();
+        c.setTime(d);
+        c.set(Calendar.SECOND, 0);
+        return c.getTime();
     }
 }

@@ -106,6 +106,7 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
     }
 
     @Override
+    @Transactional
     public List<T> findAll() {
         Query q = em.createNamedQuery(type.getSimpleName()+".findAll");
         return listQuery(q);

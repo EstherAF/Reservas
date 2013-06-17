@@ -44,7 +44,9 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     @Transactional
     public Reservation createReservation(Reservation r) throws NotAvaliableException{
         r.setId(null);
+        
         User owner = ur.findByUniqueName(r.getOwner().getUniqueName());
+        r.setOwner(owner);
         
         r.setInstances(rbh.generateInstances(r));     
         
@@ -199,6 +201,11 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     public Boolean isOwner(Integer reservationId, String ownerUniqueName) {
         Reservation r = rr.find(reservationId);
         return r.getOwner().getUniqueName().equals(ownerUniqueName);
+    }
+
+    @Override
+    public List<ReservationInstance> readAll() {
+        return rir.findAll();
     }
 
     

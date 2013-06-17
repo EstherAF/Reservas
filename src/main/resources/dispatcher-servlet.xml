@@ -7,7 +7,6 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx" 
        xmlns:jee="http://www.springframework.org/schema/jee"
-       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:s="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
@@ -18,30 +17,75 @@
           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 ">
+    <context:component-scan base-package="com.citius.reservas" />
+    
     <!--Habilitar anotaciones de seguridad-->
     <s:global-method-security secured-annotations="enabled" />
     
-    <context:component-scan base-package="com.citius.reservas" />
-    <mvc:annotation-driven />
+    <!--<mvc:annotation-driven />-->
     <tx:annotation-driven />
-        
-        <!--ViewResolver-->
-        <bean id="viewResolver"
-              class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-            <property name="prefix" value="/WEB-INF/jsp/"/>
-            <property name="suffix" value=".jsp"/>
-        </bean>
-        
     
-    <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
     
-    <bean
+    
+    <mvc:annotation-driven> 
+        <mvc:message-converters>
+            <ref bean="jsonMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+        
+    <!--<bean
         class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">
             <list>
                 <ref bean="jsonMessageConverter" />
             </list>
         </property>
-    </bean> 
+    </bean>     -->
+        
+    <!--ViewResolver-->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+        
+    <!--JSON de/serialization-->
+    <!--<bean id="jacksonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+    
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="jacksonObjectMapper" />
+        <property name="targetMethod" value="configure" />
+        <property name="arguments">
+            <list>
+                <value type="com.fasterxml.jackson.databind.SerializationFeature">WRITE_DATES_AS_TIMESTAMPS</value>
+                <value>false</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="jacksonObjectMapper" />
+        <property name="targetMethod" value="setDateFormat" />
+        <property name="arguments">
+            <list>
+                <bean class="java.text.SimpleDateFormat">
+                    <constructor-arg value="yyyy-MM-dd HH:mm:ssz"/>
+                </bean>
+            </list>
+        </property>
+    </bean>-->
+    
+    
+    <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper" ref="customJsonMapper" />
+    </bean>
+    
+    <!--<bean id="jacksonObjectMapper" class="com.citius.reservas.controllers.CustomJsonMapper"/>-->
+    
+    
+    <!--    <bean id="jacksonSerializationConfig" 
+    class="org.fasterxml.jackson.databind.SerializationConfig" 
+    factory-bean="jacksonObjectMapper" 
+    factory-method="getSerializationConfig" />-->
         
 </beans>

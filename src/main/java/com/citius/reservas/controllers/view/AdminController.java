@@ -7,7 +7,6 @@ package com.citius.reservas.controllers.view;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 /**
  *
  * @author Esther
@@ -18,6 +17,9 @@ public class AdminController {
     
     @RequestMapping("/admin")
     public String adminIndex() {
+        
+        
+        
         System.out.println("index");
         return "admin/secured";
     }

@@ -70,7 +70,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ReservationInstance."
     + "findBetweenDatesByResource", 
             query = "SELECT r FROM ReservationInstance r WHERE "
-            + "(r.startTimeDate <= :endTimeDate OR r.endTimeDate >= :startTimeDate) "
+            + "(r.startTimeDate <= :endTimeDate AND r.endTimeDate >= :startTimeDate) "
             + "AND :resource MEMBER OF r.reservation.resources"),
 })
 public class ReservationInstance implements Serializable {
