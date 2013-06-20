@@ -44,9 +44,7 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
 
     @Transactional
     @Override
-    public ResourceGroup create(String name) {
-
-        ResourceGroup r = new ResourceGroup(name);
+    public ResourceGroup create(ResourceGroup r) {
 
         r = resourceGroupRepository.save(r);
 

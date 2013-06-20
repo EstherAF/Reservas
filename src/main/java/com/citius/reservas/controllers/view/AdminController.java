@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Secured("ROLE_TIC")
+@RequestMapping(headers={"content-type=text/html"})
 public class AdminController {   
     
     @RequestMapping("/admin")

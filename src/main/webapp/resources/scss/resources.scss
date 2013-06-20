@@ -1,0 +1,49 @@
+/*Colors*/
+
+@import "utils";
+
+#main_body{
+}
+
+#resources{
+    float:left;
+    
+    #resourcesTree{
+        background-color:white;       
+    }
+}
+
+#content {
+    form{
+        
+        label{
+            display:block;
+            margin-bottom:5px;
+        }
+        
+        input[type="text"],
+        textarea{
+            width:500px;
+        }
+        
+        textarea{
+            height:150px;
+        }
+        
+/*        [id="group_selector"]{
+            margin-left:60px;
+        }*/
+        
+        .radio{
+            display:block;
+        }
+    }
+}
+
+li[rel="resource"]{
+    a{
+        .jstree-icon{
+            display:none !important;                  
+        }
+    }
+}

@@ -7,7 +7,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 @Controller
-@RequestMapping(value="/resources/group")
+@RequestMapping(value="/resources/groups",
+        produces="application/json")
 @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 public class ResourcesGroupsRest {
     @Autowired
@@ -22,8 +23,8 @@ public class ResourcesGroupsRest {
     //@Secured("ROLE_TIC")
     @ResponseBody
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResourceGroup create(@RequestBody String name) {
-         return rgs.create(name);
+    public ResourceGroup create(@RequestBody ResourceGroup resourceGroup) {
+         return rgs.create(resourceGroup);
     }
     
     //@Secured("ROLE_TIC")

@@ -3,10 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <header id="main_header">
-    <figure>
-        <img src="#"> 
-    </figure>
-    <nav>
+    <nav id="lang">
         <ul>
             <li><a href="?lang=en">en</a></li>
             <li><a href="?lang=es">es</a></li>

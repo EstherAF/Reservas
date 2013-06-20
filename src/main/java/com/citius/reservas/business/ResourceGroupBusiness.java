@@ -18,7 +18,7 @@ public interface ResourceGroupBusiness {
     /* Lista ordenada de recursos (finales y grupos)*/
     public List<ResourceGroup> readAll();
     public ResourceGroup read(Integer id);
-    public ResourceGroup create(String name);
+    public ResourceGroup create(ResourceGroup r);
     public ResourceGroup save(Integer id, String name);
     public void delete(Integer id);
     public void deleteWithResources(Integer id);

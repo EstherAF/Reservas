@@ -2,19 +2,28 @@
 html, body {
   margin: 0px;
   height: 100%;
-  font-family: verdana,helvetica,arial,sans-serif; }
+  font-family: verdana,helvetica,arial,sans-serif;
+  font-size: 100%; }
 
 #body {
   height: 100%;
   background-color: white; }
 
 #main_header {
-  position: absolute;
-  float: left;
   height: 50px;
   width: 100%;
   background-color: #333333;
   display: inline-block; }
+  #main_header #lang ul {
+    display: inline-block;
+    float: right;
+    margin-right: 10px; }
+  #main_header #lang li {
+    list-style: none;
+    display: inline-block; }
+    #main_header #lang li a {
+      color: #cccccc;
+      text-decoration: underline; }
 
 #main_body {
   width: 100%;
@@ -26,3 +35,26 @@ html, body {
 
 .error {
   color: red; }
+
+.button, input[type="button"] {
+  display: inline-block;
+  vertical-align: middle;
+  width: auto;
+  margin: 10px;
+  border-width: 0px;
+  border-radius: 5px;
+  padding: 8px 15px;
+  color: white;
+  background: #666666;
+  font-size: 0.90em; }
+  .button:hover, input[type="button"]:hover {
+    background: #333333; }
+  .button:hover, input[type="button"]:hover {
+    cursor: hand;
+    cursor: pointer; }
+
+section {
+  margin: 0px 30px; }
+
+#content {
+  float: left; }

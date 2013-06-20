@@ -2,32 +2,64 @@
 @import "utils";
 
 html, body{
-	margin: 0px;
-	height: 100%;
-	font-family: verdana,helvetica,arial,sans-serif;
+    margin: 0px;
+    height: 100%;
+    font-family: verdana,helvetica,arial,sans-serif;
+    font-size:100%;
 }
- 
+
 #body{
-	height:100%;
-	background-color:$white;
+    height:100%;
+    background-color:$white;
 }
 
 #main_header{
-	position:absolute;
-	float:left;
-	@include full_bar(50px,$black);
+    @include full_bar(50px,$black);
+    
+    #lang{
+        ul{
+            display:inline-block;
+            float:right;
+            margin-right:10px;
+        }
+        li{
+            list-style:none;
+            display: inline-block;
+            a{
+                color:$light_grey;
+                text-decoration:underline;
+            }
+        }
+    }
 }
 
 #main_body{
-	width:100%;
-	height:100%;
+    width:100%;
+    height:100%;
 }
 
 .center{
-	text-align:center;
-	margin:auto;
+    text-align:center;
+    margin:auto;
 }
 
 .error{
-        color:$red_error;
+    color:$red_error;
+}
+
+.button, input[type="button"]{    
+    @include button;
+    &:hover{
+        cursor: hand; 
+        cursor: pointer;
+    }
+    
+}
+
+section{
+    margin:0px 30px;
+}
+
+#content{
+    float:left;
 }

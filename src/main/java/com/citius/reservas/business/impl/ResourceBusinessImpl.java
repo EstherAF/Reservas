@@ -71,8 +71,11 @@ public class ResourceBusinessImpl implements ResourceBusiness {
         
         
         Resource r = new Resource(id, name, group, description);
-
+        
         r = resourceRepository.save(r);
+        
+        group.getResources().add(r);
+        resourceGroupRepository.save(group);
         
         return r;
     }

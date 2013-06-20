@@ -1,0 +1,23 @@
+/*Colors*/
+#resources {
+  float: left; }
+  #resources #resourcesTree {
+    background-color: white; }
+
+#content form {
+  /*        [id="group_selector"]{
+              margin-left:60px;
+          }*/ }
+  #content form label {
+    display: block;
+    margin-bottom: 5px; }
+  #content form input[type="text"],
+  #content form textarea {
+    width: 500px; }
+  #content form textarea {
+    height: 150px; }
+  #content form .radio {
+    display: block; }
+
+li[rel="resource"] a .jstree-icon {
+  display: none !important; }

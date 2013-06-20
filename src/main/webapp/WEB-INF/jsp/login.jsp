@@ -9,10 +9,8 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <html>
 	<head>
-		<title><s:message code="login.title"/></title>		
-		<meta content="text/html" charset="UTF-8" http-equiv="Content-type">
-		<meta name="Esther" content="">
-                <link rel="stylesheet" href="<c:url value="/resources/css/general.css" />" type="text/css" /> 
+		<title><s:message code="login.title"/></title>
+                <jsp:include page="/WEB-INF/jsp/templates/generic_head.jsp"/>
                 <link rel="stylesheet" href="<c:url value="/resources/css/login.css" />" type="text/css" /> 
 	</head>
 	<body>
@@ -30,7 +28,7 @@
 				</section>			
 				<section id="login">
                                     <header>
-                                        <s:message code="login.form.title"/>
+                                        <h1><s:message code="login.form.title"/></h1>
                                     </header>
 					<form name="f" action="/Reservas/j_spring_security_check" method="POST">
 						<p>
