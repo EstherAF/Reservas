@@ -1,6 +1,11 @@
 /*Colors*/
 @import "utils";
 
+
+h1, h2, h3, h4, h5{
+    color: $black;
+}
+
 html, body{
     margin: 0px;
     height: 100%;
@@ -10,32 +15,52 @@ html, body{
 
 #body{
     height:100%;
+    width:100%;
     background-color:$white;
 }
 
 #main_header{
-    @include full_bar(50px,$black);
     
-    #lang{
-        ul{
-            display:inline-block;
+    @include list_no_format;
+    
+    /*Barra superior*/
+    #tiny{
+        @include full_bar(20px,$black);    
+        a{
+            color:$light_grey;
+            text-decoration:underline;
+            font-size:0.8em;
+            
+        }
+        .login{
             float:right;
             margin-right:10px;
         }
-        li{
-            list-style:none;
-            display: inline-block;
-            a{
-                color:$light_grey;
-                text-decoration:underline;
+        ul{
+            margin-left:10px;
+        }
+    }
+    
+    /*Barra naranja*/
+    #buttons{
+        @include full_bar($height_navigation_bar,$orange_citius);
+        ul{
+            li{     
+                a{ @include navigation_button(30px); }
             }
         }
     }
 }
 
 #main_body{
-    width:100%;
     height:100%;
+    .button, input[type="button"], input[type="submit"]{    
+        @include button;
+        &:hover{
+            cursor: hand; 
+            cursor: pointer;
+        }
+    }
 }
 
 .center{
@@ -47,19 +72,29 @@ html, body{
     color:$red_error;
 }
 
-.button, input[type="button"]{    
-    @include button;
-    &:hover{
-        cursor: hand; 
-        cursor: pointer;
-    }
-    
-}
-
 section{
     margin:0px 30px;
 }
 
 #content{
+    display:block;
     float:left;
+    margin: auto;
+}
+
+[data-icon]:before {
+    font-family: 'icons'; 
+    content: attr(data-icon);
+    speak: none;
+    font-size:1.5em;
+}
+
+.left{
+    float:left;
+    display:inline-block;
+}
+
+.right{
+    float:right;
+    display:inline-block;
 }

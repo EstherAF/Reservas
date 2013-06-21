@@ -72,7 +72,7 @@
                             <input type="text" name="name" autofocus required>
                         </p><p>
                             <label for="description">Descripción:</label>
-                            <textarea type="text" name="description" required></textarea>
+                            <textarea name="description" required></textarea>
                         </p><p>
                             <input name="create_resource" type="button" value="Crear">
                         </p>

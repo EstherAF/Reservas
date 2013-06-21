@@ -7,6 +7,7 @@ package com.citius.reservas.business;
 import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public interface ReservationBusiness {
     
     public List<ReservationInstance> readAll();
     
-    public List<ReservationInstance> readByWeek(String ownerUniqueName, Integer week, Integer year);
+    public List<ReservationInstance> readByWeek(String ownerUniqueName, Calendar week);
     
     public List<ReservationInstance> readByMonth(String ownerUniqueName, Integer month, Integer year);
     

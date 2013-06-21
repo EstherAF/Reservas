@@ -1,0 +1,45 @@
+/*Colors*/
+@font-face {
+  font-family: 'icons';
+  src: url("/Reservas/resources/font/entypo.ttf"); }
+
+#reservation_nav {
+  display: block;
+  border-bottom: 1px solid #cccccc;
+  overflow: hidden;
+  padding: 8px 10px 6px 15px;
+  vertical-align: middle; }
+  #reservation_nav a {
+    text-decoration: none; }
+  #reservation_nav span {
+    color: #333333; }
+  #reservation_nav ul {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px; }
+    #reservation_nav ul li {
+      margin: 0px;
+      list-style: none;
+      display: inline-block; }
+  #reservation_nav .left {
+    vertical-align: middle; }
+    #reservation_nav .left a {
+      display: inline;
+      font-size: 1.5em;
+      color: #666666; }
+      #reservation_nav .left a:hover {
+        color: #333333; }
+  #reservation_nav .right span {
+    vertical-align: middle;
+    margin-right: 10px; }
+  #reservation_nav .reservas_btn {
+    background-color: #666666;
+    margin: 0px;
+    margin-left: -4px;
+    border-radius: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px; }
+
+#main_body section {
+  margin: 0px;
+  padding: 0% 5%; }

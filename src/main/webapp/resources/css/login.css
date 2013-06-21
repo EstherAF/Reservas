@@ -1,4 +1,8 @@
 /*Colors*/
+@font-face {
+  font-family: 'icons';
+  src: url("/Reservas/resources/font/entypo.ttf"); }
+
 #main_body {
   /* Internet Explorer 10 */
   display: -ms-flexbox;
@@ -20,8 +24,13 @@
 #login {
   vertical-align: center;
   background-color: white;
+  margin: 0px;
+  padding: 0px;
   margin: auto;
   width: 400px; }
+  #login header label {
+    margin-top: 0px;
+    padding-top: 0px; }
   #login label, #login input {
     display: block;
     margin: 2%; }

@@ -24,12 +24,7 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
     @PersistenceContext
     protected EntityManager em;
     
-    
     protected Class<T> type;
-
-    /**
-     *
-     */
     
     public GenericRepositoryImpl() {
         Type t = getClass().getGenericSuperclass();
@@ -111,4 +106,5 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
         Query q = em.createNamedQuery(type.getSimpleName()+".findAll");
         return listQuery(q);
     }
+            
 }

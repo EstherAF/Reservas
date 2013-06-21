@@ -1,0 +1,39 @@
+
+#reservation_nav{
+    display:block;
+    border-bottom: 1px solid $light_grey;
+    overflow:hidden;
+    padding: 8px 10px 6px 15px;
+    
+    a{text-decoration:none;}
+    
+    span{color:$black;}
+    
+    @include list_no_format;
+    vertical-align:middle;
+    .left{  
+        vertical-align:middle;
+        a{
+            display:inline;
+            font-size:1.5em;
+            color:$dark_grey;
+            &:hover{
+                color:$black;        
+            }
+        }
+    }
+    
+    .right span{
+        vertical-align:middle;
+        margin-right:10px;
+    }
+    
+    .reservas_btn{
+        background-color: $dark_grey;
+        margin:0px;
+        margin-left:-4px;
+        border-radius:0px;
+        padding-top:5px;
+        padding-bottom:5px;
+    }
+}

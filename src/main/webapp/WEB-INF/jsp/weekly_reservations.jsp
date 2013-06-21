@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
@@ -6,7 +7,7 @@
 <html>
     <head>
         <jsp:include page="/WEB-INF/jsp/templates/generic_head.jsp"/>
-
+        <link rel="stylesheet" href="<c:url value="/resources/css/reservations.css" />" type="text/css" /> 
         <script type="text/javascript" class="source">
 
         </script>
@@ -17,24 +18,12 @@
             <jsp:include page="/WEB-INF/jsp/templates/simple_header.jsp" flush="true"/>
 
             <div id="main_body">
-                <nav>
-
-                </nav>
+                <jsp:include page="/WEB-INF/jsp/templates/reservation_nav.jsp" flush="true"/>
                 <section id="content">
-                    <header>
-                        <h1>Añadir nuevo recurso o grupo</h1>
-                    </header>
-                    <table>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Recursos reservados</th>
-                            <th>Propietario</th>
-                            <th></th>
-                        </tr>
+                    <table>  
                         <c:forEach var="instance" items="${reservationInstances}">
-                            <p></p>
+                            <p>ReservationInstances:<c:out value="${instance}" /></p>
                         </c:forEach>
-                        
                     </table>
                 </section>    
             </div>   
