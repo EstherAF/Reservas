@@ -1,4 +1,4 @@
-package com.citius.reservas.controllers.rest;
+package com.citius.reservas.controllers;
 
 import com.citius.reservas.business.ResourceGroupBusiness;
 import com.citius.reservas.models.ResourceGroup;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value="/resources/groups",
         produces="application/json")
 @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
-public class ResourcesGroupsRest {
+public class ResourcesGroupsController {
     @Autowired
     private ResourceGroupBusiness rgs;
     

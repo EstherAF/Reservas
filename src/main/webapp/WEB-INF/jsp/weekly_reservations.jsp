@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
@@ -25,16 +26,9 @@
                         <h1>Añadir nuevo recurso o grupo</h1>
                     </header>
                     <table>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Recursos reservados</th>
-                            <th>Propietario</th>
-                            <th></th>
-                        </tr>
-                        <c:forEach var="instance" items="${reservationInstances}">
-                            <p></p>
-                        </c:forEach>
-                        
+                            <p>Next:<c:out value="${next}" /></p>
+                            <p>Previous:<c:out value="${previous}" /></p>
+                            <p>ReservationInstances:<c:out value="${reservationInstances}" /></p>
                     </table>
                 </section>    
             </div>   

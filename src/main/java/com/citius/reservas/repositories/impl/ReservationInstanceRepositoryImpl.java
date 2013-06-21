@@ -35,7 +35,7 @@ public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<Res
         q.setParameter("endTimeDate", endTimeDate);
         q.setParameter("ownerUniqueName", ownerUniqueName);
         List<ReservationInstance> l = this.listQuery(q);
-        
+       
         logger.debug("Found "+l.size()+" results");
         return l;
     }

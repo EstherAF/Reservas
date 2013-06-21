@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ReservationInstance."
     + "findBetweenDatesByOwner", 
             query = "SELECT r FROM ReservationInstance r WHERE "
-            + "(r.startTimeDate <= :endTimeDate OR r.endTimeDate >= :startTimeDate) "
+            + "(r.startTimeDate <= :endTimeDate AND r.endTimeDate >= :startTimeDate) "
             + "AND r.reservation.owner.uniqueName = :ownerUniqueName"),
     
     @NamedQuery(name = "ReservationInstance."

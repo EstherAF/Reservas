@@ -158,19 +158,22 @@ public class ReservationBusinessImpl implements ReservationBusiness {
 
     @Override
     @Transactional
-    public List<ReservationInstance> readByWeek(String ownerUniqueName, Integer week, Integer year) {
-        Calendar monday = Calendar.getInstance();
-        monday.set(Calendar.YEAR, year);
-        monday.set(Calendar.WEEK_OF_YEAR, week);
-        monday.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+    public List<ReservationInstance> readByWeek(String ownerUniqueName, Calendar week) {
         
-        rbh.deleteTime(monday);
+        week.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        rbh.deleteTime(week);
+        
+        Date init = week.getTime();
 
-        Calendar nextMonday = (Calendar) monday.clone();
-        nextMonday.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        nextMonday.add(Calendar.DATE, 1);
+        week.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        week.add(Calendar.DATE, 1);
+        Date end = week.getTime();
 
-        return rir.findBetweenDates(ownerUniqueName, monday.getTime(), nextMonday.getTime());
+
+
+        List<ReservationInstance> l = rir.findBetweenDates(ownerUniqueName, init, end);
+        
+        return l;
     }
 
     @Override

@@ -1,9 +1,9 @@
-package com.citius.reservas.controllers.rest;
+package com.citius.reservas.controllers;
 
 import com.citius.reservas.models.Resource;
 import com.citius.reservas.business.ResourceBusiness;
 import com.citius.reservas.business.ResourceGroupBusiness;
-import com.citius.reservas.controllers.CustomJsonMapper;
+import com.citius.reservas.controllers.helper.CustomJsonMapper;
 import com.citius.reservas.models.ResourceGroup;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value="/resources")
 @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
-public class ResourcesRest {
+public class ResourceController {
       
     @Autowired
     private ResourceGroupBusiness rgb;
@@ -33,7 +33,7 @@ public class ResourcesRest {
     @Autowired
     private CustomJsonMapper mapper;
     
-    private static final Logger logger = Logger.getLogger(ResourcesRest.class);
+    private static final Logger logger = Logger.getLogger(ResourceController.class);
     
     
     /********************  JSON   *************************/

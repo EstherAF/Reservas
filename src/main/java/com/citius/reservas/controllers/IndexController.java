@@ -2,26 +2,30 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.citius.reservas.controllers.view;
+package com.citius.reservas.controllers;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 /**
  *
  * @author Esther
  */
 @Controller
-@Secured("ROLE_TIC")
+@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 @RequestMapping(headers={"content-type=text/html"})
-public class AdminController {   
+public class IndexController {
     
-    @RequestMapping("/admin")
-    public String adminIndex() {
-        
-        
-        
+    @RequestMapping("/")
+    public String redirectIndex() {
         System.out.println("index");
-        return "admin/secured";
+        return "secure/index";
+    }
+    
+    @RequestMapping("/index")
+    public String index() {
+        System.out.println("index");
+        return "secure/index";
     }
 }

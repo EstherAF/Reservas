@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.citius.reservas.controllers.view;
+package com.citius.reservas.controllers;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -14,18 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
-@RequestMapping(headers={"content-type=text/html"})
-public class IndexController {
-    
+@RequestMapping(value="/login", headers={"content-type=text/html"})
+public class AccessController {
+
     @RequestMapping("/")
-    public String redirectIndex() {
-        System.out.println("index");
-        return "secure/index";
+    public String login(Model model) {
+        return "login";
     }
     
-    @RequestMapping("/index")
-    public String index() {
-        System.out.println("index");
-        return "secure/index";
+    @RequestMapping("/failure")
+    public String loginFailure(Model model) {
+        model.addAttribute("error", true);
+        return "login";
     }
+    
 }
