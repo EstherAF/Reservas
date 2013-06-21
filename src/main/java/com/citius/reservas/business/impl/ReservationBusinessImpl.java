@@ -172,7 +172,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
 
 
         List<ReservationInstance> l = rir.findBetweenDates(ownerUniqueName, init, end);
-        
+        week.add(Calendar.DATE, -1);
         return l;
     }
 

@@ -1,4 +1,11 @@
 /*Colors*/
+@font-face {
+  font-family: 'icons';
+  src: url("/Reservas/resources/font/entypo.ttf"); }
+
+h1, h2, h3, h4, h5 {
+  color: #333333; }
+
 html, body {
   margin: 0px;
   height: 100%;
@@ -7,27 +14,71 @@ html, body {
 
 #body {
   height: 100%;
+  width: 100%;
   background-color: white; }
 
 #main_header {
-  height: 50px;
-  width: 100%;
-  background-color: #333333;
-  display: inline-block; }
-  #main_header #lang ul {
+  /*Barra superior*/
+  /*Barra naranja*/ }
+  #main_header ul {
     display: inline-block;
-    float: right;
-    margin-right: 10px; }
-  #main_header #lang li {
-    list-style: none;
-    display: inline-block; }
-    #main_header #lang li a {
+    margin: 0px;
+    padding: 0px; }
+    #main_header ul li {
+      margin: 0px;
+      list-style: none;
+      display: inline-block; }
+  #main_header #tiny {
+    height: 20px;
+    width: 100%;
+    background-color: #333333;
+    display: block; }
+    #main_header #tiny a {
       color: #cccccc;
-      text-decoration: underline; }
+      text-decoration: underline;
+      font-size: 0.8em; }
+    #main_header #tiny .login {
+      float: right;
+      margin-right: 10px; }
+    #main_header #tiny ul {
+      margin-left: 10px; }
+  #main_header #buttons {
+    height: 40px;
+    width: 100%;
+    background-color: #f36126;
+    display: block; }
+    #main_header #buttons ul li a {
+      display: table-cell;
+      vertical-align: middle;
+      margin: 0px;
+      padding: 0px 30px;
+      height: 40px;
+      border: 0px;
+      text-decoration: none;
+      color: white;
+      background: #f36126;
+      font-size: 0.90em; }
+      #main_header #buttons ul li a:hover {
+        background: #333333; }
 
 #main_body {
-  width: 100%;
   height: 100%; }
+  #main_body .button, #main_body input[type="button"], #main_body input[type="submit"] {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    margin: 10px;
+    border-width: 0px;
+    border-radius: 5px;
+    padding: 8px 15px;
+    color: white;
+    background: #f36126;
+    font-size: 0.90em; }
+    #main_body .button:hover, #main_body input[type="button"]:hover, #main_body input[type="submit"]:hover {
+      background: #333333; }
+    #main_body .button:hover, #main_body input[type="button"]:hover, #main_body input[type="submit"]:hover {
+      cursor: hand;
+      cursor: pointer; }
 
 .center {
   text-align: center;
@@ -36,25 +87,24 @@ html, body {
 .error {
   color: red; }
 
-.button, input[type="button"] {
-  display: inline-block;
-  vertical-align: middle;
-  width: auto;
-  margin: 10px;
-  border-width: 0px;
-  border-radius: 5px;
-  padding: 8px 15px;
-  color: white;
-  background: #666666;
-  font-size: 0.90em; }
-  .button:hover, input[type="button"]:hover {
-    background: #333333; }
-  .button:hover, input[type="button"]:hover {
-    cursor: hand;
-    cursor: pointer; }
-
 section {
   margin: 0px 30px; }
 
 #content {
-  float: left; }
+  display: block;
+  float: left;
+  margin: auto; }
+
+[data-icon]:before {
+  font-family: 'icons';
+  content: attr(data-icon);
+  speak: none;
+  font-size: 1.5em; }
+
+.left {
+  float: left;
+  display: inline-block; }
+
+.right {
+  float: right;
+  display: inline-block; }

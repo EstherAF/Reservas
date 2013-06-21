@@ -49,7 +49,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     + "findBetweenDatesByOwner", 
             query = "SELECT r FROM ReservationInstance r WHERE "
             + "(r.startTimeDate <= :endTimeDate AND r.endTimeDate >= :startTimeDate) "
-            + "AND r.reservation.owner.uniqueName = :ownerUniqueName"),
+            + "AND (r.reservation.owner.uniqueName = :ownerUniqueName)"
+            + "ORDER BY r.startTimeDate"),
     
     @NamedQuery(name = "ReservationInstance."
     + "findByOwner", 
@@ -60,7 +61,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     + "findAfterDateByOwner", 
             query = "SELECT r FROM ReservationInstance r WHERE "
             + "r.endTimeDate >= :startTimeDate "
-            + "AND r.reservation.owner.uniqueName = :ownerUniqueName"),
+            + "AND r.reservation.owner.uniqueName = :ownerUniqueName "
+            + "ORDER BY r.startTimeDate"),
     
     @NamedQuery(name = "ReservationInstance."
     + "findByResource", 
@@ -71,7 +73,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     + "findBetweenDatesByResource", 
             query = "SELECT r FROM ReservationInstance r WHERE "
             + "(r.startTimeDate <= :endTimeDate AND r.endTimeDate >= :startTimeDate) "
-            + "AND :resource MEMBER OF r.reservation.resources"),
+            + "AND :resource MEMBER OF r.reservation.resources "
+            + "ORDER BY r.startTimeDate"),
 })
 public class ReservationInstance implements Serializable {
     private static final long serialVersionUID = 1L;

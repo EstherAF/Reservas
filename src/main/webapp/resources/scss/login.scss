@@ -3,36 +3,43 @@
 @import "utils";
 
 #main_body{
-	@include vertical_center_content();
+    @include vertical_center_content();
 }
 
 #login{
-	vertical-align:center;
-	background-color:white;
-	margin:auto;
-	width:400px;
-	
-	//@include borde();
-	label,input{
-		display:block;
-		margin:2%;
-	}
-	
-	input[type="text"], 
-	input[type="password"]{
-		width:400px;
-	}
-	
-	input[type="submit"]{
-		display:inline-block;
-		width:100px;
-		//@include black_button;
-	}
-	
-	input[type="checkbox"],
-	label[for="remember_pass"]{
-		font-size:0.8em;
-		display:inline-block;
-	}
-	
+    vertical-align:center;
+    background-color:white;
+    margin:0px;
+    padding:0px;
+    margin:auto;
+    width:400px;
+    //@include borde();
+    header{
+        label{
+            margin-top:0px;
+            padding-top:0px;
+        }
+    }
+    
+    label,input{
+        display:block;
+        margin:2%;
+    }
+    
+    input[type="text"], 
+    input[type="password"]{
+        width:400px;
+    }
+    
+    input[type="submit"]{
+        display:inline-block;
+        width:100px;
+    }
+    
+    input[type="checkbox"],
+    label[for="remember_pass"]{
+        font-size:0.8em;
+        display:inline-block;
+    }
+    
 }

@@ -1,7 +1,7 @@
 /*Colors*/
 @font-face {
-  font-family: 'icons';
-  src: url("/Reservas/resources/font/entypo.ttf"); }
+  font-family: icons;
+  src: url("/resources/font/entypo.ttf"), url("/resources/font/entypo.eot"), url("/resources/font/entypo.woff"), url("/resources/font/entypo.svg"); }
 
 #main_body section {
   margin: 0px;

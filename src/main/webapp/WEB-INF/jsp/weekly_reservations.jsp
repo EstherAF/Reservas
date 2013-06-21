@@ -7,7 +7,7 @@
 <html>
     <head>
         <jsp:include page="/WEB-INF/jsp/templates/generic_head.jsp"/>
-
+        <link rel="stylesheet" href="<c:url value="/resources/css/reservations.css" />" type="text/css" /> 
         <script type="text/javascript" class="source">
 
         </script>
@@ -18,17 +18,12 @@
             <jsp:include page="/WEB-INF/jsp/templates/simple_header.jsp" flush="true"/>
 
             <div id="main_body">
-                <nav>
-
-                </nav>
+                <jsp:include page="/WEB-INF/jsp/templates/reservation_nav.jsp" flush="true"/>
                 <section id="content">
-                    <header>
-                        <h1>Añadir nuevo recurso o grupo</h1>
-                    </header>
-                    <table>
-                            <p>Next:<c:out value="${next}" /></p>
-                            <p>Previous:<c:out value="${previous}" /></p>
-                            <p>ReservationInstances:<c:out value="${reservationInstances}" /></p>
+                    <table>  
+                        <c:forEach var="instance" items="${reservationInstances}">
+                            <p>ReservationInstances:<c:out value="${instance}" /></p>
+                        </c:forEach>
                     </table>
                 </section>    
             </div>   

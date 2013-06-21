@@ -84,7 +84,6 @@
         />
         
         <s:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-        <s:intercept-url pattern="/test*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <s:intercept-url pattern="/admin**" access="ROLE_TIC" />
         <s:intercept-url pattern="/*" access="IS_AUTHENTICATED_FULLY" />
         
@@ -93,5 +92,7 @@
         <s:logout />
         
     </s:http>
-
+    
+    <!--Para permitir anotaciones en los jsp-->
+    <bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" /> 
 </beans>

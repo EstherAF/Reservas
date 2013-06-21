@@ -8,6 +8,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -15,15 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
-@RequestMapping(value="/login", headers={"content-type=text/html"})
 public class AccessController {
 
-    @RequestMapping("/")
+    @RequestMapping(value="/login", 
+        produces = "text/html", 
+        method = RequestMethod.GET)
     public String login(Model model) {
         return "login";
     }
     
-    @RequestMapping("/failure")
+    @RequestMapping(value="/login/failure", 
+        produces = "text/html", 
+        method = RequestMethod.GET)
     public String loginFailure(Model model) {
         model.addAttribute("error", true);
         return "login";

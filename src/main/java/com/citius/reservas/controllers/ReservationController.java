@@ -112,19 +112,25 @@ public class ReservationController {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.WEEK_OF_YEAR, week);
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         
         if(year!=c.get(Calendar.YEAR)){
             String url = "/reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
             return "redirect:" + url;
         }
+        
+        String weekDescription = rch.weekDescription(c, request);
+        
         List<ReservationInstance> instances = rb.readByWeek(unique_name, c);
         List<ReservationInstanceCustom> customInstances = rch.parseToWeeklyList(instances, request);
 
-        c.add(Calendar.WEEK_OF_YEAR, 1);
-        String next = "/reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
-        c.add(Calendar.WEEK_OF_YEAR, -2);
-        String previous = "/reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
-
+        c.add(Calendar.WEEK_OF_YEAR, -1);
+        String previous = "/Reservas/reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
+        c.add(Calendar.WEEK_OF_YEAR, +2);
+        String next = "/Reservas/reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
+        
+        
+        model.addAttribute("weekDescription", weekDescription);
         model.addAttribute("reservationInstances", customInstances);
         model.addAttribute("next", next);
         model.addAttribute("previous", previous);

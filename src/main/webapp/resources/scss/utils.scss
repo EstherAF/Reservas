@@ -3,12 +3,21 @@ $light_grey: #cccccc;
 $dark_grey: #666666;
 $white: #FFFFFF;
 $red_error: #FF0000;
+$orange_citius: #F36126;
+
+$height_navigation_bar: 40px;
+
+@font-face{
+    font-family: 'icons';
+    src: url('/Reservas/resources/font/entypo.ttf');
+}
+
 
 @mixin full_bar($height, $color){
     height:$height;
     width:100%;
     background-color:$color;
-    display: inline-block;		
+    display: block;		
 }
 
 @mixin vertical_center_content(){
@@ -34,7 +43,7 @@ $red_error: #FF0000;
 }
 
 @mixin borde(){
-    border: 1px solid red;
+    border: 1px solid green;
 }
 
 @mixin button{
@@ -47,13 +56,45 @@ $red_error: #FF0000;
     border-radius:5px;
     padding: 8px 15px;
     //Font color
-    color:white;
-    background:$dark_grey;
+    color:$white;
+    background:$orange_citius;
     
     font-size:0.90em;
     
     &:hover{
         background:$black;
-    }
+    }   
+}
+
+@mixin navigation_button($padding){
     
+    display:table-cell;
+    vertical-align:middle;  
+    margin:0px;
+    padding:0px $padding;
+    height:$height_navigation_bar;
+    border:0px;
+    text-decoration:none;
+    //padding: 8px 15px;
+    //Font color
+    color:$white;
+    background:$orange_citius;
+    font-size:0.90em;
+    &:hover{
+        background:$black;
+    }   
+}
+
+@mixin list_no_format {
+        ul{
+        display:inline-block;
+        //float:left;
+        margin:0px;
+        padding:0px;
+        li{
+            margin:0px;
+            list-style:none;
+            display: inline-block;
+        }
+    }
 }
