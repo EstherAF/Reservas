@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <jsp:include page="/WEB-INF/jsp/templates/generic_head.jsp"/>
+        <jsp:include page="/WEB-INF/jsp/jsp_templates/generic_head.jsp"/>
         <script type="text/javascript" src="<c:url value="/resources/js/models/resource.js" />"></script>
         <script type="text/javascript" src="<c:url value="/resources/js/resourcesView.js" />"></script>
         <link rel="stylesheet" href="<c:url value="/resources/css/resources.css" />" type="text/css" /> 
@@ -37,7 +37,7 @@
     <body>
         <div id="body">
 
-            <jsp:include page="/WEB-INF/jsp/templates/simple_header.jsp" flush="true"/>
+            <jsp:include page="/WEB-INF/jsp/jsp_templates/simple_header.jsp" flush="true"/>
 
             <div id="main_body">
                 <section id="resources">
