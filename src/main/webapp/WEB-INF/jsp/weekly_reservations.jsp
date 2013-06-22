@@ -13,7 +13,21 @@
             var reservations = ${reservationsJson};
 
             $(function() {
-
+//                createTree(resources);
+//
+//                $('input[name="is_group"]').click(function() {
+//                    is_group = $(this).attr('value');
+//                    element = $('#group_selector');
+//                    if (is_group === "true"){
+//                        element.css("display", "none");
+//                    } else {
+//                        element.css("display", "block");
+//                    }
+//                });
+//
+//                $('input[name="create_resource"]').click(function() {
+//                    createResource();
+//                });
             });
 
         </script>
@@ -27,9 +41,9 @@
                 <jsp:include page="/WEB-INF/jsp/jsp_templates/reservation_nav.jsp" flush="true"/>
                 <section id="content">
                     <c:choose>
-                        <c:if test="${empty reservationInstances}">
+                        <c:when test="${empty reservationInstances}">
                             <p>No hay reservas</p>
-                        </c:if>
+                        </c:when>
                         <c:otherwise>
                             <table class="weekly">  
                                 <c:set var="before" />
