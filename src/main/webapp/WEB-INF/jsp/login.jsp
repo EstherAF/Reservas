@@ -10,13 +10,13 @@
 <html>
     <head>
         <title><s:message code="login.title"/></title>
-        <jsp:include page="/WEB-INF/jsp/templates/generic_head.jsp"/>
+        <jsp:include page="/WEB-INF/jsp/jsp_templates/generic_head.jsp"/>
         <link rel="stylesheet" href="<c:url value="/resources/css/login.css" />" type="text/css" /> 
     </head>
     <body>
         <div id="body">
 
-            <jsp:include page="/WEB-INF/jsp/templates/simple_header.jsp" flush="true"/>
+            <jsp:include page="/WEB-INF/jsp/jsp_templates/simple_header.jsp" flush="true"/>
 
             <div id="main_body">
                 <c:if test="${error}">

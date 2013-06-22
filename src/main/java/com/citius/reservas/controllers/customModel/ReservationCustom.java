@@ -6,7 +6,6 @@ package com.citius.reservas.controllers.customModel;
 
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +19,7 @@ public class ReservationCustom{
     private String name;
     private String description;
     private String owner;
-    private List<String> resources;
+    private List<Resource> resources;
 
     public String getOwner() {
         return owner;
@@ -28,14 +27,6 @@ public class ReservationCustom{
 
     public void setOwner(String owner) {
         this.owner = owner;
-    }
-
-    public List<String> getResources() {
-        return resources;
-    }
-
-    public void setResources(List<String> resources) {
-        this.resources = resources;
     }
 
     public Integer getId() {
@@ -61,6 +52,16 @@ public class ReservationCustom{
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
+    
+    
     
     public ReservationCustom() {
     }
@@ -70,13 +71,10 @@ public class ReservationCustom{
         this.name = r.getName();
         this.description = r.getDescription();
         this.owner = r.getOwner().getUniqueName();
-        this.resources = new ArrayList<>();
-        for(Resource i:r.getResources()){
-            this.resources.add(i.getName());
-        }
+        this.resources = r.getResources();
     }
 
-    public ReservationCustom(Integer id, String name, String description, String owner, List<String> resources) {
+    public ReservationCustom(Integer id, String name, String description, String owner, List<Resource> resources) {
         this.id = id;
         this.name = name;
         this.description = description;

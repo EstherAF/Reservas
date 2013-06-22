@@ -6,10 +6,31 @@
 #main_body{
     section{
         margin:0px;
-        padding: 0% 5%;
+        padding: 1% 1%;
     }    
 }
 
 #content {
-    
+    width: 100%;
+    border-collapse:collapse;
+    table{
+        max-width:100%;
+        tr{
+            th{
+                border-top: thin solid $light_grey;
+                vertical-align:top;    
+                text-align:left;
+                padding-top:10px;
+                padding-right:20px;
+            }
+        }
+
+        td{
+            padding:5px 10px;
+
+            &:first-child{
+                width:200px;
+            }
+        }
+    }
 }

@@ -13,7 +13,21 @@
             var reservations = ${reservationsJson};
 
             $(function() {
-
+//                createTree(resources);
+//
+//                $('input[name="is_group"]').click(function() {
+//                    is_group = $(this).attr('value');
+//                    element = $('#group_selector');
+//                    if (is_group === "true"){
+//                        element.css("display", "none");
+//                    } else {
+//                        element.css("display", "block");
+//                    }
+//                });
+//
+//                $('input[name="create_resource"]').click(function() {
+//                    createResource();
+//                });
             });
 
         </script>
