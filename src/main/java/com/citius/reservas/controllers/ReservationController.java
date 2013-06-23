@@ -89,6 +89,17 @@ public class ReservationController {
     public void delete(@PathVariable Integer id) {
         rb.deleteReservation(id);
     }
+    
+    @RequestMapping(value = "/",
+            method = RequestMethod.GET,
+            produces = "text/html")
+    public String redirectReservation() {
+        Calendar now = Calendar.getInstance();
+
+        String url = "/reservations/week/" + now.get(Calendar.YEAR) + "/" + now.get(Calendar.WEEK_OF_YEAR);
+
+        return "redirect:" + url;
+    }
 
     @RequestMapping(value = "/week",
             method = RequestMethod.GET,

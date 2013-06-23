@@ -38,5 +38,13 @@
     <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="objectMapper" ref="customJsonMapper" />
     </bean>
+    
+    <!--Procesa el cambio de idioma-->
+    <mvc:interceptors>
+        <bean id="localeChangeInterceptor"
+                  class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang" />
+        </bean>
+    </mvc:interceptors>
         
 </beans>

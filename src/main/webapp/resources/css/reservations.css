@@ -29,13 +29,13 @@
       color: #666666; }
       #reservation_nav .left a:hover {
         color: #333333; }
-  #reservation_nav .right span {
-    vertical-align: middle;
-    margin-right: 10px; }
+  #reservation_nav .right {
+    vertical-align: middle; }
+    #reservation_nav .right span {
+      margin-right: 10px; }
   #reservation_nav .reservas_btn {
     background-color: #666666;
     margin: 0px;
-    margin-left: -4px;
     border-radius: 0px;
     padding-top: 5px;
     padding-bottom: 5px; }
@@ -46,16 +46,30 @@
 
 #content {
   width: 100%;
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  text-align: center; }
   #content table {
-    max-width: 100%; }
-    #content table tr th {
-      border-top: thin solid #cccccc;
-      vertical-align: top;
-      text-align: left;
-      padding-top: 10px;
-      padding-right: 20px; }
+    max-width: 97%;
+    min-width: 90%;
+    margin: 0 auto 0 2%; }
+    #content table .date th {
+      height: 10px;
+      border-bottom: thin solid #cccccc; }
     #content table td {
-      padding: 5px 10px; }
+      text-align: left;
+      padding: 3px 10px;
+      font-size: 0.9em;
+      vertical-align: bottom; }
       #content table td:first-child {
-        width: 200px; }
+        max-width: 70px;
+        vertical-align: top;
+        text-align: left;
+        padding: 10px 20px 0px 0px;
+        color: #666666;
+        font-weight: bold; }
+    #content table .header td {
+      border: 0px;
+      font-size: 0.8em;
+      font-weight: normal;
+      padding: 0px 10px;
+      color: #666666; }

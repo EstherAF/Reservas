@@ -23,15 +23,16 @@
         }
     }
     
-    .right span{
+    .right{
         vertical-align:middle;
-        margin-right:10px;
+        span{
+            margin-right:10px;
+        }
     }
     
     .reservas_btn{
         background-color: $dark_grey;
         margin:0px;
-        margin-left:-4px;
         border-radius:0px;
         padding-top:5px;
         padding-bottom:5px;

@@ -20,9 +20,9 @@
     </nav>
     <nav id="buttons">
         <ul>
-            <li><a href="?lang=en">Ejemplo1</a></li>
-            <li><a href="?lang=es">Ejemplo2</a></li>
-            <li><a href="?lang=ga">Ejemplo3</a></li>
+            <li><a href="?lang=en">Ejemplo1</a>
+            </li><li><a href="?lang=es">Ejemplo2</a>
+            </li><li><a href="?lang=ga">Ejemplo3</a></li>
         </ul>
     </nav>
     <!--<sec:authorize access="isFullyAuthenticated()">-->

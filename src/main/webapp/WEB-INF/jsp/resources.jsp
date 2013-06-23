@@ -37,9 +37,10 @@
     <body>
         <div id="body">
 
-            <jsp:include page="/WEB-INF/jsp/jsp_templates/simple_header.jsp" flush="true"/>
+            
 
             <div id="main_body">
+                <jsp:include page="/WEB-INF/jsp/jsp_templates/simple_header.jsp" flush="true"/>
                 <section id="resources">
                     <header>
                         <h1>Lista de recursos</h1>

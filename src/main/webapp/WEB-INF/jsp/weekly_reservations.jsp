@@ -13,31 +13,17 @@
             var reservations = ${reservationsJson};
 
             $(function() {
-//                createTree(resources);
-//
-//                $('input[name="is_group"]').click(function() {
-//                    is_group = $(this).attr('value');
-//                    element = $('#group_selector');
-//                    if (is_group === "true"){
-//                        element.css("display", "none");
-//                    } else {
-//                        element.css("display", "block");
-//                    }
-//                });
-//
-//                $('input[name="create_resource"]').click(function() {
-//                    createResource();
-//                });
             });
 
         </script>
     </head>
     <body>
         <div id="body">
+
             
-            <jsp:include page="/WEB-INF/jsp/jsp_templates/simple_header.jsp" flush="true"/>
 
             <div id="main_body">
+                <jsp:include page="/WEB-INF/jsp/jsp_templates/simple_header.jsp" flush="true"/>
                 <jsp:include page="/WEB-INF/jsp/jsp_templates/reservation_nav.jsp" flush="true"/>
                 <section id="content">
                     <c:choose>
@@ -46,19 +32,26 @@
                         </c:when>
                         <c:otherwise>
                             <table class="weekly">  
+                                <tr class="header">
+                                    <td></td>
+                                    <td>nombre</td>
+                                    <td>recursos reservados</td>
+                                    <td>propietario</td>
+                                    <td>hora</td>
+                                </tr>
                                 <c:set var="before" />
                                 <c:forEach var="instance" items="${reservationInstances}">
-                                    <c:if test="${before ne instance.date}">
-                                        <tr>
-                                            <th colspan='5'>
-                                                <c:out value="${instance.date}" />
-                                            </th>
-                                        </tr>
-                                        <c:set var="before" value="${instance.date}" />
-                                    </c:if>    
+                                    <c:choose>
+                                        <c:when test="${before ne instance.date}">
+                                            <tr class="date"><th colspan='5'></th></tr>
+                                            <tr><td><c:out value="${instance.date}" /></td>
 
-                                    <tr>
-                                        <td></td>
+                                            <c:set var="before" value="${instance.date}" />
+                                        </c:when>  
+                                        <c:otherwise>    
+                                            <tr><td></td>
+                                        </c:otherwise>
+                                    </c:choose>
                                         <td><c:out value="${instance.reservation.name}" /></td>
 
                                         <%

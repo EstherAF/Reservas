@@ -7,6 +7,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx" 
        xmlns:jee="http://www.springframework.org/schema/jee"
        xmlns:s="http://www.springframework.org/schema/security"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
@@ -15,6 +16,7 @@
           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 ">
     <context:component-scan base-package="com.citius.reservas" />
 
@@ -45,12 +47,6 @@
             <property name="defaultEncoding" value="UTF-8" />
             <property name="fileEncodings" value="UTF-8" />
         </bean>
-        
-        <!--Procesa el cambio de idioma-->
-        <bean id="localeChangeInterceptor"
-              class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-            <property name="paramName" value="lang" />
-        </bean>
  
         <!--Se almacena y se recupera el idioma del usuario mediante cookies-->
         <bean id="localeResolver"
@@ -61,7 +57,6 @@
         
         <bean id="handlerMapping"
               class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-            <property name="interceptors" ref="localeChangeInterceptor" />
         </bean>
         
     </beans>

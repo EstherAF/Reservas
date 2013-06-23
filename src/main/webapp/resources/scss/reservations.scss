@@ -13,23 +13,43 @@
 #content {
     width: 100%;
     border-collapse:collapse;
+    text-align:center;
     table{
-        max-width:100%;
-        tr{
+        max-width:97%;
+        min-width:90%;
+        margin:0 auto 0 2%;
+
+        .date{
             th{
-                border-top: thin solid $light_grey;
-                vertical-align:top;    
-                text-align:left;
-                padding-top:10px;
-                padding-right:20px;
+                height:10px;
+                border-bottom: thin solid $light_grey;
             }
         }
-
+        
         td{
-            padding:5px 10px;
-
+            text-align:left;
+            padding:3px 10px;
+            font-size:0.9em;
+            vertical-align: bottom;
+            
             &:first-child{
-                width:200px;
+                max-width:70px;
+                vertical-align: top;    
+                text-align: left;
+                padding:10px 20px 0px 0px;
+                color:$dark_grey;
+                font-weight: bold;
+                //font-size:1.2em;
+            }
+        }
+        
+        .header {
+            td{
+                border: 0px;
+                font-size:0.8em;
+                font-weight: normal;
+                padding:0px 10px;
+                color:$dark_grey;
             }
         }
     }

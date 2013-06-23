@@ -25,6 +25,8 @@ html, body{
     
     /*Barra superior*/
     #tiny{
+        vertical-align:middle;
+        padding-bottom:2px;
         @include full_bar(20px,$black);    
         a{
             color:$light_grey;
@@ -45,8 +47,14 @@ html, body{
     #buttons{
         @include full_bar($height_navigation_bar,$orange_citius);
         ul{
-            li{     
-                a{ @include navigation_button(30px); }
+            li{ 
+                //margin-left: -6px;
+                border-right:1px solid rgb(196, 91, 48);
+                
+                a{ 
+                    @include navigation_button(30px); 
+                    margin:0px;
+                }
             }
         }
     }

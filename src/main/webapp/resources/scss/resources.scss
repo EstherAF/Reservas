@@ -3,20 +3,22 @@
 @import "utils";
 
 #main_body{
+    width:100%;
     section{
         margin:0px;
-        padding: 0% 5%;
     }    
 }
 
 #resources{
     float:left;
+    padding: 0% 2%;
     #resourcesTree{
         background-color:white;       
     }
 }
 
 #content {
+    padding-left: 15%;
     form{
         label{
             display:block;
@@ -33,6 +35,7 @@
             display:block;
         }
     }
+    
 }
 
 li[rel="resource"]{

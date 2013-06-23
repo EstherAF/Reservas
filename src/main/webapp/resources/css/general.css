@@ -29,6 +29,8 @@ html, body {
       list-style: none;
       display: inline-block; }
   #main_header #tiny {
+    vertical-align: middle;
+    padding-bottom: 2px;
     height: 20px;
     width: 100%;
     background-color: #333333;
@@ -47,19 +49,22 @@ html, body {
     width: 100%;
     background-color: #f36126;
     display: block; }
-    #main_header #buttons ul li a {
-      display: table-cell;
-      vertical-align: middle;
-      margin: 0px;
-      padding: 0px 30px;
-      height: 40px;
-      border: 0px;
-      text-decoration: none;
-      color: white;
-      background: #f36126;
-      font-size: 0.90em; }
-      #main_header #buttons ul li a:hover {
-        background: #333333; }
+    #main_header #buttons ul li {
+      border-right: 1px solid #c45b30; }
+      #main_header #buttons ul li a {
+        display: table-cell;
+        vertical-align: middle;
+        margin: 0px;
+        padding: 0px 30px;
+        height: 40px;
+        border: 0px;
+        text-decoration: none;
+        color: white;
+        background: #f36126;
+        font-size: 0.90em;
+        margin: 0px; }
+        #main_header #buttons ul li a:hover {
+          background: #333333; }
 
 #main_body {
   height: 100%;

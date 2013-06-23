@@ -9,16 +9,17 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <html>
     <head>
-        <title><s:message code="login.title"/></title>
-        <jsp:include page="/WEB-INF/jsp/jsp_templates/generic_head.jsp"/>
+        <title>
+            <s:message code="login.title"/>
+        </title>
+        <jsp:include page="/WEB-INF/jsp/jsp_templates/generic_head.jsp" flush="true"/>
         <link rel="stylesheet" href="<c:url value="/resources/css/login.css" />" type="text/css" /> 
     </head>
     <body>
         <div id="body">
-
             <jsp:include page="/WEB-INF/jsp/jsp_templates/simple_header.jsp" flush="true"/>
-
             <div id="main_body">
+
                 <c:if test="${error}">
                     <section class="error">
                         <p>

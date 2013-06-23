@@ -46,9 +46,9 @@
 //    public static void initilization() {
 //        
 //
-//        sD = new GregorianCalendar(2013, 5, 25);
+//        sD = new GregorianCalendar(2013, 6, 22);
 //
-//        eD = new GregorianCalendar(2013, 5, 27);
+//        eD = new GregorianCalendar(2013, 6, 27);
 //
 //        sT = Calendar.getInstance();
 //        sT.set(Calendar.HOUR_OF_DAY, 15);
@@ -77,7 +77,7 @@
 //        l.add(a.getId());
 //        l.add(b.getId());
 //        
-//        r = rs.createReservation("Nombre", "Descripcion", "perico", sD.getTime(), eD.getTime(), sT.getTime(), eT.getTime(), RepetitionType.ONCE.toString(), 1, days,l);
+//        r = rs.createReservation("Nombre", "Descripcion", "perico", sD.getTime(), eD.getTime(), sT.getTime(), eT.getTime(), RepetitionType.DAILY.toString(), 1, days,l);
 //        id=r.getId();
 //        assertNotNull("Id nulo",r.getId());
 //        assertNotNull("No se han creado instancias",r.getInstances());
@@ -97,7 +97,7 @@
 //        
 //        assertTrue("Exception wasn't thrown",exception);
 //        
-//        rs.deleteReservation(id);
+//        //rs.deleteReservation(id);
 //        //resourceB.delete(a.getId());
 //        //resourceB.delete(b.getId());
 //        
@@ -119,7 +119,7 @@
 ////        assertNotNull("No se han creado instancias",r.getInstances());
 ////        assertFalse("No se han creado instancias",r.getInstances().isEmpty());
 ////    }
-//    
+////    
 ////    @Test
 ////    public void createMonthlyReservation() {
 ////        Reservation r;

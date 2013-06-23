@@ -37,7 +37,7 @@ public class i18nControllerHelper {
     }
     
     public String getParam(String code) {
-        Locale l = new Locale("es");
+        Locale l = new Locale("en");
         return ms.getMessage(code,null,l);
     }
 }

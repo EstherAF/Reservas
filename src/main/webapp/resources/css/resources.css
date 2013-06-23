@@ -3,25 +3,29 @@
   font-family: 'icons';
   src: url("/Reservas/resources/font/entypo.ttf"); }
 
-#main_body section {
-  margin: 0px;
-  padding: 0% 5%; }
+#main_body {
+  width: 100%; }
+  #main_body section {
+    margin: 0px; }
 
 #resources {
-  float: left; }
+  float: left;
+  padding: 0% 2%; }
   #resources #resourcesTree {
     background-color: white; }
 
-#content form label {
-  display: block;
-  margin-bottom: 5px; }
-#content form input[type="text"],
-#content form textarea {
-  width: 500px; }
-#content form textarea {
-  height: 150px; }
-#content form .radio {
-  display: block; }
+#content {
+  padding-left: 15%; }
+  #content form label {
+    display: block;
+    margin-bottom: 5px; }
+  #content form input[type="text"],
+  #content form textarea {
+    width: 500px; }
+  #content form textarea {
+    height: 150px; }
+  #content form .radio {
+    display: block; }
 
 li[rel="resource"] a .jstree-icon {
   display: none !important; }
