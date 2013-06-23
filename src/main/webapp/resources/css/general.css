@@ -81,8 +81,7 @@ html, body {
     background: #f36126;
     font-size: 0.90em; }
     #main_body .button:hover, #main_body input[type="button"]:hover, #main_body input[type="submit"]:hover {
-      background: #333333; }
-    #main_body .button:hover, #main_body input[type="button"]:hover, #main_body input[type="submit"]:hover {
+      background: #333333;
       cursor: hand;
       cursor: pointer; }
 

@@ -11,10 +11,15 @@
 <meta content="text/html" charset="UTF-8" http-equiv="Content-type">
 <meta name="Esther Álvarez Feijoo" content="">
 
-<script type="text/javascript" src="http://static.jstree.com/v.1.0pre/jquery.js"></script>
-<script type="text/javascript" src="http://static.jstree.com/v.1.0pre/jquery.cookie.js"></script>
-<script type="text/javascript" src="http://static.jstree.com/v.1.0pre/jquery.hotkeys.js"></script>
-<script type="text/javascript" src="http://static.jstree.com/v.1.0pre/jquery.jstree.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.js" />"></script>
+
+<!--jsTree-->
+<!--<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.cookie.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.hotkeys.js" />"></script>-->
+<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.jstree.js" />"></script>
+
+<!--jQueryUI-->
+<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-ui.js" />"></script>
 
 <script type="text/javascript" src="<c:url value="/resources/js/models/general.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/generalView.js" />"></script>

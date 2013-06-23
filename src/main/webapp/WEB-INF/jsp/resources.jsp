@@ -10,7 +10,7 @@
         <script type="text/javascript" src="<c:url value="/resources/js/resourcesView.js" />"></script>
         <link rel="stylesheet" href="<c:url value="/resources/css/resources.css" />" type="text/css" /> 
 
-        <script type="text/javascript" class="source">
+        <script type="text/javascript">
             var resources = ${resourcesJson};
 
             $(function() {

@@ -31,7 +31,16 @@
             padding:3px 10px;
             font-size:0.9em;
             vertical-align: bottom;
-            
+
+            .link{
+                text-decoration:underline;
+                &:hover{
+                    cursor: hand; 
+                    cursor: pointer;
+                    color:$dark_grey;
+                }
+            }
+
             &:first-child{
                 max-width:70px;
                 vertical-align: top;    

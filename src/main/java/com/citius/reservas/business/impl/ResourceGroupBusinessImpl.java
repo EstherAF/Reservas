@@ -9,7 +9,6 @@ import com.citius.reservas.models.ResourceGroup;
 import com.citius.reservas.business.ResourceBusiness;
 import com.citius.reservas.business.ResourceGroupBusiness;
 import com.citius.reservas.repositories.ResourceGroupRepository;
-import com.citius.reservas.repositories.ResourceRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

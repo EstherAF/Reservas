@@ -65,10 +65,6 @@ html, body{
     width:100%;
     .button, input[type="button"], input[type="submit"]{    
         @include button;
-        &:hover{
-            cursor: hand; 
-            cursor: pointer;
-        }
     }
 }
 
@@ -106,4 +102,8 @@ section{
 .right{
     float:right;
     display:inline-block;
+}
+
+.link{
+
 }

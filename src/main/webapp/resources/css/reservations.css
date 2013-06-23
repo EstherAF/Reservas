@@ -3,6 +3,10 @@
   font-family: 'icons';
   src: url("/Reservas/resources/font/entypo.ttf"); }
 
+@font-face {
+  font-family: 'icons';
+  src: url("/Reservas/resources/font/entypo.ttf"); }
+
 #reservation_nav {
   display: block;
   border-bottom: 1px solid #cccccc;
@@ -60,6 +64,12 @@
       padding: 3px 10px;
       font-size: 0.9em;
       vertical-align: bottom; }
+      #content table td .link {
+        text-decoration: underline; }
+        #content table td .link:hover {
+          cursor: hand;
+          cursor: pointer;
+          color: #666666; }
       #content table td:first-child {
         max-width: 70px;
         vertical-align: top;

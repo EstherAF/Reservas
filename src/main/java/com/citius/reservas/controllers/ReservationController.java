@@ -137,9 +137,9 @@ public class ReservationController {
         List<ReservationInstanceCustom> customInstances = rch.parseToWeeklyList(instances, request);
 
         c.add(Calendar.WEEK_OF_YEAR, -1);
-        String previous = "/Reservas/reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
+        String previous = "../../../reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
         c.add(Calendar.WEEK_OF_YEAR, +2);
-        String next = "/Reservas/reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
+        String next = "../../../reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
         
         
         model.addAttribute("weekDescription", weekDescription);

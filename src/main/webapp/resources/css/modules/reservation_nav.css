@@ -1,65 +1,40 @@
-/*
-Syntax error: Undefined variable: "$light_grey".
-        on line 4 of scss/modules/reservation_nav.scss
+@font-face {
+  font-family: 'icons';
+  src: url("/Reservas/resources/font/entypo.ttf"); }
 
-1: 
-2: #reservation_nav{
-3:     display:block;
-4:     border-bottom: 1px solid $light_grey;
-5:     overflow:hidden;
-6:     padding: 8px 10px 6px 15px;
-7:     
-8:     a{text-decoration:none;}
-9:     
-
-Backtrace:
-scss/modules/reservation_nav.scss:4
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/script/variable.rb:49:in `_perform'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/script/node.rb:40:in `perform'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/script/list.rb:70:in `block in _perform'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/script/list.rb:70:in `map'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/script/list.rb:70:in `_perform'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/script/node.rb:40:in `perform'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:298:in `visit_prop'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `map'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `map'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:7:in `visit'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/tree/root_node.rb:20:in `render'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/engine.rb:315:in `_render'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/engine.rb:262:in `render'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:362:in `update_stylesheet'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:201:in `each'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/lib/sass/plugin/compiler.rb:283:in `block in watch'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/vendor/listen/lib/listen/multi_listener.rb:108:in `call'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/vendor/listen/lib/listen/multi_listener.rb:108:in `on_change'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/vendor/listen/lib/listen/multi_listener.rb:117:in `block in initialize_adapter'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/vendor/listen/lib/listen/adapters/polling.rb:56:in `call'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/vendor/listen/lib/listen/adapters/polling.rb:56:in `poll'
-C:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/sass-3.2.9/vendor/listen/lib/listen/adapters/polling.rb:32:in `block in start'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$light_grey\".\A         on line 4 of scss/modules/reservation_nav.scss\A \A 1: \A 2: #reservation_nav{\A 3:     display:block;\A 4:     border-bottom: 1px solid $light_grey;\A 5:     overflow:hidden;\A 6:     padding: 8px 10px 6px 15px;\A 7:     \A 8:     a{text-decoration:none;}\A 9:     "; }
+#reservation_nav {
+  display: block;
+  border-bottom: 1px solid #cccccc;
+  overflow: hidden;
+  padding: 8px 10px 6px 15px;
+  vertical-align: middle; }
+  #reservation_nav a {
+    text-decoration: none; }
+  #reservation_nav span {
+    color: #333333; }
+  #reservation_nav ul {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px; }
+    #reservation_nav ul li {
+      margin: 0px;
+      list-style: none;
+      display: inline-block; }
+  #reservation_nav .left {
+    vertical-align: middle; }
+    #reservation_nav .left a {
+      display: inline;
+      font-size: 1.5em;
+      color: #666666; }
+      #reservation_nav .left a:hover {
+        color: #333333; }
+  #reservation_nav .right {
+    vertical-align: middle; }
+    #reservation_nav .right span {
+      margin-right: 10px; }
+  #reservation_nav .reservas_btn {
+    background-color: #666666;
+    margin: 0px;
+    border-radius: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px; }
