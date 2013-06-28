@@ -15001,3 +15001,43 @@ $.widget( "ui.tooltip", {
 });
 
 }( jQuery ) );
+
+	$.datepicker.regional['es'] = {
+		closeText: 'Cerrar',
+		prevText: '&#x3C;Ant',
+		nextText: 'Sig&#x3E;',
+		currentText: 'Hoy',
+		monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+		'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+		monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+		'Jul','Ago','Sep','Oct','Nov','Dic'],
+		dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+		dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+		weekHeader: 'Sm',
+		dateFormat: 'dd/mm/yy',
+		firstDay: 1,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''};
+
+
+
+	$.datepicker.regional['ga'] = {
+		closeText: 'Pechar',
+		prevText: '&#x3C;Ant',
+		nextText: 'Seg&#x3E;',
+		currentText: 'Hoxe',
+		monthNames: ['Enero','Febreiro','Marzo','Abril','Mayo','Xuño',
+		'Xullo','Agosto','Setembro','Outubro','Novembro','Decembro'],
+		monthNamesShort: ['Ene','Feb','Mar','Abr','May','Xuñ',
+		'Xul','Ago','Set','Out','Nov','Dec'],
+		dayNames: ['Domingo','Luns','Martes','Mércores','Xover','Venres','Sábado'],
+		dayNamesShort: ['Dom','Lun','Mar','Mér','Xov','Ven','Sáb'],
+		dayNamesMin: ['Do','Lu','Ma','Mé','Xo','Ve','Sá'],
+		weekHeader: 'Sm',
+		dateFormat: 'dd/mm/yy',
+		firstDay: 1,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''};

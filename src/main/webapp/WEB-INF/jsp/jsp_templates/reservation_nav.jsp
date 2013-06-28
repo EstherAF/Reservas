@@ -6,20 +6,25 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <nav id="reservation_nav">
     <nav class="left">
         <ul>
-            <li><a href='<c:out value="${previous}" />' >&#9668;</a></li>
-            <li><a href='<c:out value="${next}" />' >&#9658;</a></li>
+            <li><input type="hidden" id="calendarIcon" /></li>
+            <li><a href='<c:url value="${previous}" />' >&#9668;</a></li>
+            <li><a href='<c:url value="${next}" />' >&#9658;</a></li>
         </ul>
         <span><c:out value="${weekDescription}" /></span>
     </nav>
     <nav class="right">
-        <span>Mostrar como</span>
+        <span><s:message code="reservation.nav.as"/></span>
+
         <ul>
-            <li><a href="#" class="button reservas_btn">semana</a></li>
-            <li><a href="#" class="button reservas_btn">mes</a></li>
+            <li><a href="<c:url value="/reservations/week/" />" class="button reservas_btn">
+                    <s:message code="reservation.nav.week" /></a></li>
+            <li><a href="<c:url value="/reservations/month/" />" class="button reservas_btn">
+                <s:message code="reservation.nav.month" /></a></li>
         </ul>
     </nav>
 </nav>

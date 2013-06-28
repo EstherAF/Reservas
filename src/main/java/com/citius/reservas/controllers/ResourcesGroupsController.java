@@ -22,17 +22,16 @@ public class ResourcesGroupsController {
     
     //@Secured("ROLE_TIC")
     @ResponseBody
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = {"/",""}, method = RequestMethod.POST)
     public ResourceGroup create(@RequestBody ResourceGroup resourceGroup) {
          return rgs.create(resourceGroup);
     }
     
     //@Secured("ROLE_TIC")
     @ResponseBody
-    @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public ResourceGroup update(@RequestBody Integer id,
-                                    @RequestBody String name) {
-        return rgs.save(id, name);
+    @RequestMapping(value = {"/",""}, method = RequestMethod.PUT)
+    public ResourceGroup update(@RequestBody ResourceGroup r) {
+        return rgs.save(r.getId(), r.getName());
     }
     
     //@Secured("ROLE_TIC")

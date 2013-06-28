@@ -19,9 +19,14 @@ Resource.getAllByGroup = function(success_cb, error_cb)
     request = ajaxRequestInUrl("GET", "/Reservas/resources/groups/");
     request("", success_cb, error_cb);
 };
+
+Resource.getResourceSync = sjaxRequestInUrl("GET", "/Reservas/resources/");
+Resource.getResource = ajaxRequestInUrl("GET", "/Reservas/resources/");
 Resource.getGroup = ajaxRequestInUrl("GET", "/Reservas/resources/groups/");
 Resource.createGroup = ajaxRequestInBody("POST", "/Reservas/resources/groups/");
 Resource.createResource = ajaxRequestInBody("POST", "/Reservas/resources/");
+Resource.updateGroup = ajaxRequestInBody("PUT", "/Reservas/resources/groups/");
+Resource.updateResource = ajaxRequestInBody("PUT", "/Reservas/resources/");
 
 Resource.serializeListToTree = function(resources)
 {

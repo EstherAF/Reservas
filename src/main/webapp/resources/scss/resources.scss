@@ -18,7 +18,7 @@
 }
 
 #content {
-    padding-left: 15%;
+    padding-left: 10%;
     form{
         label{
             display:block;
@@ -36,12 +36,4 @@
         }
     }
     
-}
-
-li[rel="resource"]{
-    a{
-        .jstree-icon{
-            display:none !important;                  
-        }
-    }
 }

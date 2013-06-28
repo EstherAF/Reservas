@@ -19,7 +19,7 @@ public class CustomJsonMapper extends ObjectMapper{
     public CustomJsonMapper(){
         super();
         configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm"));
+        setDateFormat(new SimpleDateFormat("dd-MM-yyyy HH:mm"));
     }
     
 }

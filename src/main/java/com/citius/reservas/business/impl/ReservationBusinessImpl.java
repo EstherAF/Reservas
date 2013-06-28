@@ -171,7 +171,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
 
 
 
-        List<ReservationInstance> l = rir.findBetweenDates(ownerUniqueName, init, end);
+        List<ReservationInstance> l = rir.findBetweenDatesWithInvitations(ownerUniqueName, init, end);
         week.add(Calendar.DATE, -1);
         return l;
     }
@@ -190,13 +190,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
         Calendar last = (Calendar) first.clone();
         last.add(Calendar.MONTH, 1);
 
-        return rir.findBetweenDates(ownerUniqueName, first.getTime(), last.getTime());
-    }
-
-    @Override
-    @Transactional
-    public List<ReservationInstance> readByOwnerAfterDate(String ownerUniqueName, Date startDate) {
-        return rir.findAfterDate(ownerUniqueName, startDate);
+        return rir.findBetweenDatesWithInvitations(ownerUniqueName, first.getTime(), last.getTime());
     }
 
     @Override

@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -45,7 +46,7 @@ public class Resource implements Serializable {
     @Size(min = 1, max = 100)
     private String name;
     
-    @Size(min = 1, max = 250)
+    @Size(max = 250)
     private String description;
     
     //Parent- not serialized
@@ -53,9 +54,6 @@ public class Resource implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private ResourceGroup group;
-    
-//    @ManyToMany(mappedBy="resources")
-//    private List<Reservation> reservations;
 
     public Resource() {
         super();
@@ -136,7 +134,7 @@ public class Resource implements Serializable {
             return false;
         }
         final Resource other = (Resource) obj;
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;

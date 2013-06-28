@@ -16,7 +16,8 @@ import java.util.List;
  */
 public interface ReservationInstanceRepository extends GenericRepository<ReservationInstance> {
     public List<ReservationInstance> findBetweenDates(String ownerUniqueName, Date startTimeDate, Date endTimeDate);
-    public List<ReservationInstance> findAfterDate(String ownerUniqueName, Date startTimeDate);
+    public List<ReservationInstance> findBetweenDatesWithInvitations(String userUniqueName, Date startTimeDate, Date endTimeDate);
+    //public List<ReservationInstance> findAfterDate(String ownerUniqueName, Date startTimeDate);
     public List<ReservationInstance> findByDay(String ownerUniqueName, Date day);
     public List<ReservationInstance> findByReservation(Integer reservationId);
     public Boolean isAvaliable(Resource resource, Date startTimeDate, Date endTimeDate);

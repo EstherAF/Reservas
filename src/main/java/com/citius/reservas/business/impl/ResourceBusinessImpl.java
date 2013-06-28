@@ -74,8 +74,11 @@ public class ResourceBusinessImpl implements ResourceBusiness {
         
         r = resourceRepository.save(r);
         
-        group.getResources().add(r);
-        resourceGroupRepository.save(group);
+        boolean add=true;
+        if(! group.getResources().contains(r)){
+            group.getResources().add(r);
+            resourceGroupRepository.save(group);
+        }
         
         return r;
     }

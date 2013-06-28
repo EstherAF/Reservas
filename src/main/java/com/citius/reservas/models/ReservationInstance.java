@@ -31,9 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "reservation_instances")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ReservationInstance."
-    + "findAll", 
-            query = "SELECT r FROM ReservationInstance r"),
     
     @NamedQuery(name = "ReservationInstance."
     + "findByReservation", 
@@ -53,21 +50,18 @@ import javax.xml.bind.annotation.XmlRootElement;
             + "ORDER BY r.startTimeDate"),
     
     @NamedQuery(name = "ReservationInstance."
-    + "findByOwner", 
+    + "findBetweenDatesByUser", 
             query = "SELECT r FROM ReservationInstance r WHERE "
-            + "r.reservation.owner.uniqueName = :ownerUniqueName "),
-    
-    @NamedQuery(name = "ReservationInstance."
-    + "findAfterDateByOwner", 
-            query = "SELECT r FROM ReservationInstance r WHERE "
-            + "r.endTimeDate >= :startTimeDate "
-            + "AND r.reservation.owner.uniqueName = :ownerUniqueName "
+            + "(r.startTimeDate <= :endTimeDate AND r.endTimeDate >= :startTimeDate) "
+            + "AND ((r.reservation.owner.uniqueName LIKE :userUniqueName) OR "
+            + "(r.reservation.id IN (SELECT i.reservation.id FROM Invitation i"
+            + "      WHERE i.guest.uniqueName LIKE :userUniqueName2)))"
             + "ORDER BY r.startTimeDate"),
     
     @NamedQuery(name = "ReservationInstance."
-    + "findByResource", 
+    + "findByOwner", 
             query = "SELECT r FROM ReservationInstance r WHERE "
-            + ":resource MEMBER OF r.reservation.resources"),
+            + "r.reservation.owner.uniqueName = :ownerUniqueName "),
     
     @NamedQuery(name = "ReservationInstance."
     + "findBetweenDatesByResource", 

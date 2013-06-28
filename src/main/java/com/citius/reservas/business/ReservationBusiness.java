@@ -37,19 +37,12 @@ public interface ReservationBusiness {
     
     public Boolean isOwner(Integer reservationId, String ownerUniqueName);
     
-    //public List<ReservationInstance> readBetweenDates(Date startDate, Date endDate);
-    
-    //public List<ReservationInstance> readBetweenDates(Integer owner_id, Date startDate, Date endDate);
-    
     public List<ReservationInstance> readAll();
     
     public List<ReservationInstance> readByWeek(String ownerUniqueName, Calendar week);
     
     public List<ReservationInstance> readByMonth(String ownerUniqueName, Integer month, Integer year);
     
-    public List<ReservationInstance> readByOwnerAfterDate(String ownerUniqueName, Date startDate);
-    
-    //public List<ReservationInstance> readInstances(Integer reservation_id);
     
     
 }

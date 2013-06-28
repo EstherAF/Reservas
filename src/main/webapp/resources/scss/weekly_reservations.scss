@@ -29,17 +29,8 @@
         td{
             text-align:left;
             padding:3px 10px;
-            font-size:0.9em;
+            font-size:1em;
             vertical-align: bottom;
-
-            .link{
-                text-decoration:underline;
-                &:hover{
-                    cursor: hand; 
-                    cursor: pointer;
-                    color:$dark_grey;
-                }
-            }
 
             &:first-child{
                 max-width:70px;
@@ -55,7 +46,7 @@
         .header {
             td{
                 border: 0px;
-                font-size:0.8em;
+                font-size:0.9em;
                 font-weight: normal;
                 padding:0px 10px;
                 color:$dark_grey;

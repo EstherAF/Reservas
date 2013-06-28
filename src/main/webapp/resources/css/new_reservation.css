@@ -33,6 +33,11 @@
       color: #666666; }
       #reservation_nav .left a:hover {
         color: #333333; }
+    #reservation_nav .left .ui-datepicker-trigger {
+      width: 1.7em;
+      cursor: hand;
+      cursor: pointer;
+      vertical-align: bottom; }
   #reservation_nav .right {
     vertical-align: middle; }
     #reservation_nav .right span {
@@ -49,37 +54,31 @@
   padding: 1% 1%; }
 
 #content {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center; }
-  #content table {
-    max-width: 97%;
-    min-width: 90%;
-    margin: 0 auto 0 2%; }
-    #content table .date th {
-      height: 10px;
-      border-bottom: thin solid #cccccc; }
-    #content table td {
-      text-align: left;
-      padding: 3px 10px;
-      font-size: 0.9em;
-      vertical-align: bottom; }
-      #content table td .link {
-        text-decoration: underline; }
-        #content table td .link:hover {
-          cursor: hand;
-          cursor: pointer;
-          color: #666666; }
-      #content table td:first-child {
-        max-width: 70px;
-        vertical-align: top;
-        text-align: left;
-        padding: 10px 20px 0px 0px;
-        color: #666666;
-        font-weight: bold; }
-    #content table .header td {
-      border: 0px;
-      font-size: 0.8em;
-      font-weight: normal;
-      padding: 0px 10px;
-      color: #666666; }
+  width: 100%; }
+  #content #formSection,
+  #content #resourcesSection,
+  #content #inviteSection {
+    float: left;
+    width: 30%;
+    margin: 0px 1px;
+    min-width: 250px; }
+    #content #formSection input,
+    #content #formSection textarea,
+    #content #resourcesSection input,
+    #content #resourcesSection textarea,
+    #content #inviteSection input,
+    #content #inviteSection textarea {
+      width: 90%; }
+  #content #weekly_repetition input[type="checkbox"] {
+    margin-right: -4px;
+    margin-left: 4px; }
+  #content #monthlyRepetition .radio {
+    display: block;
+    width: 13px; }
+  #content input[type="number"],
+  #content select.minute,
+  #content select.hour {
+    width: 60px; }
+
+li[rel="resource"] a .jstree-icon {
+  display: none !important; }

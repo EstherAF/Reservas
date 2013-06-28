@@ -64,8 +64,7 @@ $height_navigation_bar: 40px;
     
     &:hover{
         background:$black;
-        cursor: hand; 
-        cursor: pointer;
+        @include link;
     }   
 }
 
@@ -100,4 +99,9 @@ $height_navigation_bar: 40px;
             display: inline-block;
         }
     }
+}
+
+@mixin link{
+    cursor: hand; 
+    cursor: pointer;
 }

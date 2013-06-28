@@ -2,15 +2,22 @@ package com.citius.reservas.controllers;
 
 import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.business.ReservationBusiness;
+import com.citius.reservas.business.ResourceGroupBusiness;
 import com.citius.reservas.controllers.customModel.ReservationInstanceCustom;
+import com.citius.reservas.controllers.helper.CustomJsonMapper;
 import com.citius.reservas.controllers.helper.ReservationsControllerHelper;
 import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.models.RepetitionType;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
+import com.citius.reservas.models.ResourceGroup;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -25,12 +32,18 @@ public class ReservationController {
     @Autowired
     private ReservationBusiness rb;
     @Autowired
+    private ResourceGroupBusiness rgb;
+    @Autowired
     private AccessBusiness ab;
     @Autowired
     private ReservationsControllerHelper rch;
+    @Autowired
+    private CustomJsonMapper mapper;
+    
+    private static final Logger logger = Logger.getLogger(ReservationController.class);
 
     @ResponseBody
-    @RequestMapping(value = "/",
+    @RequestMapping(value = {"/",""},
             method = RequestMethod.GET,
             produces = "application/json")
     public List<ReservationInstance> readAll() {
@@ -46,7 +59,7 @@ public class ReservationController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/",
+    @RequestMapping(value = {"/",""},
             method = RequestMethod.POST,
             produces = "application/json")
     
@@ -74,7 +87,7 @@ public class ReservationController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/",
+    @RequestMapping(value = {"/",""},
             method = RequestMethod.PUT,
             produces = "application/json")
     public Reservation update(@RequestBody Integer id,
@@ -90,7 +103,10 @@ public class ReservationController {
         rb.deleteReservation(id);
     }
     
-    @RequestMapping(value = "/",
+    
+    /********************  HTML   *************************/
+    
+    @RequestMapping(value = {"/",""},
             method = RequestMethod.GET,
             produces = "text/html")
     public String redirectReservation() {
@@ -137,9 +153,9 @@ public class ReservationController {
         List<ReservationInstanceCustom> customInstances = rch.parseToWeeklyList(instances, request);
 
         c.add(Calendar.WEEK_OF_YEAR, -1);
-        String previous = "../../../reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
+        String previous = "/reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
         c.add(Calendar.WEEK_OF_YEAR, +2);
-        String next = "../../../reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
+        String next = "/reservations/week/" + c.get(Calendar.YEAR) + "/" + c.get(Calendar.WEEK_OF_YEAR);
         
         
         model.addAttribute("weekDescription", weekDescription);
@@ -147,5 +163,25 @@ public class ReservationController {
         model.addAttribute("next", next);
         model.addAttribute("previous", previous);
         return "weekly_reservations";
+    }
+    
+    @RequestMapping(value = "/new",
+            method = RequestMethod.GET,
+            produces = "text/html")
+    public String createReservation(Model model) {
+
+        //String unique_name = ab.getLoggedUser();
+        String unique_name = "perico";
+        
+        List<ResourceGroup> l = rgb.readAll();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(l);
+        } catch (IOException ex) {
+            logger.error(ex, ex);
+        }
+        model.addAttribute("resourcesJson", json);
+        
+        return "new_reservation";
     }
 }

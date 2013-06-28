@@ -4,6 +4,24 @@
  */
 
 //Función que hace request REST con los datos en la URL
+sjaxRequestInUrl = function(method, path)
+{
+    return function(id, success_cb, error_cb)
+    {
+        $.ajax({
+            url: path + id,
+            type: method,
+            dataType: "json",
+            contentType: "application/json",
+            success: success_cb,
+            error: error_cb,
+            async:false
+        });
+    };
+};
+
+
+
 ajaxRequestInUrl = function(method, path)
 {
     return function(id, success_cb, error_cb)

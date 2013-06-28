@@ -7,16 +7,28 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>
+            <s:message code="reservation.week.title"/>
+        </title>
         <jsp:include page="/WEB-INF/jsp/jsp_templates/generic_head.jsp" />
-        <link rel="stylesheet" href="<c:url value="/resources/css/reservations.css" />" type="text/css" /> 
-        <link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.css" />" type="text/css" /> 
-        <jsp:include page="/WEB-INF/jsp/js_templates/reservations.jsp" />
+
+        <script type="text/javascript" src='<c:url value="/resources/js/models/resource.js" />'></script>
+        <script type="text/javascript" src='<c:url value="/resources/js/resourcePopUp.js" />'></script>
+        <script type="text/javascript" src='<c:url value="/resources/js/reservationNavView.js" />'></script>
+
+        <link rel="stylesheet" href="<c:url value="/resources/css/weekly_reservations.css" />" type="text/css" /> 
+        
+        <script type="text/javascript">
+            var locale = "${pageContext.response.locale}";
+        </script>
+
     </head>
     <body>
         <div id="body">
-            <div type="popup_resource" title="Detalles del recurso"> 
-                <p>Name: <span class="name"></span></p>
-                <p>Description: <span class="description"></span></p>
+            <div id="i18n" type="popup_resource" 
+                 title="<s:message code="resource.popup.title"/>" 
+                 name="<s:message code="resource.popup.name"/>" 
+                 description="<s:message code="resource.popup.description"/>">
             </div>
             <div id="main_body">
                 <jsp:include page="/WEB-INF/jsp/jsp_templates/simple_header.jsp" flush="true"/>
@@ -24,16 +36,16 @@
                 <section id="content">
                     <c:choose>
                         <c:when test="${empty reservationInstances}">
-                            <p>No hay reservas</p>
+                            <p class="test"><s:message code="reservation.empty"/></p>
                         </c:when>
                         <c:otherwise>
                             <table class="weekly">  
                                 <tr class="header">
                                     <td></td>
-                                    <td>nombre</td>
-                                    <td>recursos reservados</td>
-                                    <td>propietario</td>
-                                    <td>hora</td>
+                                    <td><s:message code="reservation.week.name"/></td>
+                                    <td><s:message code="reservation.week.reservedResources"/></td>
+                                    <td><s:message code="reservation.week.owner"/></td>
+                                    <td><s:message code="reservation.week.time"/></td>
                                 </tr>
                                 <c:set var="before" />
                                 <c:forEach var="instance" items="${reservationInstances}">
@@ -50,21 +62,12 @@
                                         </c:choose>
                                         <td><c:out value="${instance.reservation.name}" /></td>
                                         <td>
-                                            <%
-                                                String recursos = new String();
-                                                ReservationInstanceCustom ins = (ReservationInstanceCustom) pageContext.getAttribute("instance");
-                                                for (int i = 0; i < ins.getReservation().getResources().size(); i++) {
-                                                    if (i != 0) {
-                                                        recursos += ", ";
-                                                    }
-                                                    recursos += "<span class=\"link\" type=\"resource_popup\" id=\""
-                                                            + ins.getReservation().getResources().get(i).getId() + "\" description=\""
-                                                            + ins.getReservation().getResources().get(i).getDescription() + "\" name=\""
-                                                            + ins.getReservation().getResources().get(i).getName() + "\"" + ">"
-                                                            + ins.getReservation().getResources().get(i).getName() + "</span>";
-                                                }
-                                            %>
-                                            <%= recursos%>
+                                            <c:forEach var="resource" items="${instance.reservation.resources}" varStatus ="status">
+                                                <c:if test="${! status.first}"> ,</c:if>
+                                                <span class="link" type="resource_popup" id="${resource.id}" description="${resource.description}">
+                                                    ${resource.name}
+                                                </span>
+                                            </c:forEach>
                                         </td>
                                         <td><c:out value="${instance.reservation.owner}" /></td>
                                         <td><c:out value="${instance.startTime} - ${instance.endTime}" /></td>

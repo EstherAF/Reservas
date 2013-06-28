@@ -11,17 +11,24 @@
 <meta content="text/html" charset="UTF-8" http-equiv="Content-type">
 <meta name="Esther Álvarez Feijoo" content="">
 
+
+<!------Javascript------>
 <script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.js" />"></script>
 
 <!--jsTree-->
-<!--<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.cookie.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.hotkeys.js" />"></script>-->
 <script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery.jstree.js" />"></script>
 
 <!--jQueryUI-->
 <script type="text/javascript" src="<c:url value="/resources/js/jquery/jquery-ui.js" />"></script>
 
+
+<!--Bootstrap-->
+<script type="text/javascript" src="<c:url value="/resources/js/jquery/bootstrap.js" />"></script>
+
 <script type="text/javascript" src="<c:url value="/resources/js/models/general.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/generalView.js" />"></script>
 
+<!------CSS------->
+<link rel="stylesheet" href="<c:url value="/resources/css/external/bootstrap.css" />" type="text/css" /> 
+<link rel="stylesheet" href="<c:url value="/resources/css/external/jquery-ui.css" />" type="text/css" /> 
 <link rel="stylesheet" href="<c:url value="/resources/css/general.css" />" type="text/css" /> 

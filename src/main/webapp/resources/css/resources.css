@@ -15,7 +15,7 @@
     background-color: white; }
 
 #content {
-  padding-left: 15%; }
+  padding-left: 10%; }
   #content form label {
     display: block;
     margin-bottom: 5px; }
@@ -26,6 +26,3 @@
     height: 150px; }
   #content form .radio {
     display: block; }
-
-li[rel="resource"] a .jstree-icon {
-  display: none !important; }

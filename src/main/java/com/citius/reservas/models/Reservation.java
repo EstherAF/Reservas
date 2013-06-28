@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
     @NamedQuery(name = "Reservation.findByOwner", query = "SELECT r FROM Reservation r WHERE r.owner.uniqueName = :ownerUniqueName"),
     @NamedQuery(name = "Reservation.findBetweenDates", query = "SELECT r FROM Reservation r WHERE r.eventTimeDate.startDate <= :endDate OR r.eventTimeDate.endDate >= :startDate"),
-    //@NamedQuery(name = "Reservation.findByResource", query = "SELECT r FROM Reservation r WHERE :resource MEMBER OF r.resources"),
 
 })
 @XmlRootElement
@@ -69,6 +68,12 @@ public class Reservation implements Serializable {
             inverseJoinColumns = {
                 @JoinColumn(name = "resource_id", referencedColumnName = "id")})
     private List<Resource> resources;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "reservation",
+            cascade = CascadeType.ALL)
+    private List<Invitation> invitations;
 
     public Reservation() {
         this.resources = new ArrayList<>();
@@ -160,6 +165,14 @@ public class Reservation implements Serializable {
 
     public void setResources(List<Resource> resources) {
         this.resources = resources;
+    }
+
+    public List<Invitation> getInvitations() {
+        return invitations;
+    }
+
+    public void setInvitations(List<Invitation> invitations) {
+        this.invitations = invitations;
     }
 
     @Override

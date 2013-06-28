@@ -113,7 +113,7 @@ CREATE TABLE reserved_resources (
 CREATE TABLE invitations (
 	user VARCHAR(50),
 	reservation_id INT ,
-	state TINYINT NOT NULL DEFAULT 0,
+	state VARCHAR(10) NOT NULL DEFAULT 0,
 	PRIMARY KEY (user, reservation_id) ,
 	FOREIGN KEY (reservation_id) REFERENCES reservations (id),
 	FOREIGN KEY (user) REFERENCES users (unique_name)

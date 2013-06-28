@@ -1,0 +1,60 @@
+/*Colors*/
+
+@import "utils";
+@import "modules/reservation_nav";
+
+#main_body{
+    section{
+        margin:0px;
+        padding: 1% 1%;
+    }    
+}
+
+#content {
+    width:100%;
+    #formSection,
+    #resourcesSection,
+    #inviteSection{
+        float:left;
+        width:30%;
+        margin: 0px 1px;
+        min-width:250px;
+        
+        input,
+        textarea{
+            width:90%;
+        }
+    }
+    
+    #weekly_repetition{
+        input[type="checkbox"]{
+            margin-right: -4px;
+            margin-left:4px;
+        }
+    }
+    
+    #monthlyRepetition{
+        .radio{
+            display:block;
+            width:13px;
+        }
+    }
+    
+    input[type="number"],
+    select.minute, 
+    select.hour{
+        width:60px;
+    }
+    
+    
+    
+}
+
+li[rel="resource"]{
+    a{
+        .jstree-icon{
+            display:none !important;                  
+        }
+    }
+}
+

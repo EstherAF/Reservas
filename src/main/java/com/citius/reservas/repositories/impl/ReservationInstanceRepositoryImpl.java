@@ -83,20 +83,20 @@ public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<Res
         return l;
     }
 
-    @Override
-    @Transactional
-    public List<ReservationInstance> findAfterDate(String ownerUniqueName, Date startTimeDate) {
-        String query = "ReservationInstance.findAfterDateByOwner";
-        logger.debug(query+":"+startTimeDate+","+ownerUniqueName);
-        
-        Query q = this.em.createNamedQuery(query);
-        q.setParameter("startTimeDate", startTimeDate);
-        q.setParameter("ownerUniqueName", ownerUniqueName);
-        List<ReservationInstance> l = this.listQuery(q);
-        
-        logger.debug("Found "+l.size()+" results");
-        return l;
-    }
+//    @Override
+//    @Transactional
+//    public List<ReservationInstance> findAfterDate(String ownerUniqueName, Date startTimeDate) {
+//        String query = "ReservationInstance.findAfterDateByOwner";
+//        logger.debug(query+":"+startTimeDate+","+ownerUniqueName);
+//        
+//        Query q = this.em.createNamedQuery(query);
+//        q.setParameter("startTimeDate", startTimeDate);
+//        q.setParameter("ownerUniqueName", ownerUniqueName);
+//        List<ReservationInstance> l = this.listQuery(q);
+//        
+//        logger.debug("Found "+l.size()+" results");
+//        return l;
+//    }
     
     
     @Override
@@ -112,6 +112,22 @@ public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<Res
         
         logger.debug("Found "+l.size()+" results");
         return l.isEmpty();
+    }
+
+    @Override
+    @Transactional
+    public List<ReservationInstance> findBetweenDatesWithInvitations(String userUniqueName, Date startTimeDate, Date endTimeDate) {
+        logger.debug("ReservationInstance.findBetweenDatesByUser:"+startTimeDate+","+endTimeDate);
+        
+        Query q = this.em.createNamedQuery("ReservationInstance.findBetweenDatesByUser");
+        q.setParameter("startTimeDate", startTimeDate);
+        q.setParameter("endTimeDate", endTimeDate);
+        q.setParameter("userUniqueName", userUniqueName);
+        q.setParameter("userUniqueName2", userUniqueName);
+        List<ReservationInstance> l = this.listQuery(q);
+       
+        logger.debug("Found "+l.size()+" results");
+        return l;
     }
     
 }

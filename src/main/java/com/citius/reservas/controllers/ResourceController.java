@@ -37,7 +37,7 @@ public class ResourceController {
     
     
     /********************  JSON   *************************/
-    @RequestMapping(value = "/", 
+    @RequestMapping(value = {"/",""}, 
             method = RequestMethod.GET,
             produces="application/json")
     public @ResponseBody List<ResourceGroup> read() {
@@ -55,7 +55,7 @@ public class ResourceController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/", 
+    @RequestMapping(value = {"/",""}, 
             method = RequestMethod.POST,
             produces="application/json")
     public Resource create(@RequestBody Resource resource) {
@@ -66,14 +66,11 @@ public class ResourceController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/", 
+    @RequestMapping(value = {"/",""}, 
             method = RequestMethod.PUT,
             produces="application/json")
-    public Resource update(@RequestBody Integer id,
-                        @RequestBody String name,  
-                        @RequestBody(required = false) String description,
-                        @RequestBody(required = false) Integer groupId) {
-        return rb.save(id, name, groupId, description);
+    public Resource update(@RequestBody Resource resource) {
+        return rb.save(resource.getId(), resource.getName(), resource.getGroup().getId(), resource.getDescription());
     }
 
     @ResponseBody
@@ -86,24 +83,17 @@ public class ResourceController {
     
     /********************  HTML   *************************/
     
-    @RequestMapping(value="/", produces = "text/html", method = RequestMethod.GET)
+    @RequestMapping(value={"/",""}, produces = "text/html", method = RequestMethod.GET)
     @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
     public String resources(Model model) {
         List<ResourceGroup> l = rgb.readAll();
-        logger.debug("Found");
         String json = null;
         try {
             json = mapper.writeValueAsString(l);
-        } catch (JsonGenerationException ex) {
-            logger.error(ex, ex);
-        } catch (JsonMappingException ex) {
-            logger.error(ex, ex);
         } catch (IOException ex) {
             logger.error(ex, ex);
         }
-        logger.debug("resources:"+json);
         model.addAttribute("resourcesJson", json);
-        model.addAttribute("resources", l);
         return "resources";
     }
     
