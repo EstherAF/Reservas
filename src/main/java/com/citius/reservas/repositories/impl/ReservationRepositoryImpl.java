@@ -20,7 +20,7 @@ import java.util.GregorianCalendar;
 
 /**
  *
- * @author Esther √Ålvarez Feijoo
+ * @author Esther √?lvarez Feijoo
  */
 @Repository
 public class ReservationRepositoryImpl extends GenericRepositoryImpl<Reservation> implements ReservationRepository{

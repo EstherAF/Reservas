@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" 
+                 xmlns:xsi="http://www.w3.or/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd "
+>
+    <named-query name="Resource.findById">
+        <query>SELECT r FROM Resource r WHERE r.id = :id</query>
+    </named-query>
+    
+    <named-query name="Resource.findByName">
+        <query>SELECT r FROM Resource r WHERE r.name = :name</query>
+    </named-query>
+    
+    <named-query name="Resource.findAll">
+        <query>SELECT r FROM Resource r</query>
+    </named-query>
+    
+    <named-query name="Resource.findByParent">
+        <query>SELECT r FROM Resource r WHERE r.parent = :parent</query>
+    </named-query>
+    
+    <named-query name="Resource.findWithoutParent">
+        <query>SELECT r FROM Resource r WHERE r.parent IS NULL</query>
+    </named-query>
+</entity-mappings>
+    

@@ -16,7 +16,7 @@
 //
 ///**
 // *
-// * @author Esther √Ålvarez Feijoo
+// * @author Esther √?lvarez Feijoo
 // */
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@TransactionConfiguration(defaultRollback = true)

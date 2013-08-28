@@ -14,7 +14,7 @@ import org.springframework.validation.Errors;
 
 /**
  *
- * @author Esther √Ålvarez Feijoo
+ * @author Esther √?lvarez Feijoo
  */
 public class ReservationValidator extends GenericValidator<Reservation> {
     

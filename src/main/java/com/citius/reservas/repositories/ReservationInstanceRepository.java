@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author Esther √Ålvarez Feijoo
+ * @author Esther √?lvarez Feijoo
  */
 public interface ReservationInstanceRepository extends GenericRepository<ReservationInstance> {
     

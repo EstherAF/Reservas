@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author Esther √Ålvarez Feijoo
+ * @author Esther √?lvarez Feijoo
  */
 @Component
 public class ReservationBusinessHelperImpl implements ReservationBusinessHelper {

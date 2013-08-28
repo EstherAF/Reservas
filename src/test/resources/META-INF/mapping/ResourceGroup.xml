@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" 
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd "
+>
+    <!--<named-query name="ResourceGroup.findById">
+        <query>SELECT rg FROM ResourceGroup rg WHERE rg.id = :id</query>
+    </named-query>
+    
+    <named-query name="ResourceGroup.findByName">
+        <query>SELECT rg FROM ResourceGroup rg WHERE rg.name = :name</query>
+    </named-query>
+    
+    <named-query name="ResourceGroup.findAll">
+        <query>SELECT rg FROM ResourceGroup rg</query>
+    </named-query>
+    
+    <named-query name="ResourceGroup.findByParent">
+        <query>SELECT rg FROM ResourceGroup rg WHERE rg.parent = :parent</query>
+    </named-query>
+
+    <named-query name="ResourceGroup.findWithoutParent">
+        <query>SELECT rg FROM ResourceGroup rg WHERE rg.parent IS NULL</query>
+    </named-query>    -->
+    
+    
+    <!--<named-query name="ResourceGroup.findByChild">
+        <query>SELECT rg FROM ResourceGroup rg WHERE :child MEMBER OF rg.childs</query>
+    </named-query>-->
+
+</entity-mappings>
+    

@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author Esther √Ålvarez Feijoo
+ * @author Esther √?lvarez Feijoo
  */
 public class ReservationInstanceCustom extends ReservationInstance implements Serializable{
     private static final long serialVersionUID = 2L;

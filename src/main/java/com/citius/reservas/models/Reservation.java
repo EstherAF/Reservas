@@ -23,7 +23,7 @@ import javax.validation.constraints.Min;
 
 /**
  *
- * @author Esther √Ålvarez Feijoo
+ * @author Esther √?lvarez Feijoo
  */
 @Entity
 @Table(name = "reservations")

@@ -15,7 +15,7 @@ import java.util.Set;
 
 /**
  *
- * @author Esther √Ålvarez Feijoo
+ * @author Esther √?lvarez Feijoo
  */
 public interface ReservationBusinessHelper {
     
