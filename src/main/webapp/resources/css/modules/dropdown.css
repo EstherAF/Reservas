@@ -1,0 +1,53 @@
+/*Colors*/
+/*Safe colors*/
+/*Citius UI*/
+.dropdown_wrapper {
+  float: right;
+  position: relative; }
+
+.dropdown.show {
+  background: #333333; }
+
+ul.dropdown_child {
+  display: none;
+  white-space: nowrap;
+  list-style-type: none;
+  margin: 0;
+  padding: 10px 0px 0px 0px;
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  border: none;
+  background: #333333;
+  color: white;
+  z-index: 100; }
+  ul.dropdown_child li {
+    padding-left: 20px;
+    text-decoration: none;
+    border: none;
+    padding-bottom: 0 4px 4px 0; }
+    ul.dropdown_child li span, ul.dropdown_child li a {
+      display: inline-block;
+      padding: 8px 0px;
+      text-decoration: none;
+      color: white; }
+      ul.dropdown_child li span.text, ul.dropdown_child li a.text {
+        -o-text-overflow: ellipsis;
+        /* Opera */
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 200px;
+        vertical-align: middle; }
+        ul.dropdown_child li span.text:hover, ul.dropdown_child li span.text:hover > span, ul.dropdown_child li a.text:hover, ul.dropdown_child li a.text:hover > span {
+          text-decoration: underline; }
+      ul.dropdown_child li span.btn, ul.dropdown_child li a.btn {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin: 0 10px 7px 0;
+        background: #666666;
+        color: white;
+        vertical-align: middle; }
+        ul.dropdown_child li span.btn:hover, ul.dropdown_child li a.btn:hover {
+          background: white;
+          color: #666666; }

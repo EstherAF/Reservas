@@ -1,0 +1,113 @@
+/*Colors*/
+/*Safe colors*/
+/*Citius UI*/
+/*Safe colors*/
+/*Citius UI*/
+#reservation_nav {
+  display: block;
+  border-bottom: 1px solid #cccccc;
+  overflow: hidden;
+  width: 98%;
+  padding: 6px 1%;
+  vertical-align: middle; }
+  #reservation_nav nav a, #reservation_nav a {
+    text-decoration: none; }
+    #reservation_nav nav a.reservas_btn, #reservation_nav a.reservas_btn {
+      display: inline-block;
+      vertical-align: middle;
+      width: auto;
+      margin: 10px;
+      border-width: 0px;
+      border-radius: 5px;
+      padding: 8px 15px;
+      color: white;
+      background: #f36126;
+      font-size: 0.90em;
+      display: inline-block;
+      vertical-align: bottom;
+      background-color: #666666;
+      border-radius: 0px;
+      margin: 0px;
+      padding: 8px px; }
+      #reservation_nav nav a.reservas_btn:hover, #reservation_nav a.reservas_btn:hover {
+        background: #333333;
+        cursor: pointer; }
+    #reservation_nav nav a.icon, #reservation_nav a.icon {
+      display: inline;
+      font-size: 2em;
+      margin: 0 3px;
+      color: #666666; }
+      #reservation_nav nav a.icon:hover, #reservation_nav a.icon:hover {
+        color: #333333; }
+  #reservation_nav span {
+    color: #333333; }
+  #reservation_nav ul:not(.dropdown_child) {
+    float: left;
+    margin: 0px;
+    padding: 0px; }
+    #reservation_nav ul:not(.dropdown_child) li {
+      margin: 0px;
+      list-style: none;
+      display: inline-block; }
+  #reservation_nav .ui-datepicker-trigger {
+    width: 1.7em;
+    cursor: pointer;
+    vertical-align: bottom; }
+  #reservation_nav ul {
+    padding: 8px 10px 6px 15px; }
+    #reservation_nav ul li {
+      vertical-align: middle; }
+  #reservation_nav .right span {
+    margin-right: 10px; }
+  #reservation_nav .left .reservas_btn {
+    margin-right: 10px; }
+
+#main_body section {
+  margin: 0px;
+  padding: 1% 0; }
+
+#content {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center; }
+  #content table {
+    max-width: 97%;
+    min-width: 90%;
+    margin: 0 0% 0 3%; }
+    #content table .date th {
+      height: 10px;
+      border-bottom: thin solid #cccccc; }
+    #content table td {
+      text-align: left;
+      padding: 3px 10px;
+      font-size: 1em;
+      vertical-align: bottom; }
+      #content table td:first-child {
+        max-width: 40px;
+        vertical-align: top;
+        text-align: left;
+        padding: 10px 20px 0px 0px;
+        color: #333333;
+        font-weight: bold; }
+      #content table td.start, #content table td.end {
+        text-align: left;
+        width: 50px;
+        padding: 0;
+        margin: 0; }
+      #content table td.doubletime {
+        text-align: left;
+        width: 100px;
+        padding: 0; }
+      #content table td span.today {
+        color: #f36126;
+        font-weight: bold; }
+      #content table td a, #content table td a:visited {
+        color: inherit; }
+      #content table td .center {
+        align: center; }
+    #content table .header td {
+      border: 0px;
+      font-size: 0.9em;
+      font-weight: normal;
+      padding: 0px 10px;
+      color: #999999; }

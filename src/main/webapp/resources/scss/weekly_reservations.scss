@@ -1,0 +1,82 @@
+/*Colors*/
+
+@import "utils";
+@import "modules/reservation_nav";
+
+#main_body{
+    section{
+        margin:0px;
+        padding: 1% 0;
+    }    
+}
+
+#content {
+    width: 100%;
+    border-collapse:collapse;
+    text-align:center;
+    table{
+        max-width:97%;
+        min-width:90%;
+        margin:0 0% 0 3%;
+        
+        .date{
+            th{
+                height:10px;
+                border-bottom: thin solid $light_grey;
+            }
+        }
+        td{
+            text-align:left;
+            padding:3px 10px;
+            font-size:1em;
+            vertical-align: bottom;
+            
+            &:first-child{
+                max-width:40px;
+                vertical-align: top;    
+                text-align: left;
+                padding:10px 20px 0px 0px;
+                color:$black;
+                font-weight: bold;
+                //font-size:1.2em;
+            }
+            
+            &.start, &.end{
+                text-align:left;
+                width:50px;
+                padding:0;
+                margin:0;
+            }
+            
+            &.doubletime{
+                text-align:left;
+                width: 100px;                
+                padding:0;
+            }
+            
+            span.today{
+                color: $orange_citius;
+                font-weight: bold;
+            }
+            
+            a, a:visited{
+                color:inherit;
+            }
+            
+            .center{
+                align:center;
+            }
+            
+        }
+        
+        .header {
+            td{
+                border: 0px;
+                font-size:0.9em;
+                font-weight: normal;
+                padding:0px 10px;
+                color:$grey;
+            }
+        }
+    }
+}

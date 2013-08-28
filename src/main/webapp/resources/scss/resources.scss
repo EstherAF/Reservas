@@ -1,0 +1,49 @@
+/*Colors*/
+
+@import "utils";
+
+#main_body{
+    width:100%;
+    section{
+        margin:0px;
+    }    
+}
+
+#resources{
+    float:left;
+    padding: 0% 2%;
+    #resourcesTree{
+        background-color:white;       
+    }
+}
+
+#content {
+    padding-left: 10%;
+    form{
+        label{
+            display:block;
+            margin-bottom:5px;
+        }
+        input[type="text"],
+        textarea{
+            width:500px;
+        }
+        textarea{
+            height:150px;
+        }
+        .radio{
+            display:block;    
+        }
+        
+        p.radio{
+            margin-top:0px;
+            margin-bottom:0px;
+        }
+        
+        .inline{
+            display:inline-block;
+            margin-right:10px;
+        }
+    }
+    
+}

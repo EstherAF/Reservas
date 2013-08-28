@@ -1,0 +1,68 @@
+/*Colors*/
+
+@import "utils";
+
+
+.dropdown_wrapper{
+    float:right;
+    position:relative;
+}
+
+.dropdown{
+    &.show{
+        background: $black;
+    }
+}
+
+ul.dropdown_child{
+    //HIDDEN LIST
+    display: none;
+    white-space:nowrap;
+    list-style-type: none;
+    
+    margin: 0;
+    padding:10px 0px 0px 0px;
+    
+    position: absolute;
+    top:40px;
+    right:0px;
+    
+    border:none;
+    background: $black;
+    color: $white;
+    z-index:100;
+    
+    li{
+        padding-left: 20px;
+        text-decoration: none;
+        border:none;
+        padding-bottom:0 4px 4px 0;
+        
+        span, a{
+            display:inline-block;
+            padding: 8px 0px;
+            text-decoration:none;
+            color:$white;
+            &.text{
+                @include textOverflow(200px);
+                vertical-align:middle;
+                &:hover,&:hover > span{
+                    text-decoration:underline;
+                }
+            }
+            
+            &.btn{
+                padding-left: 15px;
+                padding-right: 15px;
+                margin:0 10px 7px 0;
+                background: $dark_grey;
+                color:$white;
+                vertical-align: middle;
+                &:hover{
+                    background: $white;        
+                    color:$dark_grey;
+                }
+            }
+        }
+    }
+}

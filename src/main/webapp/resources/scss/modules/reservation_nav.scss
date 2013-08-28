@@ -1,0 +1,59 @@
+@import "utils";
+
+#reservation_nav{
+    display:block;
+    border-bottom: 1px solid $light_grey;
+    overflow:hidden;
+    width:98%;
+    padding: 6px 1%;
+    
+    
+    nav a, a{
+        text-decoration:none;
+        
+        &.reservas_btn{
+            @include button;
+            
+            display: inline-block;
+            vertical-align: bottom;
+            background-color: $dark_grey;
+            border-radius: 0px;
+            margin:0px;
+            padding: 8px px;
+        }
+        
+        &.icon{
+            display:inline;
+            font-size:2em;
+            margin:0 3px;
+            color:$dark_grey;
+            &:hover{color:$black;}
+        }
+    }
+    
+    span{color:$black;}
+    
+    @include list_no_format;
+    vertical-align:middle;
+    
+    
+    .ui-datepicker-trigger{
+        width:1.7em;
+        @include link;
+        vertical-align: bottom;
+    }
+    
+    ul{
+        padding: 8px 10px 6px 15px;   
+        li{vertical-align: middle;}
+    }
+    
+    
+    .right span{
+        margin-right:10px;
+    }
+    
+    .left .reservas_btn{
+        margin-right:10px;
+    }
+}

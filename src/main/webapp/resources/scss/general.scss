@@ -1,0 +1,343 @@
+/*Colors*/
+@import "utils";
+
+/*@font-face{
+    font-family: Entypo;
+    src: url('entypo.eot');
+}*/
+
+/*BEGIN TEMPLATE*/
+
+html, body{
+    margin: 0px;
+    height: 100%;
+/*    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    font-family: 'candelabook', Ubuntu, sans-serif;
+    font-size:14px;
+    padding:0px;
+}
+
+#body{
+    height:100%;
+    width:100%;
+    background-color:$white;
+    color:$black;
+}
+
+h1, h2, h3, h4, h5{
+    color: $black;
+}
+
+header h1{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 21px;
+    line-height: 40px;
+    color: #333333;
+    border: 0;
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: normal;
+}
+
+#main_header{
+    
+    @include list_no_format;
+    
+    /*Barra superior*/
+    #tiny{
+        vertical-align:middle;
+        padding-bottom:2px;
+        @include full_bar(20px,$black);    
+        a{
+            color:$light_grey;
+            text-decoration:underline;
+            font-size:0.8em;
+            
+        }
+        .login{
+            float:right;
+            margin-right:10px;
+        }
+        ul{
+            margin-left:10px;
+        }
+    }
+    
+    /*Barra naranja*/
+    #buttons{
+        @include full_bar($height_navigation_bar,$orange_citius);
+        border-bottom: 1px solid $dark-orange;
+        ul:not(.dropdown_child){
+            &.left li{
+                border-right:1px solid $dark_orange;    
+                float:left;
+            }
+            &:not(.dropdown_child).right{    
+                li{
+                    border-left:1px solid $dark_orange;    
+                }    
+            }
+            
+            li a{ 
+                    @include navigation_button(25px); 
+                    margin:0px;
+            }
+        }
+        
+        .icon-user{
+            font-size:1.5em;
+            padding-right:8px;
+            padding-left:0px;
+            vertical-align:sub;
+        }
+        
+    }
+}
+
+#main_body{
+    height:100%;
+    width:100%;
+    .button, input[type="button"], input[type="submit"]{    
+        @include button;
+    }
+}
+
+section{
+    margin:0px 30px;
+}
+
+#content{
+    display:block;
+    float:left;
+    margin: auto;
+    /*box-shadow: 10px -1px 5px 0px $dark-orange;*/
+}
+
+.nopadding{
+ padding:0px;   
+}
+
+.nomargin{
+    margin:0px;
+}
+/*END TEMPLATE*/
+
+
+
+/*ERRORS & NOTIFICATIONS*/
+
+.notification{
+    margin:2%;
+    padding:2%;
+}
+
+.info{
+    color:$green_ok;
+}
+
+.error{
+    color:$red_error;
+}
+
+.containsFormError{
+    margin-top: -0.5em;
+    text-align: right;
+    
+    &,span{
+        color: $red_error;
+        font-size:0.95em;
+    }
+}
+
+span .formError{
+    color: $red_error;
+    font-size:0.9em;
+}
+
+
+/*END ERRORS*/
+
+
+/*USEFUL*/
+.center{
+    text-align:center;
+    margin:auto;
+}
+
+.left{
+    float:left;
+    display:inline-block;
+}
+
+.right{
+    float:right;
+    display:inline-block;
+}
+
+.link{
+    @include link;
+    display:inline-block;
+}
+
+.underline{
+    text-decoration:underline;
+}
+
+.expandFloats{
+    display:block;
+    overflow:hidden;
+}
+
+.width30pc{
+    width:30%;
+    min-width:300px;
+    margin-right:0px;
+    margin-left:2%;
+}
+
+.inline{
+    padding: 0px 5px;
+    display:inline-block;
+    width:auto !important;
+}
+
+.hidden{
+    display:none;
+}
+/*END USEFUL*/
+
+/*COLORS*/
+.dark-grey{
+    color: $dark_grey;
+}
+
+.grey{
+    color: $grey;
+}
+
+.orange-citius{
+    color: $orange_citius;
+}
+/*END COLORS*/
+
+
+/*OVERRIDE EXTERNAL CSS*/
+div.ui-datepicker{
+    font-size:0.9em;
+}
+
+#resourcesTree{
+    background-color:white;       
+    li[rel="resource"]{
+        a{
+            .jstree-icon{
+                display:none !important;                  
+            }
+        }
+    }
+}
+
+.jstree ul li a{
+    @include textOverflow(200px);
+}
+/*END OVERRIDE EXTERNAL CSS*/
+
+
+
+/*FORMS*/
+/*.reservas_btn{
+    @include button;
+    
+    display: inline-block;
+    vertical-align: bottom;
+    background-color: $dark_grey;
+    border-radius: 0px;
+    margin:0px;
+    padding: 5px 15px;
+}*/
+
+.radio, 
+.checkbox{
+    label{
+        display:inline-block;
+    }
+    
+    input{
+        display:inline-block;
+        margin-left:5px;
+        margin-right:5px;
+        width:13px;
+    }
+}
+
+.checkbox.horizontal{
+    input[type="checkbox"]{
+        margin-right: 0px;
+        margin-left:10px;
+    }
+}
+
+.radio.horizontal{
+    input[type="radio"]{
+        margin-right: 0px;
+        margin-left:10px;
+    }
+}
+
+input[type="number"],
+select.minute, 
+select.hour{
+    width:60px;
+}
+
+.width30pc{
+    input[type="text"].dateUI{
+        width:110px;    
+    }
+}
+/*END FORMS*/
+
+/*MODAL LABELS*/
+/*extends bootstrap classes*/
+#modal-wrapper{
+    position: absolute;
+    width: 30%;
+    right:35%;
+    min-width:200px;
+    text-align: center;
+
+    .simple-modal{
+        width:100%;
+        padding: 5px 30px 5px 20px;
+        text-align: center;
+        display: inline-block;
+        opacity: 0.8;
+        border-radius: 2px;
+        box-shadow: 1px 1px 10px 0px #CCC;
+        margin-top:5px;
+        color: #111;
+
+        &.ok{
+            background-color: #F25C5C;
+            border: solid 1px #389C18;
+            .close-modal{
+                color: #6F1D1D;
+            }
+        }
+        &.fail{
+            background-color: #E03D3D;
+            border: solid 1px #A23939;
+            .close-modal{
+                color: #4B0909;
+            }
+        }
+        .close-modal{ 
+            float:right;
+            margin-right:-24px;
+            font-size: 12px;
+            @include link;
+        }
+    }
+}
+/*MODAL LABELS*/
+

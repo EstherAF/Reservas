@@ -1,0 +1,32 @@
+/*Colors*/
+/*Safe colors*/
+/*Citius UI*/
+#main_body {
+  width: 100%; }
+  #main_body section {
+    margin: 0px; }
+
+#resources {
+  float: left;
+  padding: 0% 2%; }
+  #resources #resourcesTree {
+    background-color: white; }
+
+#content {
+  padding-left: 10%; }
+  #content form label {
+    display: block;
+    margin-bottom: 5px; }
+  #content form input[type="text"],
+  #content form textarea {
+    width: 500px; }
+  #content form textarea {
+    height: 150px; }
+  #content form .radio {
+    display: block; }
+  #content form p.radio {
+    margin-top: 0px;
+    margin-bottom: 0px; }
+  #content form .inline {
+    display: inline-block;
+    margin-right: 10px; }

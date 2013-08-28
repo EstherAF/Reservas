@@ -1,0 +1,142 @@
+/*Colors*/
+
+@import "utils";
+
+#content {
+    width:100%;
+    
+    .formSection{
+        float:left;
+        //margin: 0px 1px;
+    }
+    
+    input:not(.dateUI)[type="text"],
+    textarea{
+        width:90%;
+    }
+    
+    select#repetition_type{
+        width:150px;
+    }
+    
+    input#interval{
+        width:30px;
+    }
+    
+    #repetition_selector{
+        padding-top:15px;
+    }
+    
+    input[type="checkbox"],
+    input[type="radio"]{
+        float:none;
+        margin-left:0px;
+    }
+    
+    .time{
+        display:block;
+    }
+    
+    .radio, .checkbox{
+        padding-left: 0px;
+        
+        label{
+            padding-right:5px;
+        }
+        
+    }
+    
+    .label {
+        color: #666;
+        display: inline-block;
+        width: 29%;
+        vertical-align: top;
+    }
+    .data {
+        display: inline-block;
+        width: 69%;
+    }
+    
+}
+
+.jstree ul li a{
+    @include textOverflow(100%);
+}
+
+table.guests{
+    border:0px;
+    tr{
+        border:0px;
+        width:100%;
+        
+        td[class^="icon"]{
+            text-align:center;
+            padding:0px 5px;
+            font-family: 'icomoon';
+            speak: none;
+            font-style: normal;
+            font-weight: 14px;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        
+        .icon-invitation-ACCEPTED{
+            text-align:left;
+            color: $green_ok;
+            
+            &:before{
+                content: "\e00a";    
+            }
+        }
+        .icon-invitation-REJECTED {
+            text-align:left;
+            color: $red_error;
+            
+            &:before{
+                content: "\e010";    
+            }
+        }
+        .icon-invitation-WAITING {
+            text-align:left;
+            color: $grey;
+            
+            &:before{
+                content: "\e018";    
+            }
+        }
+        
+        .icon-remove:before {
+            @include link;
+            
+            text-align:right;
+            color: $red-error;
+            &:before{
+                content: "\e018";    
+            }
+        }
+        
+        .content{
+            text-align:left;
+        }
+        .email{
+            margin-left:10px;
+            font-style: italic;
+        }
+    }
+}
+
+input[type="button"].autocomplete{
+    width:15%;
+    min-width:70px;
+}
+
+input[type="text"].autocomplete{
+    width:70%;
+    min-width:150px;
+}
+
+/* <input type="button" name="add" class="autocomplete" value="<s:message code="form.addBtn" />" />
+                            <input type="text" name="guest" class="autocomplete*/

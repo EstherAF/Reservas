@@ -1,0 +1,27 @@
+/*Colors*/
+
+@import "utils";
+@import "modules/reservation_nav";
+
+#main_body{
+    section{
+        margin:0px;
+        padding:0;
+        display:inline-block;
+        
+        &#content {
+            width: calc(100% - 350px);
+            border-collapse:collapse;
+            padding: 1% 2%;
+            text-align:center;
+            #calendar{
+                margin:auto;
+                width:100%;
+            }
+        }
+        
+        &#resources{
+            min-width:200px;
+        }
+    }    
+}

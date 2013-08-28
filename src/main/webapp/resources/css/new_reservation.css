@@ -1,0 +1,96 @@
+/*Colors*/
+/*Safe colors*/
+/*Citius UI*/
+#content {
+  width: 100%; }
+  #content .formSection {
+    float: left; }
+  #content input:not(.dateUI)[type="text"],
+  #content textarea {
+    width: 90%; }
+  #content select#repetition_type {
+    width: 150px; }
+  #content input#interval {
+    width: 30px; }
+  #content #repetition_selector {
+    padding-top: 15px; }
+  #content input[type="checkbox"],
+  #content input[type="radio"] {
+    float: none;
+    margin-left: 0px; }
+  #content .time {
+    display: block; }
+  #content .radio, #content .checkbox {
+    padding-left: 0px; }
+    #content .radio label, #content .checkbox label {
+      padding-right: 5px; }
+  #content .label {
+    color: #666;
+    display: inline-block;
+    width: 29%;
+    vertical-align: top; }
+  #content .data {
+    display: inline-block;
+    width: 69%; }
+
+.jstree ul li a {
+  -o-text-overflow: ellipsis;
+  /* Opera */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%; }
+
+table.guests {
+  border: 0px; }
+  table.guests tr {
+    border: 0px;
+    width: 100%; }
+    table.guests tr td[class^="icon"] {
+      text-align: center;
+      padding: 0px 5px;
+      font-family: 'icomoon';
+      speak: none;
+      font-style: normal;
+      font-weight: 14px;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased; }
+    table.guests tr .icon-invitation-ACCEPTED {
+      text-align: left;
+      color: #66bb66; }
+      table.guests tr .icon-invitation-ACCEPTED:before {
+        content: "\e00a"; }
+    table.guests tr .icon-invitation-REJECTED {
+      text-align: left;
+      color: red; }
+      table.guests tr .icon-invitation-REJECTED:before {
+        content: "\e010"; }
+    table.guests tr .icon-invitation-WAITING {
+      text-align: left;
+      color: #999999; }
+      table.guests tr .icon-invitation-WAITING:before {
+        content: "\e018"; }
+    table.guests tr .icon-remove:before {
+      cursor: pointer;
+      text-align: right;
+      color: red; }
+      table.guests tr .icon-remove:before:before {
+        content: "\e018"; }
+    table.guests tr .content {
+      text-align: left; }
+    table.guests tr .email {
+      margin-left: 10px;
+      font-style: italic; }
+
+input[type="button"].autocomplete {
+  width: 15%;
+  min-width: 70px; }
+
+input[type="text"].autocomplete {
+  width: 70%;
+  min-width: 150px; }
+
+/* <input type="button" name="add" class="autocomplete" value="<s:message code="form.addBtn" />" />
+                            <input type="text" name="guest" class="autocomplete*/

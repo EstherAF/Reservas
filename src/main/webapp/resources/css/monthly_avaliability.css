@@ -1,0 +1,78 @@
+/*Colors*/
+/*Safe colors*/
+/*Citius UI*/
+/*Safe colors*/
+/*Citius UI*/
+#reservation_nav {
+  display: block;
+  border-bottom: 1px solid #cccccc;
+  overflow: hidden;
+  width: 98%;
+  padding: 6px 1%;
+  vertical-align: middle; }
+  #reservation_nav nav a, #reservation_nav a {
+    text-decoration: none; }
+    #reservation_nav nav a.reservas_btn, #reservation_nav a.reservas_btn {
+      display: inline-block;
+      vertical-align: middle;
+      width: auto;
+      margin: 10px;
+      border-width: 0px;
+      border-radius: 5px;
+      padding: 8px 15px;
+      color: white;
+      background: #f36126;
+      font-size: 0.90em;
+      display: inline-block;
+      vertical-align: bottom;
+      background-color: #666666;
+      border-radius: 0px;
+      margin: 0px;
+      padding: 8px px; }
+      #reservation_nav nav a.reservas_btn:hover, #reservation_nav a.reservas_btn:hover {
+        background: #333333;
+        cursor: pointer; }
+    #reservation_nav nav a.icon, #reservation_nav a.icon {
+      display: inline;
+      font-size: 2em;
+      margin: 0 3px;
+      color: #666666; }
+      #reservation_nav nav a.icon:hover, #reservation_nav a.icon:hover {
+        color: #333333; }
+  #reservation_nav span {
+    color: #333333; }
+  #reservation_nav ul:not(.dropdown_child) {
+    float: left;
+    margin: 0px;
+    padding: 0px; }
+    #reservation_nav ul:not(.dropdown_child) li {
+      margin: 0px;
+      list-style: none;
+      display: inline-block; }
+  #reservation_nav .ui-datepicker-trigger {
+    width: 1.7em;
+    cursor: pointer;
+    vertical-align: bottom; }
+  #reservation_nav ul {
+    padding: 8px 10px 6px 15px; }
+    #reservation_nav ul li {
+      vertical-align: middle; }
+  #reservation_nav .right span {
+    margin-right: 10px; }
+  #reservation_nav .left .reservas_btn {
+    margin-right: 10px; }
+
+#main_body section {
+  margin: 0px;
+  padding: 0;
+  display: inline-block; }
+  #main_body section#content {
+    width: calc(100% - 350px);
+    border-collapse: collapse;
+    padding: 1% 2%;
+    text-align: center; }
+    #main_body section#content #calendar {
+      margin: auto;
+      width: 100%; }
+  #main_body section#resources {
+    min-width: 200px; }

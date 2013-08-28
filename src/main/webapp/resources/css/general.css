@@ -1,0 +1,291 @@
+/*Colors*/
+/*Safe colors*/
+/*Citius UI*/
+/*@font-face{
+    font-family: Entypo;
+    src: url('entypo.eot');
+}*/
+/*BEGIN TEMPLATE*/
+html, body {
+  margin: 0px;
+  height: 100%;
+  /*    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-family: 'candelabook', Ubuntu, sans-serif;
+  font-size: 14px;
+  padding: 0px; }
+
+#body {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  color: #333333; }
+
+h1, h2, h3, h4, h5 {
+  color: #333333; }
+
+header h1 {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 21px;
+  line-height: 40px;
+  color: #333333;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5;
+  font-weight: normal; }
+
+#main_header {
+  /*Barra superior*/
+  /*Barra naranja*/ }
+  #main_header ul:not(.dropdown_child) {
+    float: left;
+    margin: 0px;
+    padding: 0px; }
+    #main_header ul:not(.dropdown_child) li {
+      margin: 0px;
+      list-style: none;
+      display: inline-block; }
+  #main_header #tiny {
+    vertical-align: middle;
+    padding-bottom: 2px;
+    height: 20px;
+    width: 100%;
+    background-color: #333333;
+    display: block; }
+    #main_header #tiny a {
+      color: #cccccc;
+      text-decoration: underline;
+      font-size: 0.8em; }
+    #main_header #tiny .login {
+      float: right;
+      margin-right: 10px; }
+    #main_header #tiny ul {
+      margin-left: 10px; }
+  #main_header #buttons {
+    height: 40px;
+    width: 100%;
+    background-color: #f36126;
+    display: block;
+    border-bottom: 1px solid #c45b30; }
+    #main_header #buttons ul:not(.dropdown_child).left li {
+      border-right: 1px solid #c45b30;
+      float: left; }
+    #main_header #buttons ul:not(.dropdown_child):not(.dropdown_child).right li {
+      border-left: 1px solid #c45b30; }
+    #main_header #buttons ul:not(.dropdown_child) li a {
+      display: table-cell;
+      vertical-align: middle;
+      margin: 0px;
+      padding: 0px 25px;
+      height: 40px;
+      border: 0px;
+      text-decoration: none;
+      color: white;
+      background: #f36126;
+      font-size: 0.90em;
+      margin: 0px; }
+      #main_header #buttons ul:not(.dropdown_child) li a:hover {
+        background: #333333; }
+    #main_header #buttons .icon-user {
+      font-size: 1.5em;
+      padding-right: 8px;
+      padding-left: 0px;
+      vertical-align: sub; }
+
+#main_body {
+  height: 100%;
+  width: 100%; }
+  #main_body .button, #main_body input[type="button"], #main_body input[type="submit"] {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+    margin: 10px;
+    border-width: 0px;
+    border-radius: 5px;
+    padding: 8px 15px;
+    color: white;
+    background: #f36126;
+    font-size: 0.90em; }
+    #main_body .button:hover, #main_body input[type="button"]:hover, #main_body input[type="submit"]:hover {
+      background: #333333;
+      cursor: pointer; }
+
+section {
+  margin: 0px 30px; }
+
+#content {
+  display: block;
+  float: left;
+  margin: auto;
+  /*box-shadow: 10px -1px 5px 0px $dark-orange;*/ }
+
+.nopadding {
+  padding: 0px; }
+
+.nomargin {
+  margin: 0px; }
+
+/*END TEMPLATE*/
+/*ERRORS & NOTIFICATIONS*/
+.notification {
+  margin: 2%;
+  padding: 2%; }
+
+.info {
+  color: #66bb66; }
+
+.error {
+  color: red; }
+
+.containsFormError {
+  margin-top: -0.5em;
+  text-align: right; }
+  .containsFormError, .containsFormError span {
+    color: red;
+    font-size: 0.95em; }
+
+span .formError {
+  color: red;
+  font-size: 0.9em; }
+
+/*END ERRORS*/
+/*USEFUL*/
+.center {
+  text-align: center;
+  margin: auto; }
+
+.left {
+  float: left;
+  display: inline-block; }
+
+.right {
+  float: right;
+  display: inline-block; }
+
+.link {
+  cursor: pointer;
+  display: inline-block; }
+
+.underline {
+  text-decoration: underline; }
+
+.expandFloats {
+  display: block;
+  overflow: hidden; }
+
+.width30pc {
+  width: 30%;
+  min-width: 300px;
+  margin-right: 0px;
+  margin-left: 2%; }
+
+.inline {
+  padding: 0px 5px;
+  display: inline-block;
+  width: auto !important; }
+
+.hidden {
+  display: none; }
+
+/*END USEFUL*/
+/*COLORS*/
+.dark-grey {
+  color: #666666; }
+
+.grey {
+  color: #999999; }
+
+.orange-citius {
+  color: #f36126; }
+
+/*END COLORS*/
+/*OVERRIDE EXTERNAL CSS*/
+div.ui-datepicker {
+  font-size: 0.9em; }
+
+#resourcesTree {
+  background-color: white; }
+  #resourcesTree li[rel="resource"] a .jstree-icon {
+    display: none !important; }
+
+.jstree ul li a {
+  -o-text-overflow: ellipsis;
+  /* Opera */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 200px; }
+
+/*END OVERRIDE EXTERNAL CSS*/
+/*FORMS*/
+/*.reservas_btn{
+    @include button;
+    
+    display: inline-block;
+    vertical-align: bottom;
+    background-color: $dark_grey;
+    border-radius: 0px;
+    margin:0px;
+    padding: 5px 15px;
+}*/
+.radio label,
+.checkbox label {
+  display: inline-block; }
+.radio input,
+.checkbox input {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 13px; }
+
+.checkbox.horizontal input[type="checkbox"] {
+  margin-right: 0px;
+  margin-left: 10px; }
+
+.radio.horizontal input[type="radio"] {
+  margin-right: 0px;
+  margin-left: 10px; }
+
+input[type="number"],
+select.minute,
+select.hour {
+  width: 60px; }
+
+.width30pc input[type="text"].dateUI {
+  width: 110px; }
+
+/*END FORMS*/
+/*MODAL LABELS*/
+/*extends bootstrap classes*/
+#modal-wrapper {
+  position: absolute;
+  width: 30%;
+  right: 35%;
+  min-width: 200px;
+  text-align: center; }
+  #modal-wrapper .simple-modal {
+    width: 100%;
+    padding: 5px 30px 5px 20px;
+    text-align: center;
+    display: inline-block;
+    opacity: 0.8;
+    border-radius: 2px;
+    box-shadow: 1px 1px 10px 0px #CCC;
+    margin-top: 5px;
+    color: #111; }
+    #modal-wrapper .simple-modal.ok {
+      background-color: #F25C5C;
+      border: solid 1px #389C18; }
+      #modal-wrapper .simple-modal.ok .close-modal {
+        color: #6F1D1D; }
+    #modal-wrapper .simple-modal.fail {
+      background-color: #E03D3D;
+      border: solid 1px #A23939; }
+      #modal-wrapper .simple-modal.fail .close-modal {
+        color: #4B0909; }
+    #modal-wrapper .simple-modal .close-modal {
+      float: right;
+      margin-right: -24px;
+      font-size: 12px;
+      cursor: pointer; }
+
+/*MODAL LABELS*/
