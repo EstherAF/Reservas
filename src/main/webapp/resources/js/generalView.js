@@ -1,3 +1,0 @@
-fail = function() {
-    alert("fail"); 
-};

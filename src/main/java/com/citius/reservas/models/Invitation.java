@@ -23,7 +23,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 @Entity
 @IdClass(InvitationId.class)

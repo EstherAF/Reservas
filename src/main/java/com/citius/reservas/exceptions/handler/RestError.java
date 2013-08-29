@@ -74,6 +74,14 @@ public class RestError {
         this.developerMessage = developerMessage;
         this.throwable = throwable;
     }
+    
+    public RestError(RestError clone){
+        this.code=clone.code;
+        this.developerMessage=clone.developerMessage;
+        this.message=clone.message;
+        this.status=clone.status;
+        this.throwable=clone.throwable;
+    }
 
     public HttpStatus getStatus() {
         return status;

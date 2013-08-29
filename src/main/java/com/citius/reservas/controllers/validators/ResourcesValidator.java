@@ -4,11 +4,9 @@
  */
 package com.citius.reservas.controllers.validators;
 
-import com.citius.reservas.controllers.helper.i18nControllerHelper;
+import com.citius.reservas.controllers.i18n.i18nManager;
 import com.citius.reservas.models.Resource;
-import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -19,7 +17,7 @@ import org.springframework.validation.Validator;
  */
 public class ResourcesValidator implements Validator {
     @Autowired
-    private  i18nControllerHelper i18;
+    private i18nManager i18;
 
     
             

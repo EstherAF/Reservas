@@ -16,7 +16,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 @JsonSerialize(using = DayOfWeekJsonSerializer.class)
 @JsonDeserialize(using = DayOfWeekJsonDeserializer.class)

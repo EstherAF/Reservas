@@ -64,11 +64,11 @@
     <!--Rest Exceptions Handler-->
     <!-- Allow Exceptions to be handled in annotated methods if desired. Otherwise fallback to the
     'restExceptionResolver' below: -->
-    <bean id="annotationMethodHandlerExceptionResolver"
+<!--    <bean id="annotationMethodHandlerExceptionResolver"
           class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
         <property name="order" value="0"/>
     </bean>
-<!--    <bean id="restExceptionResolver" class="com.citius.reservas.handlerExceptions.RestExceptionHandler">
+    <bean id="restExceptionResolver" class="com.citius.reservas.handlerExceptions.RestExceptionHandler">
         <property name="order" value="100"/>
         <property name="messageConverters">
             <list>
@@ -89,9 +89,9 @@
                 </property>
             </bean>
         </property>
-    </bean>-->
+    </bean>
     <bean id="handlerExceptionResolver" class="com.citius.reservas.exceptions.handler.ApplicationHandlerException">
         <property name="order" value="100"/>
-    </bean>
+    </bean>-->
         
 </beans>

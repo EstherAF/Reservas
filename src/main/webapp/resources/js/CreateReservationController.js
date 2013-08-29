@@ -47,29 +47,4 @@ CreateReservationController.onLoad = function(users, resources, date) {
     $('input[name="submit"]').bind('click',function(){
         viewController.createReservation.call(viewController);
     });
-    
-    $('[name$="Date"]').bind('change',function(){
-        var start = $('[name="startDate"]');
-        var end = $('[name="endDate"]');
-        var startDate = start.datepicker("getDate");
-        var endDate = end.datepicker("getDate");
-        
-        if(endDate<startDate && $(this).attr('name') == 'startDate')
-            end.datepicker("setDate", startDate );
-        else if(endDate<startDate && $(this).attr('name') == 'endDate')
-            start.datepicker("setDate", endDate );
-    });
-    
-    $('[name="startTimeHour"]').bind('change',function(){
-        var value = parseInt($(this).val())+1;
-        $('[name="endTimeHour"]').val( value );
-    });
-    
-    $('[name="startTimeMinute"]').bind('change',function(){
-        $('[name="endTimeMinute"]').val($(this).val());
-    });
-    
-    $('[name^="endTime"]').bind('change',function(){
-        $('[name^="startTime"]').unbind('change');
-    });
 };

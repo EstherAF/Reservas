@@ -4,7 +4,6 @@
  */
 package com.citius.reservas.controllers.i18n;
 
-import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

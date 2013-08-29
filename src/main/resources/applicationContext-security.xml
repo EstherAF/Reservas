@@ -23,8 +23,17 @@
     <!--Autentificación contra el LDAP-->
     <s:authentication-manager alias="authenticationManager">
         <s:authentication-provider ref="ldapAuthProvider">
+<!--            <s:password-compare>
+                <s:password-encoder ref="passwordEncoder">
+                </s:password-encoder>
+            </s:password-compare>-->
+<!--            <password-compare>
+                <password-encoder hash="md5" />
+            </password-compare>-->
         </s:authentication-provider>
     </s:authentication-manager>
+    
+<!--    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />-->
     
     <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
         <property name="url" value="ldap://localhost:389/" />
@@ -83,9 +92,9 @@
             authentication-success-handler-ref="authSuccessHandler"
         />
         
-            <s:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-<!--        <s:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />-->
-<!--        <s:intercept-url pattern="/*" access="IS_AUTHENTICATED_FULLY" /> -->
+        <s:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <!--        <s:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />-->
+        <!--        <s:intercept-url pattern="/*" access="IS_AUTHENTICATED_FULLY" /> -->
        
         <s:http-basic />
         <s:anonymous />

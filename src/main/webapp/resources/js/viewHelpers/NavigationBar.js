@@ -66,7 +66,7 @@ NavigationBar.invitationMenu = function() {
                 $('.dropdown_wrapper > .dropdown_child').on('click', 'li > .btn', resolveInvitation);
             },
             function(e) {
-                alert('Fail:' + e);
+                Notifications.showError(e);
             }
     );
 };
@@ -102,5 +102,7 @@ NavigationBar.invitationOnReservationView = function() {
 };
 
 $(function() {
-    new NavigationBar();
+    if($('#buttons .dropdown_wrapper').length){
+        new NavigationBar();
+    }
 });

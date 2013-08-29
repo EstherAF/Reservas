@@ -1,17 +1,17 @@
 
-var MonthlyCalendarAvaliability = function(resources) {
+var CalendarAvaliability = function(resources) {
     //create ResourceTree
 
     this.resourceTree = new ResourceTree(resources, 'multiselect');
 
     this.resources = [];
     this.resources.addResource = function(id) {
-        var indexColor = this.length % MonthlyCalendar.colors.length;
+        var indexColor = this.length % MyCalendar.colors.length;
 
         var resource = {
             "id": id,
-            "color": MonthlyCalendar.colors[indexColor].color,
-            "text": MonthlyCalendar.colors[indexColor].text,
+            "color": MyCalendar.colors[indexColor].color,
+            "text": MyCalendar.colors[indexColor].text,
             "events": []
         };
         this.push(resource);
@@ -23,43 +23,46 @@ var MonthlyCalendarAvaliability = function(resources) {
 };
 
 /*Extends of Calendar*/
-MonthlyCalendarAvaliability.prototype = Object.create(MonthlyCalendar.prototype);
+CalendarAvaliability.prototype = Object.create(MyCalendar.prototype);
 
-MonthlyCalendarAvaliability.path = applicationPath + 'resources/month/';
+CalendarAvaliability.path = {
+    'weekly':applicationPath + 'resources/month/',
+    'monthly':applicationPath + 'resources/week/'
+};
 
 
-MonthlyCalendarAvaliability.prototype.events = function(start, end, callback) {
+CalendarAvaliability.prototype.events = function(start, end, callback) {
 
     start.setDate(start.getDate() + 7);
     var year = start.getFullYear();
     var month = start.getMonth() + 1;
-    var label = MonthlyCalendar.monthNames[locale][month - 1] + ' ' + year;
+    var label = MyCalendar.monthNames[locale][month - 1] + ' ' + year;
     $('#reservation_nav .label').text(label);
-    MonthlyCalendar.updateLinks(MonthlyCalendarAvaliability.path);
+    MyCalendar.updateLinks(CalendarAvaliability.path);
     callback([]);
 };
 
 //Before change to another month
-MonthlyCalendarAvaliability.prototype.saveState = function() {
+CalendarAvaliability.prototype.saveState = function() {
     //Remove stored reservations from resources
     for (var i = 0; i < this.resources.length; i++) {
-        MonthlyCalendar.removeEventSource(this.resources[i].events);
+        MyCalendar.removeEventSource(this.resources[i].events);
         this.resources[i].events = [];
     }
 
-//    var year = MonthlyCalendar.getYear();
-//    var month = MonthlyCalendar.getMonth() + 1;
+//    var year = MyCalendar.getYear();
+//    var month = MyCalendar.getMonth() + 1;
 //    var historyObject = {
 //        "year": year,
 //        "month": month,
 //        "selected": this.selected,
 //        "resources": this.resources
 //    };
-//    window.history.replaceState(historyObject, null, MonthlyCalendarAvaliability.path + year + '/' + month);
+//    window.history.replaceState(historyObject, null, CalendarAvaliability.path + year + '/' + month);
 };
 
 //After change to another month
-MonthlyCalendarAvaliability.prototype.afterChangeDay = function() {
+CalendarAvaliability.prototype.afterChangeDay = function() {
     for (var i = 0; i < this.selected.length; i++) {
         var id = this.selected[i];
         var node = this.resourceTree.getNode('id', id);
@@ -69,8 +72,8 @@ MonthlyCalendarAvaliability.prototype.afterChangeDay = function() {
             this.selectResource(node);
     }
 
-    var year = MonthlyCalendar.getYear();
-    var month = MonthlyCalendar.getMonth() + 1;
+    var year = MyCalendar.getYear();
+    var month = MyCalendar.getMonth() + 1;
     
     var cleanSelected = [];
     for(var i=0; i<this.selected;i++)
@@ -86,11 +89,11 @@ MonthlyCalendarAvaliability.prototype.afterChangeDay = function() {
         "selected": cleanSelected,
         "resources": cleanResources
     };
-    window.history.replaceState(historyObject, null, MonthlyCalendarAvaliability.path + year + '/' + month);
+    window.history.replaceState(historyObject, null, CalendarAvaliability.path + year + '/' + month);
 };
 
 //Show resource in fullCalendar. If it doesn't exist in resources[], get it by AJAX and store it in there
-MonthlyCalendarAvaliability.prototype.selectResource = function(data) {
+CalendarAvaliability.prototype.selectResource = function(data) {
     var id = data.attr("id");
     var index = this.selected.indexOf(id);
     if(index==null || index<0)
@@ -105,12 +108,12 @@ MonthlyCalendarAvaliability.prototype.selectResource = function(data) {
 
         var viewController = this;
         Reservation.getReservationsByResource(
-                MonthlyCalendar.getYear(),
-                MonthlyCalendar.getMonth(),
+                MyCalendar.getYear(),
+                MyCalendar.getMonth(),
                 id,
                 function(response) {
                     viewController.serializeToCalendarEvents.call(viewController, response);
-                    MonthlyCalendar.addEventSource(resource.events);
+                    MyCalendar.addEventSource(resource.events);
 
                     if (isNaN(data)) {
                         $(data).children('a').css('border-color', resource.color);
@@ -120,7 +123,7 @@ MonthlyCalendarAvaliability.prototype.selectResource = function(data) {
                 },ajaxError);
     } else {
         var resource = this.resources[index];
-        MonthlyCalendar.addEventSource(resource.events);
+        MyCalendar.addEventSource(resource.events);
         if (isNaN(data)) {
             $(data).children('a').css('border-color', resource.color);
             $(data).children('a').css('background-color', resource.color);
@@ -130,7 +133,7 @@ MonthlyCalendarAvaliability.prototype.selectResource = function(data) {
 };
 
 //Hide resource.
-MonthlyCalendarAvaliability.prototype.deselectResource = function(data) {
+CalendarAvaliability.prototype.deselectResource = function(data) {
     var id = data.attr('id');
 
 
@@ -143,10 +146,10 @@ MonthlyCalendarAvaliability.prototype.deselectResource = function(data) {
     this.selected.remove(index);
     //Remove event source
     var index = this.resources.search('id', id);
-    MonthlyCalendar.removeEventSource(this.resources[index].events);
+    MyCalendar.removeEventSource(this.resources[index].events);
 };
 
-MonthlyCalendarAvaliability.prototype.serializeToCalendarEvents = function(instances) {
+CalendarAvaliability.prototype.serializeToCalendarEvents = function(instances) {
     for (var i = 0; i < instances.length; i++) {
         var instance = instances[i];
 
@@ -177,11 +180,11 @@ MonthlyCalendarAvaliability.prototype.serializeToCalendarEvents = function(insta
     }
 };
 
-MonthlyCalendarAvaliability.onLoad = function(year, month) {
+CalendarAvaliability.onLoad = function(view, year, month, week) {
 
     Resource.getAllByGroup(
             function(resources) {
-                var viewController = new MonthlyCalendarAvaliability(resources);
+                var viewController = new CalendarAvaliability(resources);
 
                 viewController.resourceTree.tree.bind("select_node.jstree", function(event, data) {
                     viewController.selectResource(data.rslt.obj);
@@ -191,9 +194,9 @@ MonthlyCalendarAvaliability.onLoad = function(year, month) {
                     viewController.deselectResource(data.rslt.obj);
                 });
 
-                MonthlyCalendar.call(viewController, viewController.events,
-                        year, month, MonthlyCalendarAvaliability.path, viewController.saveState,
-                        viewController.afterChangeDay);
+                MyCalendar.call(viewController, viewController.events,
+                        year, month, week, CalendarAvaliability.path, viewController.saveState,
+                        viewController.afterChangeDay, view);
 
                 $('#calendar').fullCalendar('option', 'aspectRatio', 16 / 8);
 

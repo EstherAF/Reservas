@@ -11,17 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 public class ReservationInstanceCustom extends ReservationInstance implements Serializable{
     private static final long serialVersionUID = 2L;
-    
     private Locale locale;
-    
     private i18nManager i18nController;
 
     public ReservationInstanceCustom() {

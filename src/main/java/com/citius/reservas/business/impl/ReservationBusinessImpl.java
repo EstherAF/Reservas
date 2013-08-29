@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 @Service
 public class ReservationBusinessImpl implements ReservationBusiness {

@@ -8,12 +8,11 @@ import com.citius.reservas.models.Reservation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.validation.Valid;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 public class ReservationCustom extends Reservation{
 

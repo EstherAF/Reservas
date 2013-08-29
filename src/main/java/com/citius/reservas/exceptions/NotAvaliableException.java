@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 public class NotAvaliableException extends Exception {
 

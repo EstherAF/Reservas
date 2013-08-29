@@ -14,7 +14,7 @@ CREATE SCHEMA "reservas" AUTHORIZATION admin;
 CREATE TABLE reservas.users (
 	unique_name VARCHAR(50),
 	full_name VARCHAR(150) NOT NULL, 
-	email VARCHAR(100) NOT NULL UNIQUE,
+	email VARCHAR(100) NOT NULL,
         --role VARCHAR(50) NOT NULL DEFAULT 1,
 	PRIMARY KEY(unique_name),
 --         FOREIGN KEY (role) references reservas.roles(name)

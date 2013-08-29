@@ -47,7 +47,7 @@ public class ReservationControllerImpl implements ReservationController {
 
     @Override
     public void initBinder(WebDataBinder binder) {
-        binder.setValidator(new ReservationValidator());
+//        binder.setValidator(new ReservationValidator());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class ReservationControllerImpl implements ReservationController {
 
     @Override
     public List<ReservationInstance> readAllByLoggedUser(Integer year, Integer month) {
-        String uniqueName = "perico";
+        String uniqueName = access.getUniqueNameOfLoggedUser();
         return rb.readByMonthByUser(uniqueName, month - 1, year);
     }
 
@@ -81,12 +81,15 @@ public class ReservationControllerImpl implements ReservationController {
             throws NotAvaliableException, NotPossibleInstancesException,
             InputRequestValidationException {
 
+//        Errors errors 
+//        ReservationValidator validator = new ReservationValidator();
+//        validator.validate(r, result.get);
+        
         if (!result.getAllErrors().isEmpty()) {
             throw new InputRequestValidationException(result.getAllErrors());
         }
 
-        //String uniqueName = access.getLoggedUser();
-        String uniqueName = "perico";
+        String uniqueName = access.getUniqueNameOfLoggedUser();
         r.getOwner().setUniqueName(uniqueName);
 
         Reservation created = rb.saveReservation(r.getParentInstance(), r.getGroups());
@@ -95,11 +98,10 @@ public class ReservationControllerImpl implements ReservationController {
 
     @Override
     public Reservation update(ReservationCustom r, BindingResult result)
-            throws NotAvaliableException, NotPossibleInstancesException, 
-            InputRequestValidationException, UnknownResourceException{
+            throws NotAvaliableException, NotPossibleInstancesException,
+            InputRequestValidationException, UnknownResourceException {
 
-        //String uniqueName = access.getLoggedUser();
-        String uniqueName = "perico";
+        String uniqueName = access.getUniqueNameOfLoggedUser();
 
         if (!rb.canEdit(r.getId(), uniqueName)) {
             throw new UnknownResourceException("");
@@ -113,8 +115,7 @@ public class ReservationControllerImpl implements ReservationController {
 
     @Override
     public void delete(Integer id) throws AccessDeniedException {
-        //String uniqueName = access.getLoggedUser();
-        String uniqueName = "perico";
+        String uniqueName = access.getUniqueNameOfLoggedUser();
 
         if (!rb.canEdit(id, uniqueName)) {
             throw new AccessDeniedException("Logged user is not admin or is not the reservation's owner");
@@ -170,7 +171,7 @@ public class ReservationControllerImpl implements ReservationController {
         //String uniqueName = ab.getLoggedUser();
         this.logger.debug("Year:" + year + ". Week:" + week);
 
-        String uniqueName = "perico";
+        String uniqueName = access.getUniqueNameOfLoggedUser();
 
         //Check if URL is right
         Calendar c = Calendar.getInstance();
@@ -264,7 +265,7 @@ public class ReservationControllerImpl implements ReservationController {
 
     @Override
     public String updateReservationView(Model model, Integer id) {
-        String uniqueName = "perico";
+        String uniqueName = access.getUniqueNameOfLoggedUser();
 
         Boolean canEdit = (access.isAdmin(uniqueName) || rb.isOwner(id, uniqueName));
 

@@ -34,7 +34,8 @@
 <!--form validation-->
 <script type="text/javascript" src="<c:url value="/resources/js/libs/GenericForm.js" />"></script>
 
-<script type="text/javascript" src="<c:url value="/resources/js/libs/Modals.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/libs/Modal.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/viewHelpers/Notifications.js" />"></script>
 
 <!--models-->
 <script type="text/javascript" src="<c:url value="/resources/js/models/Resource.js" />"></script>
@@ -53,6 +54,8 @@
 <!--Invitation dropdown-->
 <script type="text/javascript" src='<c:url value="/resources/js/libs/Dropdown.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/viewHelpers/NavigationBar.js"/>'></script>
+
+<script type="text/javascript" src='<c:url value="/resources/js/viewHelpers/DateHelper.js"/>'></script>
 
 <!------CSS------->
 <link rel="stylesheet" href="<c:url value="/resources/css/external/bootstrap.css" />" type="text/css" /> 

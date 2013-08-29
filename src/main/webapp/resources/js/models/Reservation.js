@@ -31,11 +31,13 @@ var NewReservation = function(id, name, description, start, end, type, interval,
 NewReservation.prototype = Object.create(Reservation.prototype);
 
 NewReservation.prototype.addReservedResource = function(reservedResource) {
-    if (!reservedResource.quantity) {
-        this.addResource(reservedResource.resource);
+    if (reservedResource.group) {
+        delete reservedResource.quantity;
+        delete reservedResource.group;
+        this.addResource(reservedResource);
     } else {
-        if (reservedResource.resource.id[0] == 'g')
-            reservedResource.resource.id = reservedResource.resource.id.substr(1);
+        if (reservedResource.id[0] == 'g')
+            reservedResource.id = reservedResource.id.substr(1);
         this.groups.push(reservedResource);
     }
 };

@@ -1,6 +1,6 @@
 var Modal = function(type, content) {
     var modal = $('<div></div>').attr({
-        "class": "simple-modal " + this.type
+        "class": "simple-modal " + type
     });
     modal.append(content);
 

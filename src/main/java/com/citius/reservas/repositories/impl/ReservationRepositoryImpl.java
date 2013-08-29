@@ -5,22 +5,16 @@
 package com.citius.reservas.repositories.impl;
 
 import com.citius.reservas.models.Reservation;
-import com.citius.reservas.models.ReservationInstance;
-import com.citius.reservas.models.User;
 import com.citius.reservas.repositories.ReservationRepository;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-import com.citius.reservas.models.RepetitionType;
-import com.citius.reservas.models.Resource;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 @Repository
 public class ReservationRepositoryImpl extends GenericRepositoryImpl<Reservation> implements ReservationRepository{

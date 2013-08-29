@@ -26,7 +26,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 @Embeddable
 public class Repetition implements Serializable {

@@ -38,12 +38,12 @@ var ResourceTree = function(resources, option, prechecked) {
                 //Pre
                 for (var i = 0; i < prechecked.length; i++) {
                     var node;
-                    var index = jsonTree.search('attr.id', prechecked[i].resource.id);
+                    var index = jsonTree.search('attr.id', prechecked[i].id);
                     if (!index) {
                         for (var j = 0; j < jsonTree.length; j++) {
                             var childrens = jsonTree[j].children;
                             if (childrens.length > 0) {
-                                var index = childrens.search('attr.id', prechecked[i].resource.id);
+                                var index = childrens.search('attr.id', prechecked[i].id);
                                 if (index) {
                                     node = childrens[index];
                                     jsonTree[j].attr.class = "jstree-open";

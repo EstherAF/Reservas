@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 @Transactional
 public interface ReservationBusiness {

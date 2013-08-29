@@ -143,7 +143,7 @@ var resourcesView = function(resources) {
     var updateResource = function(resource) {
         var success = function() {
             //self.resTree.updateNode(resource);
-            alert('guay');
+            Notifications.showMessage('update_resource_ok');
         };
 
         if (resource.group) {

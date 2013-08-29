@@ -1,6 +1,6 @@
 
 var MonthlyCalendarByOwn = function(year, month){
-    MonthlyCalendar.call(this, MonthlyCalendarByOwn.events , year, month, MonthlyCalendarByOwn.path);    
+    MyCalendar.call(this, MonthlyCalendarByOwn.events , year, month, null, MonthlyCalendarByOwn.path);    
     $('#calendar').fullCalendar('option','aspectRatio', 16/6);
     window.addEventListener("popstate", function(e) {
         var historyObject = e.state;
@@ -9,9 +9,9 @@ var MonthlyCalendarByOwn = function(year, month){
 };
 
 /*Extends of Calendar*/
-MonthlyCalendarByOwn.prototype = Object.create(MonthlyCalendar.prototype);
+MonthlyCalendarByOwn.prototype = Object.create(MyCalendar.prototype);
 
-MonthlyCalendarByOwn.path=applicationPath+'reservations/month/'
+MonthlyCalendarByOwn.path={"monthly": applicationPath+'reservations/month/'};
 
 
 MonthlyCalendarByOwn.events = function(start, end, callback){
@@ -19,7 +19,7 @@ MonthlyCalendarByOwn.events = function(start, end, callback){
     start.setDate(start.getDate()+7);
     var year = start.getFullYear();
     var month = start.getMonth()+1;
-    var label = MonthlyCalendar.monthNames[locale][month-1]+' '+year;
+    var label = MyCalendar.monthNames[locale][month-1]+' '+year;
     
     //On ajax success
     var success = function(response){
@@ -28,7 +28,7 @@ MonthlyCalendarByOwn.events = function(start, end, callback){
         
         
         var historyObject={"year": year, "month": month, "events": events};
-        MonthlyCalendar.updateLinks(MonthlyCalendarByOwn.path);
+        MyCalendar.updateLinks(MonthlyCalendarByOwn.path);
         callback(events);
     };
     
@@ -52,7 +52,7 @@ MonthlyCalendarByOwn.serializeToCalendarEvents = function(instances) {
         };
         
         event.backgroundColor = (loggedUniqueName == instance.reservation.owner.uniqueName)? 
-            MonthlyCalendar.orange : event.backgroundColor = MonthlyCalendar.grey;
+            MyCalendar.orange : event.backgroundColor = MyCalendar.grey;
 
         events.push(event);
     }

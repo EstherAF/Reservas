@@ -135,5 +135,6 @@ UpdateReservationController.onLoad = function(users, resources, reservation) {
     $('[name="delete"]').click(function() {
         viewController.updateReservation.call(viewController);
     });
+
     viewController.refreshHTMLResourcesList();
 };

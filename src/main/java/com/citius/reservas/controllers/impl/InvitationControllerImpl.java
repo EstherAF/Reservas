@@ -34,17 +34,13 @@ public class InvitationControllerImpl implements InvitationController {
 
     @Override
     public List<Invitation> readPendingInvitations() {
-        //String loggedName = access.getLoggedUser();
-        String loggedName = "perico";
-        return ib.getPendingInvitationsByGuest(loggedName);
+        String uniqueName = access.getUniqueNameOfLoggedUser();
+        return ib.getPendingInvitationsByGuest(uniqueName);
     }
 
     //Role Admin
     @Override
     public List<Invitation> readPendingInvitations(String guestUniqueName) {
-        //String loggedName = access.getLoggedUser();
-        String loggedName = "perico";
-
         return ib.getPendingInvitationsByGuest(guestUniqueName);
 
     }
@@ -53,9 +49,10 @@ public class InvitationControllerImpl implements InvitationController {
     public Invitation createInvitation(Invitation invitation, BindingResult result)
             throws InputRequestValidationException {
 
-        String loggedName = "perico";
+        String uniqueName = access.getUniqueNameOfLoggedUser();
 
-        if (!invitation.getReservation().getOwner().getUniqueName().equals(loggedName) && !access.isAdmin(loggedName)) {
+        if (!invitation.getReservation().getOwner().getUniqueName().equals(uniqueName)
+                && !access.isAdmin(uniqueName)) {
             throw new AccessDeniedException("");
         }
 
@@ -77,10 +74,9 @@ public class InvitationControllerImpl implements InvitationController {
     @Override
     public Invitation changeStateInvitation(Integer reservationId, InvitationState state)
             throws UnknownResourceException {
-        //String loggedName = access.getLoggedUser();
-        String loggedName = "perico";
+        String uniqueName = access.getUniqueNameOfLoggedUser();
 
-        Invitation invitation = ib.changeStateInvitation(reservationId, loggedName, state);
+        Invitation invitation = ib.changeStateInvitation(reservationId, uniqueName, state);
 
         return invitation;
     }

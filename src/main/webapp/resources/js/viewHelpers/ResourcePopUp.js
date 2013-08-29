@@ -82,7 +82,7 @@ ResourcePopUp.buildGroupDialog = function(selected) {
 
 
 ResourcePopUp.htmlResourcePop = function(reservedResource) {
-    var resource = reservedResource.resource;
+    var resource = reservedResource;
     
     var type = (resource.group) ? 'resource' : 'group';
 
@@ -96,7 +96,7 @@ ResourcePopUp.htmlResourcePop = function(reservedResource) {
     
     html.text(resource.name);
     if(type === 'group'){
-        var quantity = (reservedResource.quantity) ? reservedResource.quantity : 1;
+        var quantity = (resource.quantity) ? reservedResource.quantity : 1;
         html.attr('quantity',quantity);
         html.append('<span style="font-style:italic"> ('+quantity+")</span>");
     }

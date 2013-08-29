@@ -35,11 +35,6 @@ public interface AccessController {
     @ResponseBody
     public LoginStatus getStatus();
 
-    /*---------HTML---------*/
-//    @RequestMapping(value={"/","/index",""}, 
-//            produces = MediaType.TEXT_HTML_VALUE, 
-//            method = RequestMethod.GET)
-//    public String index(Model model);
     @RequestMapping(
             produces = MediaType.TEXT_HTML_VALUE,
             method = RequestMethod.GET)

@@ -9,10 +9,6 @@ import com.citius.reservas.repositories.LdapRepository;
 import com.citius.reservas.repositories.UserRepository;
 import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.controllers.customModel.LoginStatus;
-import com.citius.reservas.repositories.impl.ReservationRepositoryImpl;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 @Service
 public class AccessBusinessImpl implements AccessBusiness {
@@ -46,6 +42,9 @@ public class AccessBusinessImpl implements AccessBusiness {
 
         if(details == null)
             details = (LdapUserDetailsImpl)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        if(details == null)
+            return null;
         
         String userName = details.getUsername();
         User user = userRepository.findByUniqueName(userName);

@@ -6,7 +6,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <section class="info" style="display:none;">
     <c:forEach items="${notification}" var="notification">
         <p>notification</p>

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Esther √?lvarez Feijoo
+ * @author Esther √Ålvarez Feijoo
  */
 @Repository
 public class ReservationInstanceRepositoryImpl extends GenericRepositoryImpl<ReservationInstance> implements ReservationInstanceRepository {

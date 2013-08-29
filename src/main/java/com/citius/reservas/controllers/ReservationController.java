@@ -30,7 +30,7 @@ public interface ReservationController {
 
     /*Get all reservation instances*/
     @ResponseBody
-    @RequestMapping(value = {"", "/"},
+    @RequestMapping(value = {"/"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationInstance> readAll();
@@ -74,7 +74,7 @@ public interface ReservationController {
     @RequestMapping(value = {"/", ""},
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Reservation create(@Valid @RequestBody ReservationCustom r,
+    public Reservation create(@Valid @RequestBody ReservationCustom reservationCustom,
             BindingResult result)
             throws NotAvaliableException, NotPossibleInstancesException,
             InputRequestValidationException;
@@ -83,7 +83,8 @@ public interface ReservationController {
     @RequestMapping(value = {"/", ""},
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Reservation update(ReservationCustom r, BindingResult result)
+    public Reservation update(@Valid @RequestBody ReservationCustom reservationCustom,
+            BindingResult result)
             throws NotAvaliableException, NotPossibleInstancesException, 
             InputRequestValidationException, UnknownResourceException;
 
