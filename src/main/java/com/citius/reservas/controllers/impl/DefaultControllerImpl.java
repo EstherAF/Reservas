@@ -4,40 +4,40 @@
  */
 package com.citius.reservas.controllers.impl;
 
-import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.controllers.DefaultController;
-import com.citius.reservas.controllers.customModel.LoginStatus;
+import com.citius.reservas.exceptions.UnknownResourceException;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 /**
  *
  * @author Esther Álvarez Feijoo
  */
+@Controller
 public class DefaultControllerImpl implements DefaultController{
     
-    @Autowired
-    private AccessBusiness accessBusiness;        
+//    @Autowired
+//    private AccessBusiness accessBusiness;        
 
     @Override
     public String index(Model model) {
-        LoginStatus loginStatus = accessBusiness.getLoginStatus();
-        if(loginStatus.isLoggedIn())
-            return "/reservations";
-        else
-            return "/login";
+        return "redirect:/reservations/";
     }
 
-    @Override
-    public String unmappedHTMLRequest(HttpServletRequest request) throws NoSuchRequestHandlingMethodException {
-        throw new NoSuchRequestHandlingMethodException(request);
-    }
+//    @Override
+//    public String unmappedHTMLRequest(HttpServletRequest request) throws UnknownResourceException {
+//        throw new UnknownResourceException("There is no resource HTML for path for "+request.getRequestURI());
+//    }
+//
+//    @Override
+//    public String unmappedJSONRequest(HttpServletRequest request) throws UnknownResourceException {
+//        throw new UnknownResourceException("There is no resource JSON for path for "+request.getRequestURI());
+//    }
 
     @Override
-    public String unmappedJSONRequest(HttpServletRequest request) throws NoSuchRequestHandlingMethodException {
-        throw new NoSuchRequestHandlingMethodException(request);
+    public String errorView(HttpServletRequest request) throws UnknownResourceException{
+        throw new UnknownResourceException("There is no resource JSON for path for "+request.getRequestURI());
     }
     
 }

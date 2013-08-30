@@ -14,7 +14,7 @@
 
         <sec:authorize access="isFullyAuthenticated()">
             <span class="login">
-                <a href="<c:out value="/logout" />" >
+                <a href="<c:url value="/logout" />" >
                     <s:message code="nav.logout"/>
                 </a>
             </span>            

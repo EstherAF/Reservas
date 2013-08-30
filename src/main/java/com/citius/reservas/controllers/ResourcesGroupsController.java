@@ -49,8 +49,8 @@ public interface ResourcesGroupsController {
     @RequestMapping(value = "/{id}/all", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") Integer id);
 
-    /*Exceptions*/
-    @RequestMapping(value = "/**",
-            method = RequestMethod.GET)
-    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException;
+//    /*Exceptions*/
+//    @RequestMapping(value = "/**",
+//            method = RequestMethod.GET)
+//    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException;
 }

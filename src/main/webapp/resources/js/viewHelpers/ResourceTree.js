@@ -25,8 +25,7 @@ var ResourceTree = function(resources, option, prechecked) {
                     if (data.func === "select_node" && 
                             !data.inst.is_leaf(data.args[0])){
                         data.inst.toggle_node(data.args[0]);
-                        e.stopImmediatePropagation();
-                        return false;
+                        e.preventDefault();
                     }});
                 break;
 
@@ -38,12 +37,12 @@ var ResourceTree = function(resources, option, prechecked) {
                 //Pre
                 for (var i = 0; i < prechecked.length; i++) {
                     var node;
-                    var index = jsonTree.search('attr.id', prechecked[i].id);
+                    var index = jsonTree.search('attr.id', prechecked[i].resource.id);
                     if (!index) {
                         for (var j = 0; j < jsonTree.length; j++) {
                             var childrens = jsonTree[j].children;
                             if (childrens.length > 0) {
-                                var index = childrens.search('attr.id', prechecked[i].id);
+                                var index = childrens.search('attr.id', prechecked[i].resource.id);
                                 if (index) {
                                     node = childrens[index];
                                     jsonTree[j].attr.class = "jstree-open";

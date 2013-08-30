@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Esther
  */
 @RequestMapping("/login")
-@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
+//@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 public interface AccessController {
 
     /*---------JSON---------*/
@@ -34,7 +35,14 @@ public interface AccessController {
             method = RequestMethod.GET)
     @ResponseBody
     public LoginStatus getStatus();
+    
+    @RequestMapping(value = {"/",""},
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.GET)
+    @ResponseBody
+    public String getTimeOut() throws HttpSessionRequiredException;
 
+    /*---------HTML---------*/
     @RequestMapping(
             produces = MediaType.TEXT_HTML_VALUE,
             method = RequestMethod.GET)

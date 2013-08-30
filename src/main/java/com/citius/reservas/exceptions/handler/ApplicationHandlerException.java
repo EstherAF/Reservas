@@ -35,6 +35,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
+import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 /**
  *
@@ -102,7 +103,9 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
         //AccessDenied
         exceptionMappings.put(AccessDeniedException.class.getName(), new RestError(HttpStatus.METHOD_NOT_ALLOWED, 10201, "error.accessDenied", "error.dev.accessDenied"));
         exceptionMappings.put(org.springframework.security.authentication.AuthenticationCredentialsNotFoundException.class.getName(), new RestError(HttpStatus.METHOD_NOT_ALLOWED, 10202, "error.accessDenied", "error.dev.accessDenied"));
-        exceptionMappings.put(org.springframework.security.core.AuthenticationException.class.getName(), new RestError(HttpStatus.METHOD_NOT_ALLOWED, 10202, "error.accessDenied", "error.dev.accessDenied"));
+        exceptionMappings.put(org.springframework.web.HttpSessionRequiredException.class.getName(), new RestError(HttpStatus.METHOD_NOT_ALLOWED, 10203, "error.accessDenied", "error.dev.accessDenied"));
+        exceptionMappings.put(org.springframework.security.core.AuthenticationException.class.getName(), new RestError(HttpStatus.METHOD_NOT_ALLOWED, 10209, "error.accessDenied", "error.dev.accessDenied"));
+
         
         //APPLICATION EXCEPTIONS
         exceptionMappings.put(NotAvaliableException.class.getName(), new RestError(HttpStatus.NOT_MODIFIED, 10901));
@@ -135,6 +138,13 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
         HttpInputMessage inputMessage = new ServletServerHttpRequest(webRequest.getRequest());
         List<MediaType> acceptedMediaTypes = inputMessage.getHeaders().getAccept();
 
+        if(error.getClass().equals(RestError.class))
+            response.setStatus(((RestError)error).getStatus().value());
+        else if(error.getClass().equals(List.class))
+            response.setStatus(((List<RestError>)error).get(0).getStatus().value());
+        else
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        
         if (acceptedMediaTypes.contains(MediaType.APPLICATION_JSON)) {
             return this.generateJsonView(error);
         } else {
@@ -143,12 +153,12 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
     }
 
     private ModelAndView generateJsonView(Object error) {
-        try {
-            mapper.writeValueAsString(error);
-        } catch (IOException ex) {
-            logger.error(ex);
-        }
-        return null;
+        ModelAndView view = new ModelAndView();
+        MappingJacksonJsonView jsonView = new MappingJacksonJsonView();
+        jsonView.addStaticAttribute("restError", error);
+        
+        view.setView(jsonView);
+        return view;
     }
 
     private ModelAndView generateJspView(Object error, HttpServletRequest request) {

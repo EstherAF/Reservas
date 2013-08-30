@@ -60,20 +60,17 @@ dateHelper.onLoad = function(){
     dateHelper.selectorTime();
 };
 
-
-/****/
-
-dateHelper.firstDayOfWeek = function(week, year) { 
+dateHelper.firstDayOfWeek = function(week, year) {
     
     if (typeof year !== 'undefined') {
         year = (new Date()).getFullYear();
     }
 
-    var date       = dateHelper.firstWeekOfYear(year),
-        weekTime   = dateHelper.weeksToMilliseconds(week),
+    var date = dateHelper.firstWeekOfYear(year),
+        weekTime = dateHelper.weeksToMilliseconds(week),
         targetTime = date.getTime() + weekTime;
     
-    return date.setTime(targetTime); 
+    return date.setTime(targetTime);
     
 };
 
@@ -107,7 +104,7 @@ dateHelper.firstWeekday=function(date) {
     if (day > 3) {
 
         var remaining = 8 - day,
-            target    = remaining + 1;
+            target = remaining + 1;
                 
         date.setDate(target);
     }

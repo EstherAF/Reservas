@@ -12,7 +12,7 @@ ReservationNavigation.goToWeek = function(date){
 };
 
 
-$(function() {
+ReservationNavigation.onLoad = function() {
     if (locale === 'en')
         locale = '';
 
@@ -40,4 +40,4 @@ $(function() {
         var url = '../' + year + '/' + week;
         window.location.replace(url);
     });
-});
+};

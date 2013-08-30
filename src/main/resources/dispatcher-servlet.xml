@@ -17,13 +17,6 @@
           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 ">
-    
-    <!--    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
-    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />-->
-    
-    
-<!--    <context:component-scan base-package="com.citius.reservas" />-->
 
     <context:component-scan base-package="com.citius.reservas" use-default-filters="false">
         <context:include-filter expression="org.springframework.stereotype.Controller"
@@ -33,6 +26,8 @@
     <!--Habilitar anotaciones-->
     <s:global-method-security secured-annotations="enabled" />
     <tx:annotation-driven />
+    
+<!--    <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />-->
     
     <!--message converters: Jackson-->
     <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
@@ -60,38 +55,5 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-    
-    <!--Rest Exceptions Handler-->
-    <!-- Allow Exceptions to be handled in annotated methods if desired. Otherwise fallback to the
-    'restExceptionResolver' below: -->
-<!--    <bean id="annotationMethodHandlerExceptionResolver"
-          class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
-        <property name="order" value="0"/>
-    </bean>
-    <bean id="restExceptionResolver" class="com.citius.reservas.handlerExceptions.RestExceptionHandler">
-        <property name="order" value="100"/>
-        <property name="messageConverters">
-            <list>
-                <ref bean="jsonMessageConverter"/>
-            </list>
-        </property>
-        <property name="errorResolver">
-            <bean class="com.citius.reservas.handlerExceptions.RestErrorResolverImpl">
-                <property name="localeResolver" ref="localeResolver"/>
-                <property name="exceptionMappingDefinitions">
-                    <map>
-                         404 
-                        <entry key="com.citius.reservas.exceptions.UnknownResourceException" value="404, _exmsg"/>
-
-                         500 (catch all): 
-                        <entry key="Throwable" value="500"/>
-                    </map>
-                </property>
-            </bean>
-        </property>
-    </bean>
-    <bean id="handlerExceptionResolver" class="com.citius.reservas.exceptions.handler.ApplicationHandlerException">
-        <property name="order" value="100"/>
-    </bean>-->
         
 </beans>

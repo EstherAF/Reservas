@@ -34,8 +34,8 @@
 <!--form validation-->
 <script type="text/javascript" src="<c:url value="/resources/js/libs/GenericForm.js" />"></script>
 
-<script type="text/javascript" src="<c:url value="/resources/js/libs/Modal.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/viewHelpers/Notifications.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/libs/Modals.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/libs/Notifications.js" />"></script>
 
 <!--models-->
 <script type="text/javascript" src="<c:url value="/resources/js/models/Resource.js" />"></script>
@@ -77,4 +77,8 @@
            var modal = new Modal(Modal.type.fail, "${error.message}", "${error.status}-${error.code}-${error.developerMessage}");
         });
     </c:if>
+    
+    <sec:authorize access="isFullyAuthenticated()">
+        NavigationBar();
+    </sec:authorize>
 </script>

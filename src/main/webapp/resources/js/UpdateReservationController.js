@@ -97,9 +97,7 @@ UpdateReservationController.prototype.updateReservation = function() {
                 function(response) {
                     ReservationNavigation.goToWeek(response.start);
                 },
-                function(error) {
-                    Notifications.showError(error);
-                }
+                ajaxError
         );
     }
 };
@@ -135,6 +133,5 @@ UpdateReservationController.onLoad = function(users, resources, reservation) {
     $('[name="delete"]').click(function() {
         viewController.updateReservation.call(viewController);
     });
-
     viewController.refreshHTMLResourcesList();
 };

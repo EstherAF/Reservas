@@ -9,15 +9,18 @@ Notifications.showError = function(error){
         if(error.length === 0)
             return false;
         
-        Modal.BuildFromErrorList()
+        Modals.BuildFromErrorList()
+    }else if(error.responseJSON && error.responseJSON.restError){
+        Modals.BuildFromError(error.responseJSON.restError);
     }else{
-        Modal.BuildFromError(error);
+        //Default server message
+        Modals.BuildFromServerError(error);
     }
 };
 
 Notifications.showMessage = function(message){
     var text = this.messages[location][message];
-    Modal.BuildFromData(Modal.type.ok, text, "");
+    Modals.BuildFromData(Modals.type.ok, text, "");
 };
 
 Notifications.removeAll=function(){
@@ -36,7 +39,8 @@ Notifications.messages = {
         'update_reservation_ok': 'La reserva se ha modificado correctamente',
         'update_resource_ok': 'El recurso se ha modificado correctamente',
         'delete_reservation_ok': 'La reserva se ha eliminado correctamente',
-        'delete_resource_ok': 'El recurso se ha eliminado correctamente'
+        'delete_resource_ok': 'El recurso se ha eliminado correctamente',
+        500: '500: Error interno del servidor'
     },
     'en': {
         'create_reservation_ok': 'La reserva se ha creado correctamente',
@@ -44,7 +48,8 @@ Notifications.messages = {
         'update_reservation_ok': 'La reserva se ha modificado correctamente',
         'update_resource_ok': 'El recurso se ha modificado correctamente',
         'delete_reservation_ok': 'La reserva se ha eliminado correctamente',
-        'delete_resource_ok': 'El recurso se ha eliminado correctamente'
+        'delete_resource_ok': 'El recurso se ha eliminado correctamente',
+        500: '500: Error interno del servidor'
     },
     'ga': {
         'create_reservation_ok': 'La reserva se ha creado correctamente',
@@ -52,7 +57,8 @@ Notifications.messages = {
         'update_reservation_ok': 'La reserva se ha modificado correctamente',
         'update_resource_ok': 'El recurso se ha modificado correctamente',
         'delete_reservation_ok': 'La reserva se ha eliminado correctamente',
-        'delete_resource_ok': 'El recurso se ha eliminado correctamente'
+        'delete_resource_ok': 'El recurso se ha eliminado correctamente',
+        500: '500: Error interno del servidor'
     }
 };
 

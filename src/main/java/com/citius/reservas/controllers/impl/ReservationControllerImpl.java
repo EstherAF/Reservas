@@ -7,7 +7,6 @@ import com.citius.reservas.business.ResourceGroupBusiness;
 import com.citius.reservas.controllers.customModel.ReservationCustom;
 import com.citius.reservas.controllers.customModel.ReservationInstanceCustom;
 import com.citius.reservas.controllers.i18n.i18nReservationsHelper;
-import com.citius.reservas.controllers.validators.ReservationValidator;
 import com.citius.reservas.exceptions.InputRequestValidationException;
 import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.exceptions.NotPossibleInstancesException;
@@ -56,6 +55,19 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
+    public List<ReservationInstance> readAllMonth(Integer year, Integer month, Integer id) {
+        return rb.readByMonthByResource(id, month, year);
+    }
+    
+    @Override
+    public List<ReservationInstance> readAllWeek(Integer year, Integer week, Integer id) {
+        Calendar c = Calendar.getInstance();
+        c.set(year, 0, 0, 0, 0, 0);
+        c.set(Calendar.WEEK_OF_YEAR, week);
+        return rb.readByWeekByResource(id, c);
+    }
+    
+    @Override
     public List<ReservationInstance> readAll(Integer year, Integer month) {
         return rb.readByMonth(month, year);
     }
@@ -63,11 +75,6 @@ public class ReservationControllerImpl implements ReservationController {
     @Override
     public Reservation read(Integer id) {
         return rb.read(id);
-    }
-
-    @Override
-    public List<ReservationInstance> readAll(Integer year, Integer month, Integer resourceId) {
-        return rb.readByMonthByResource(resourceId, month, year);
     }
 
     @Override
@@ -297,10 +304,5 @@ public class ReservationControllerImpl implements ReservationController {
         } else {
             return this.weeklyReservation();
         }
-    }
-
-    @Override
-    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException {
-        throw new NoSuchRequestHandlingMethodException(request);
     }
 }

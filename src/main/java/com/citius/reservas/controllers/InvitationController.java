@@ -11,7 +11,6 @@ import com.citius.reservas.models.InvitationState;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -64,8 +63,8 @@ public interface InvitationController {
             @PathVariable(value = "state") InvitationState state)
             throws UnknownResourceException;
 
-    /*Exceptions*/
-    @RequestMapping(value = "/**",
-            method = RequestMethod.GET)
-    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException;
+//    /*Exceptions*/
+//    @RequestMapping(value = "/**",
+//            method = RequestMethod.GET)
+//    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException;
 }

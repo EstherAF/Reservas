@@ -6,9 +6,6 @@ var ReservationController = function(users, resources, precheckedResources) {
     this.guests = [];
     this.resourceTree = new ResourceTree(resources, 'checkbox', this.resources);
 
-    var index = users.search('uniqueName', loggedUniqueName);
-    users.remove(index);
-
     this.autoComplete = new Autocomplete(users,
             'input[type="text"].autocomplete.users',
             'input[type="button"].autocomplete');
@@ -273,7 +270,7 @@ ReservationController.prototype.bindCheckResourceTree = function(data) {
 };
 ReservationController.prototype.bindUncheckResourceTree = function(data) {
     var node = data.rslt.obj;
-    var index = this.resources.search('id', node.attr('id'));
+    var index = this.resources.search('resource.id', node.attr('id'));
 
     if (index) {
         //remove from arrays
@@ -285,7 +282,7 @@ ReservationController.prototype.bindUncheckResourceTree = function(data) {
         var childs = node.find('li');
         for (var i = 0; i < childs.length; i++) {
             var id = $(childs[i]).attr('id');
-            var index = this.resources.search('id', id);
+            var index = this.resources.search('resource.id', id);
             if (index) {
                 this.resources.remove(index);
             }
@@ -299,7 +296,7 @@ ReservationController.prototype.bindUncheckResourceTree = function(data) {
     node.removeAttr("type_jstree");
 };
 ReservationController.prototype.changeResourceQuantity = function(resourceId, quantity) {
-    var index = this.resources.search('id', resourceId);
+    var index = this.resources.search('resource.id', resourceId);
 
     this.resources[index].quantity = quantity;
 
@@ -458,39 +455,5 @@ ReservationController.load = function(resourceTree, selectGuess) {
     //Change quantity of a resource group when its selector is changed
     $('html').on('change', '.resource_group_selector', function() {
         viewController.changeResourceQuantity.call(viewController, $(this).attr('id'), $(this).val());
-    });
-
-    $('[name$="Date"]').bind('change', function() {
-        var start = $('[name="startDate"]');
-        var end = $('[name="endDate"]');
-        var startDate = start.datepicker("getDate");
-        var endDate = end.datepicker("getDate");
-
-        if (endDate < startDate && $(this).attr('name') == 'startDate')
-            end.datepicker("setDate", startDate);
-        else if (endDate < startDate && $(this).attr('name') == 'endDate')
-            start.datepicker("setDate", endDate);
-    });
-
-    $('[name="startTimeHour"]').bind('change', function() {
-        var value = $(this).val();
-        if (value == 23) {
-            var value = 0;
-            $('[name="endTimeHour"]').val(value);
-            var startDate = $('[name="startDate"]').datepicker("getDate");
-            startDate.setDate(startDate.getDate() + 1);
-            $('[name="endDate"]').datepicker("setDate", startDate);
-        } else {
-            var value = parseInt($(this).val()) + 1;
-            $('[name="endTimeHour"]').val(value);
-        }
-    });
-
-    $('[name="startTimeMinute"]').bind('change', function() {
-        $('[name="endTimeMinute"]').val($(this).val());
-    });
-
-    $('[name^="endTime"]').bind('change', function() {
-        $('[name^="startTime"]').unbind('change');
     });
 };

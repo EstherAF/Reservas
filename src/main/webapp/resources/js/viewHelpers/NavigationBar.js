@@ -65,9 +65,7 @@ NavigationBar.invitationMenu = function() {
                 //bind accept and reject events
                 $('.dropdown_wrapper > .dropdown_child').on('click', 'li > .btn', resolveInvitation);
             },
-            function(e) {
-                Notifications.showError(e);
-            }
+            ajaxError
     );
 };
 
@@ -100,9 +98,3 @@ NavigationBar.invitationOnReservationView = function() {
 
     $('html').on('click', '.btn.invitation', resolveInvitationOnReservationView);
 };
-
-$(function() {
-    if($('#buttons .dropdown_wrapper').length){
-        new NavigationBar();
-    }
-});

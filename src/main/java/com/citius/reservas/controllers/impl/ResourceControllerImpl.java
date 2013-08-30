@@ -154,8 +154,8 @@ public class ResourceControllerImpl implements ResourceController {
         return "resources";
     }
 
-    @Override
-    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException {
-        throw new NoSuchRequestHandlingMethodException(request);
-    }
+//    @Override
+//    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException {
+//        throw new NoSuchRequestHandlingMethodException(request);
+//    }
 }

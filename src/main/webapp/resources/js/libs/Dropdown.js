@@ -10,9 +10,9 @@ Dropdown.create = function(wrapper, list, operation) {
         $(wrapper + ' > ul.dropdown').show();
         
         //Add handler for click on dropdown event
-        $(wrapper + '> .dropdown').click(function(){
+        $(wrapper + '> .dropdown').click(function(e){
+            e.preventDefault();
             Dropdown.toggleDropDown.call(this);
-            return false;
         });
         var length = Dropdown.populateList(list, operation);
         $('.number_alert').text(length);
@@ -55,7 +55,7 @@ Dropdown.hideDropdown = function(e) {
 
     if (!wrapper.is(e.target) &&
             wrapper.has(e.target).length === 0) {
-        Dropdown.toggleDropDown();
+        Dropdown.toggleDropDown.call(wrapper.find('.dropdown'));
         return;
     }
 };
@@ -64,15 +64,12 @@ Dropdown.toggleDropDown = function() {
     var dropdownButton = $(this);
     var dropdownMenu = $(this).parent().children('.dropdown_child');
     dropdownMenu.toggle();
+    dropdownButton.toggleClass('show');
     if (dropdownMenu.css('display') != 'none') {
-        
         //Add handler for click outside of dropdown event
         $('html').bind('click', function(e) {Dropdown.hideDropdown(e);});
-        dropdownButton.find('a').css('background', '#333');
     } else {
-        
         //Remove handler for click outside of dropdown event
         $('html').unbind('click', function(e) {Dropdown.hideDropdown(e);});
-        dropdownButton.find('a').css('background', '#f36126');
     }
 };

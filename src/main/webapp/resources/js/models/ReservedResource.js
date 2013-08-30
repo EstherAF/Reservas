@@ -1,11 +1,8 @@
 
 /*---------------Model of ReservedResource--------------*/
 var ReservedResource = function(resource, quantity) {
-    this.id = resource.id;
-    this.name = resource.name;
-    this.description = resource.description;
-    this.group = resource.group;
-    if (!this.group || !this.group.id) {
+    this.resource = resource;
+    if (!this.resource.group) {
         this.quantity = (quantity) ? quantity : 1;
     }
 };

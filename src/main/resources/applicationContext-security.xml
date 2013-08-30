@@ -23,17 +23,16 @@
     <!--Autentificación contra el LDAP-->
     <s:authentication-manager alias="authenticationManager">
         <s:authentication-provider ref="ldapAuthProvider">
-<!--            <s:password-compare>
+            <!--            <s:password-compare>
                 <s:password-encoder ref="passwordEncoder">
                 </s:password-encoder>
             </s:password-compare>-->
-<!--            <password-compare>
+            <!--            <password-compare>
                 <password-encoder hash="md5" />
             </password-compare>-->
         </s:authentication-provider>
     </s:authentication-manager>
-    
-<!--    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />-->
+    <!--    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />-->
     
     <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
         <property name="url" value="ldap://localhost:389/" />
@@ -91,19 +90,22 @@
             authentication-failure-url="/login/failure"
             authentication-success-handler-ref="authSuccessHandler"
         />
-        
-        <s:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-        <!--        <s:intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />-->
-        <!--        <s:intercept-url pattern="/*" access="IS_AUTHENTICATED_FULLY" /> -->
+        <s:intercept-url pattern="/**"/>
+        <!--        <s:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />-->
+        <!--        <s:intercept-url pattern="/login**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <s:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />-->
        
-        <s:http-basic />
-        <s:anonymous />
+        <!--        <s:http-basic />
+        <s:anonymous />-->
         <s:logout logout-url="/logout" logout-success-url="/login"/>
+        <!--        <s:remember-me />-->
         
     </s:http>
     
     <!--Para permitir anotaciones en los jsp-->
     <bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" /> 
 
-    <s:global-method-security secured-annotations="enabled" />    
+    <s:global-method-security secured-annotations="enabled" 
+                              authentication-manager-ref="authenticationManager" 
+                              order="-1"/>    
 </beans>

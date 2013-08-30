@@ -1,20 +1,18 @@
-var ViewReservationController = function() {
-    $('a.invitation').click(function() {
+var ViewReservationController = function(){
+    $('a.invitation').click(function(){
         var state = $(this).attr('state');
         var id = $(this).attr('reservationId');
         Invitation.changeStateInvitation(
-                id + '/' + state,
-                function(changed) {
-                    $('li[state="' + state + '"]').hide();
-                    $('li[state!="' + state + '"]').show();
+            id+'/'+state,
+            function(changed){
+                $('li[state="'+state+'"]').hide();
+                $('li[state!="'+state+'"]').show();
                     var label = $('span.invitation_label');
                     label.text(label.attr(state));
-                    var row = $('tr[uniqueName="' + changed.guest.uniqueName + '"]');
-                    row.find('td[class^=icon-invitation-]').attr('class', 'icon-invitation-' + state);
+                var row = $('tr[uniqueName="'+changed.guest.uniqueName+'"]');
+                row.find('td[class^=icon-invitation-]').attr('class','icon-invitation-'+state);
                 },
-                function(error) {
-                    Notifications.showError(error);
-                }
+                ajaxError
         );
     });
 

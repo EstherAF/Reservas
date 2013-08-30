@@ -12,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpSessionRequiredException;
 
 /**
  *
  * @author Esther
  */
 @Controller
-@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 public class AccessControllerImpl implements AccessController {
 
     @Autowired
@@ -57,4 +57,9 @@ public class AccessControllerImpl implements AccessController {
 //    public String index(Model model) {
 //        return "redirect:/reservations/";
 //    }
+
+    @Override
+    public String getTimeOut() throws HttpSessionRequiredException{
+        throw new HttpSessionRequiredException("");
+    }
 }

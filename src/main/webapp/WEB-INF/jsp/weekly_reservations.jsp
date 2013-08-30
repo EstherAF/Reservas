@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="<c:url value="/resources/css/weekly_reservations.css" />" type="text/css" /> 
         <script type="text/javascript">
             $(ResourcePopUp.onLoad);
+            ReservationNavigation.onLoad();
         </script>
 
     </head>

@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 @Controller
 @RequestMapping(value = "/reservations")
@@ -35,28 +34,38 @@ public interface ReservationController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationInstance> readAll();
 
+    /*Get all resource's reservation instances in received month*/
+    @ResponseBody
+    @RequestMapping(value = "/month/{year}/{month}/resource/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ReservationInstance> readAllMonth(
+            @PathVariable(value = "year") Integer year,
+            @PathVariable(value = "month") Integer month,
+            @PathVariable(value = "id") Integer another);
+    
+    /*Get all resource's reservation instances in received month*/
+    @ResponseBody
+    @RequestMapping(value = "/week/{year}/{week}/resource/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ReservationInstance> readAllWeek(
+            @PathVariable(value = "year") Integer year,
+            @PathVariable(value = "week") Integer week,
+            @PathVariable(value = "id") Integer another);
+
     /*Get all reservation instances in month*/
     @ResponseBody
-    @RequestMapping(value = {"/{year}/month/{month}"},
+    @RequestMapping(value = "/month/{year}/{month}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationInstance> readAll(
             @PathVariable(value = "year") Integer year,
             @PathVariable(value = "month") Integer month);
 
-    /*Get all resource's reservation instances in received month*/
-    @ResponseBody
-    @RequestMapping(value = {"/{year}/month/{month}/resource/{resource}"},
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ReservationInstance> readAll(
-            @PathVariable(value = "year") Integer year,
-            @PathVariable(value = "month") Integer month,
-            @PathVariable(value = "resource") Integer resourceId);
-
     /*Get all user's reservation instances in received month*/
     @ResponseBody
-    @RequestMapping(value = "/owns/{year}/month/{month}",
+    @RequestMapping(value = "/owns/month/{year}/{month}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReservationInstance> readAllByLoggedUser(
@@ -85,7 +94,7 @@ public interface ReservationController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Reservation update(@Valid @RequestBody ReservationCustom reservationCustom,
             BindingResult result)
-            throws NotAvaliableException, NotPossibleInstancesException, 
+            throws NotAvaliableException, NotPossibleInstancesException,
             InputRequestValidationException, UnknownResourceException;
 
     @ResponseBody
@@ -96,7 +105,7 @@ public interface ReservationController {
             throws AccessDeniedException;
 
     /**
-     * ****************** HTML   ************************
+     * ****************** HTML ************************
      */
     @RequestMapping(value = {"/", ""},
             method = RequestMethod.GET,
@@ -149,9 +158,4 @@ public interface ReservationController {
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
     public String updateReservationView(Model model, @PathVariable(value = "id") Integer id);
-
-    /*Exceptions*/
-    @RequestMapping(value = "/**",
-            method = RequestMethod.GET)
-    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException;
 }

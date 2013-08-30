@@ -81,8 +81,8 @@ public class InvitationControllerImpl implements InvitationController {
         return invitation;
     }
 
-    @Override
-    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException {
-        throw new NoSuchRequestHandlingMethodException(request);
-    }
+//    @Override
+//    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException {
+//        throw new NoSuchRequestHandlingMethodException(request);
+//    }
 }

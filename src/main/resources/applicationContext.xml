@@ -32,9 +32,6 @@
     
     <!--Validation of Beans-->
     <bean id="localValidatorFactoryBean" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
-    <!--        <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
-    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />-->
         
     <!--Local resolver by cookies (CookieLocaleResolver)
     How locale is stored. In this case, in user's session-->
@@ -78,28 +75,6 @@
           class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
         <property name="order" value="0"/>
     </bean>
-<!--    <bean id="restExceptionResolver" class="com.citius.reservas.handlerExceptions.RestExceptionHandler">
-        <property name="order" value="100"/>
-        <property name="messageConverters">
-            <list>
-                <ref bean="jsonMessageConverter"/>
-            </list>
-        </property>
-        <property name="errorResolver">
-            <bean class="com.citius.reservas.handlerExceptions.RestErrorResolverImpl">
-                <property name="localeResolver" ref="localeResolver"/>
-                <property name="exceptionMappingDefinitions">
-                    <map>
-                         404 
-                        <entry key="com.citius.reservas.exceptions.UnknownResourceException" value="404, _exmsg"/>
-
-                         500 (catch all): 
-                        <entry key="Throwable" value="500"/>
-                    </map>
-                </property>
-            </bean>
-        </property>
-    </bean>-->
     <bean id="handlerExceptionResolver" class="com.citius.reservas.exceptions.handler.ApplicationHandlerException">
         <property name="order" value="100"/>
     </bean>

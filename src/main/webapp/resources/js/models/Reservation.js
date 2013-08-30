@@ -31,13 +31,11 @@ var NewReservation = function(id, name, description, start, end, type, interval,
 NewReservation.prototype = Object.create(Reservation.prototype);
 
 NewReservation.prototype.addReservedResource = function(reservedResource) {
-    if (reservedResource.group) {
-        delete reservedResource.quantity;
-        delete reservedResource.group;
-        this.addResource(reservedResource);
+    if (!reservedResource.quantity) {
+        this.addResource(reservedResource.resource);
     } else {
-        if (reservedResource.id[0] == 'g')
-            reservedResource.id = reservedResource.id.substr(1);
+        if (reservedResource.resource.id[0] == 'g')
+            reservedResource.resource.id = reservedResource.resource.id.substr(1);
         this.groups.push(reservedResource);
     }
 };
@@ -63,14 +61,18 @@ Reservation.getReservation = Ajax.requestInUrl("GET", "/Reservas/reservations/")
 Reservation.deleteReservation = Ajax.requestInUrl("DELETE", "/Reservas/reservations/");
 Reservation.loadUpdateReservationView = Ajax.requestInUrl("PUT", "/Reservas/reservations/", "html");
 Reservation.getOwnReservationsByMonth = function(year, month, success_cb, error_cb){
-    Ajax.requestInUrl("GET", "/Reservas/reservations/owns/", "json")(year+'/month/'+month, success_cb, error_cb);
+    Ajax.requestInUrl("GET", "/Reservas/reservations/owns/month/", "json")(year+'/'+month, success_cb, error_cb);
 };
 Reservation.getReservationsByMonth = function(year, month, success_cb, error_cb){
-    Ajax.requestInUrl("GET", "/Reservas/reservations/", "json")(year+'/month/'+month, success_cb, error_cb);
+    Ajax.requestInUrl("GET", "/Reservas/reservations/month/", "json")(year+'/'+month, success_cb, error_cb);
 };
 
-Reservation.getReservationsByResource = function(year, month, resourceId, success_cb, error_cb){
-    Ajax.requestInUrl("GET", "/Reservas/reservations/", "json")(year+'/month/'+month+'/resource/'+resourceId, success_cb, error_cb);
+Reservation.getReservationsByMonthResource = function(year, month, resourceId, success_cb, error_cb){
+    Ajax.requestInUrl("GET", "/Reservas/reservations/month/", "json")(year+'/'+month+'/resource/'+resourceId, success_cb, error_cb);
+};
+
+Reservation.getReservationsByWeekResource = function(year, month, resourceId, success_cb, error_cb){
+    Ajax.requestInUrl("GET", "/Reservas/reservations/week/", "json")(year+'/'+month+'/resource/'+resourceId, success_cb, error_cb);
 };
 
 Reservation.delete = function(id, success_cb, error_cb){

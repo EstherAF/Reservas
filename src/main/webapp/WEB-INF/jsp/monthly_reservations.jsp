@@ -17,9 +17,8 @@
         <link rel="stylesheet" href="<c:url value="/resources/css/external/fullcalendar.css" />" type="text/css" />
         <link rel="stylesheet" href="<c:url value="/resources/css/monthly_reservations.css" />" type="text/css" />
         <script type="text/javascript" src="<c:url value="/resources/js/jquery/fullcalendar.js" />"></script>
-<!--        <script type="text/javascript" src="<c:url value="/resources/js/libs/MyCalendar.js" />"></script>
-        <script type="text/javascript" src="<c:url value="/resources/js/viewHelpers/GeneralCalendar.js" />"></script>-->
-        <script type="text/javascript" src="<c:url value="/resources/js/viewHelpers/MyCalendar.js" />" ></script>
+        <script type="text/javascript" src="<c:url value="/resources/js/libs/MyCalendar.js" />"></script>
+        <script type="text/javascript" src="<c:url value="/resources/js/viewHelpers/GeneralCalendar.js" />"></script>
         <script type="text/javascript" src="<c:url value="/resources/js/MonthlyCalendarByOwnController.js" />"></script>
 
 

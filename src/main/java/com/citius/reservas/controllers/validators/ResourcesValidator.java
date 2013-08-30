@@ -18,7 +18,6 @@ import org.springframework.validation.Validator;
 public class ResourcesValidator implements Validator {
     @Autowired
     private i18nManager i18;
-
     
             
     @Override

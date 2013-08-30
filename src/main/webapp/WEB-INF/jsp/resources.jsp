@@ -20,6 +20,7 @@
 
         <script type="text/javascript">
             var resources = ${resourcesJson};
+            resourcesView.onLoad();
         </script>
     </head>
     <body>

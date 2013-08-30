@@ -5,7 +5,6 @@ import com.citius.reservas.exceptions.InputRequestValidationException;
 import com.citius.reservas.models.Resource;
 import com.citius.reservas.models.ResourceGroup;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
@@ -14,14 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 @Controller
 @RequestMapping(value = "/resources")
 @Secured("IS_AUTHENTICATED_FULLY")
 public interface ResourceController {
 
-    @InitBinder("resource")
+    @InitBinder(value = {"resource","resourceCustom"})
     public void initBinder(WebDataBinder binder);
 
     /**
@@ -100,8 +98,8 @@ public interface ResourceController {
             method = RequestMethod.GET)
     public String resourcesAdmin(Model model);
 
-    /*Exceptions*/
-    @RequestMapping(value = "/**",
-            method = RequestMethod.GET)
-    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException;
+//    /*Exceptions*/
+//    @RequestMapping(value = "/**",
+//            method = RequestMethod.GET)
+//    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException;
 }

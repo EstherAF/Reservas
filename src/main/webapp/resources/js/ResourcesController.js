@@ -68,7 +68,7 @@ var resourcesView = function(resources) {
     );
 
     /*PRIVATE*/
-    var cleanMessages = function() {
+    var cleanMessages = function(){
         self.updateResourceForm.removeErrors();
         self.createResourceForm.removeErrors();
     };
@@ -131,7 +131,7 @@ var resourcesView = function(resources) {
         } else {
             Resource.createResource(resource,
                     function(response) {
-                        for (var i = 0; i < response.length; i++) {
+                        for(var i=0; i<response.length; i++){
                             response.group = new Object();
                             response.group.id = resource.group.id;
                             self.resTree.addResourceNode(response);
@@ -143,7 +143,7 @@ var resourcesView = function(resources) {
     var updateResource = function(resource) {
         var success = function() {
             //self.resTree.updateNode(resource);
-            Notifications.showMessage('update_resource_ok');
+            Notifications.showMessage('update_resource_ok'); 
         };
 
         if (resource.group) {
@@ -171,7 +171,7 @@ var resourcesView = function(resources) {
         var validated;
         if (operation === "update") {
             validated = self.updateResourceForm.validate();
-            if (validated) {
+            if(validated){
                 var node = self.resTree.getSelectedNode();
                 id = node.attr('id');
 
@@ -187,7 +187,7 @@ var resourcesView = function(resources) {
             }
         } else if (operation === "create") {
             validated = self.createResourceForm.validate();
-            if (validated) {
+            if(validated){
                 var is_group = validated.is_group;
                 var resourceType = (is_group === "true") ? "group" : "resource";
 
@@ -198,10 +198,10 @@ var resourcesView = function(resources) {
         }
 
 
-        if (validated) {
+        if(validated){
             var resource = new Resource(id, name, description, id_group);
             if (operation === "create") {
-                resource.quantity = validated.quantity;
+                resource.quantity=validated.quantity;
                 createResource(resource);
             } else if (operation === "update") {
                 updateResource(resource);
@@ -259,17 +259,17 @@ var resourcesView = function(resources) {
     }
 };
 
-$(function() {
+resourcesView.onLoad= function() {
     var resourceView = new resourcesView(resources);
 
     //Show group selector?
     $('input[name="is_group"]').change(function() {
         var is_group = $(this).attr('value');
-        if (is_group === "true") {
+        if (is_group === "true"){
             $('#group_selector').hide();
             $('#quantity').val(1);
             $('#quantity').hide();
-        } else {
+        }else{
             $('#group_selector').show();
             $('#quantity').show();
         }
@@ -294,4 +294,4 @@ $(function() {
         resourceView.loadUpdateResourceInterface(data.rslt.obj);
     });
 
-});
+};
