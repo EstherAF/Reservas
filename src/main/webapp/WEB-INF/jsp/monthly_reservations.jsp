@@ -10,7 +10,7 @@
 <html>
     <head>
         <title>
-            <s:message code="reservation.week.title"/>
+            <s:message code="reservations.title"/>
         </title>
         
         <jsp:include page="/WEB-INF/jsp/jsp_templates/generic_head.jsp" />

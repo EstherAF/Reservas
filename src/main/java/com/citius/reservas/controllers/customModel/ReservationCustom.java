@@ -36,6 +36,7 @@ public class ReservationCustom extends Reservation{
         Reservation r = new Reservation(this.getName(), this.getDescription(), 
                 this.getOwner(), this.getStart(), this.getEnd(), 
                 this.getRepetition(), this.getResources());
+        r.setId(this.getId());
         r.setInvitations(this.getInvitations());
         return r;
     }

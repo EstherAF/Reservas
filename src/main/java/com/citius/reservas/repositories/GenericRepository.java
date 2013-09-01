@@ -23,5 +23,7 @@ public interface GenericRepository<T> {
     public void delete(Object id);
     
     public void detach(T t);
+    
+    public void flush();
 
 }

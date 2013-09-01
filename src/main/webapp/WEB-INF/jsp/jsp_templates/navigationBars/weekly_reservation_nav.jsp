@@ -16,8 +16,8 @@
             <li><a class="reservas_btn" 
                    href='<c:url value="/reservations/new" />'><s:message code="reservation.nav.create" /></a></li>
             <li><input type="hidden" id="calendarIcon" /></li>
-            <li><a href='<c:url value="${previous}" />' class="icon-caret-left icon"></a></li>
-            <li><a href='<c:url value="${next}" />' class="icon-caret-right icon"></a></li>
+            <li><a name="prev" href='<c:url value="${previous}" />' class="icon-caret-left icon"></a></li>
+            <li><a name="next" href='<c:url value="${next}" />' class="icon-caret-right icon"></a></li>
             <li><span><c:out value="${weekDescription}" /></span></li>
         </ul>
     </nav>
@@ -26,7 +26,7 @@
             <li><span><s:message code="reservation.nav.as"/></span></li>
             <li><a href="<c:url value="/reservations/week/" />" class="reservas_btn">
                     <s:message code="reservation.nav.week" /></a></li>
-            <li><a href="<c:url value="/reservations/month/" />" class="reservas_btn">
+            <li><a name="monthlyView" href="<c:url value="/reservations/month/" />" class="reservas_btn">
                     <s:message code="reservation.nav.month" /></a></li>
         </ul>
     </nav>

@@ -3,12 +3,14 @@ var Repetition = function(interval, endDate, type, weekDays) {
     this.interval = interval;
     this.endDate = endDate;
     this.type = type;
-    this.weekDays = (weekDays) ? weekDays : [];
+    if(weekDays)
+        this.weekDays = weekDays;
 };
 
 Repetition.type = {
     once: 'ONCE',
     weekly: 'WEEKLY',
     monthly: 'MONTHLY',
-    monthly_relative: 'MONTHLY_RELATIVE'
+    monthly_relative: 'MONTHLY_RELATIVE',
+    daily: 'DAILY'
 };

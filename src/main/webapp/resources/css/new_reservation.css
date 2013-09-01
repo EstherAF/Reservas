@@ -72,12 +72,12 @@ table.guests {
       color: #999999; }
       table.guests tr .icon-invitation-WAITING:before {
         content: "\e018"; }
-    table.guests tr .icon-remove:before {
+    table.guests tr td.icon-remove {
       cursor: pointer;
       text-align: right;
       color: red; }
-      table.guests tr .icon-remove:before:before {
-        content: "\e018"; }
+      table.guests tr td.icon-remove:before {
+        content: "\e000"; }
     table.guests tr .content {
       text-align: left; }
     table.guests tr .email {

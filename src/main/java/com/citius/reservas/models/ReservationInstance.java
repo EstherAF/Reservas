@@ -148,9 +148,10 @@ public class ReservationInstance implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 37 * hash + Objects.hashCode(this.startTimeDate);
-        hash = 37 * hash + Objects.hashCode(this.endTimeDate);
-        hash = 37 * hash + Objects.hashCode(this.reservation);
+        hash = 31 * hash + Objects.hashCode(this.id);
+        hash = 31 * hash + Objects.hashCode(this.startTimeDate);
+        hash = 31 * hash + Objects.hashCode(this.endTimeDate);
+        hash = 31 * hash + Objects.hashCode(this.reservation.getId());
         return hash;
     }
 
@@ -163,6 +164,9 @@ public class ReservationInstance implements Serializable {
             return false;
         }
         final ReservationInstance other = (ReservationInstance) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         if (!Objects.equals(this.startTimeDate, other.startTimeDate)) {
             return false;
         }
@@ -174,6 +178,8 @@ public class ReservationInstance implements Serializable {
         }
         return true;
     }
+
+    
 
     @Override
     public String toString() {

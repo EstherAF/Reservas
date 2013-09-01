@@ -15,11 +15,11 @@
         <jsp:include page="/WEB-INF/jsp/jsp_templates/generic_head.jsp" flush="true"/>
         <link rel="stylesheet" href="<c:url value="/resources/css/login.css" />" type="text/css" /> 
         
-        <c:if test="${error}">
+        <c:if test="${loginError}">
             <script type="text/javascript">
                 $(function(){
                     var message = "<s:message code = "error.login" />";
-                    new Modal(Modal.type.fail, message);
+                    new Modals(Modals.type.fail, message);
                 });
             </script>
         </c:if>

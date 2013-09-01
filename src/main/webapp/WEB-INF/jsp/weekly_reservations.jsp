@@ -10,15 +10,28 @@
 <html>
     <head>
         <title>
-            <s:message code="reservation.week.title"/>
+            <s:message code="reservations.title"/>
         </title>
         <jsp:include page="/WEB-INF/jsp/jsp_templates/generic_head.jsp" />
 
         <link rel="stylesheet" href="<c:url value="/resources/css/weekly_reservations.css" />" type="text/css" /> 
+        <script type="text/javascript" src="<c:url value="/resources/js/WeeklyCalendarByOwnController.js" />" /> 
+        
         <script type="text/javascript">
-            $(ResourcePopUp.onLoad);
-            ReservationNavigation.onLoad();
         </script>
+        
+        
+        <script type="text/javascript">
+            $(function() {
+                ResourcePopUp.onLoad();
+                ReservationNavigation.onLoad();
+                WeeklyCalendarByOwnControler.updateMonthlyViewLink();
+            });
+        </script>
+        
+        
+        
+        
 
     </head>
     <body>
@@ -89,8 +102,8 @@
                                         <td class="doubletime">
                                             <c:choose>
                                                 <c:when test="${ (!(startDate eq dateLabel) && !(endDate eq dateLabel || instance.endTimeDate eq endDateThisDay)) ||
-                                                        (instance.endTimeAsString eq '00:00' && instance.startTimeAsString eq '00:00')}">
-                                                    Todo el día
+                                                                 (instance.endTimeAsString eq '00:00' && instance.startTimeAsString eq '00:00')}">
+                                                        Todo el día
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:choose>

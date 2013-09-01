@@ -46,17 +46,12 @@ public class AccessControllerImpl implements AccessController {
     @Override
     public String loginFailure(Model model) {
         if (!this.getStatus().isLoggedIn()) {
-            model.addAttribute("error", true);
+            model.addAttribute("loginError", true);
             return "login";
         } else {
             return "redirect:/reservations/week";
         }
     }
-
-//    @Override
-//    public String index(Model model) {
-//        return "redirect:/reservations/";
-//    }
 
     @Override
     public String getTimeOut() throws HttpSessionRequiredException{

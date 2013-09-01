@@ -133,6 +133,7 @@ ResourcePopUp.onLoad = function() {
     ResourcePopUp.buildPopUps(popups);
     ResourcePopUp.buildGroupPopUps(groupPopups);
     $('html').on('click', function(e) {
+        
         $(".popup").each(function() {
             if (!$(this).is(e.target) && 
                 !$('ins.jstree-checkbox').is(e.target.firstChild)  && 

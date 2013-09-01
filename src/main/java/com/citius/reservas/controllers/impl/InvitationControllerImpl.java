@@ -52,7 +52,7 @@ public class InvitationControllerImpl implements InvitationController {
         String uniqueName = access.getUniqueNameOfLoggedUser();
 
         if (!invitation.getReservation().getOwner().getUniqueName().equals(uniqueName)
-                && !access.isAdmin(uniqueName)) {
+                && !access.isAdmin()) {
             throw new AccessDeniedException("");
         }
 

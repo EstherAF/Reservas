@@ -55,7 +55,7 @@ public class ReservationValidator extends GenericValidator<Reservation> {
             }
 
             if (repetition.getType().equals(RepetitionType.WEEKLY)
-                    && repetition.getWeekDays() == null) {
+                    && (repetition.getWeekDays() == null || repetition.getWeekDays().isEmpty())) {
                 errors.rejectValue("weekDays", "error.form.reservation.repetition.weekDays.min");
             }
         }

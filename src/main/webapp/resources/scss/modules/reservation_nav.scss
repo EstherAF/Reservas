@@ -3,6 +3,7 @@
 #reservation_nav{
     display:block;
     border-bottom: 1px solid $light_grey;
+    box-shadow:1px 0.2px 5px 0 $light_light_grey;
     overflow:hidden;
     width:98%;
     padding: 6px 1%;
@@ -20,6 +21,15 @@
             border-radius: 0px;
             margin:0px;
             padding: 8px px;
+            
+            &.delete{
+                font-family: 'icomoon';
+                speak: none;
+                background-color:$red_remove;
+                &:after{
+                    content: "\e000";    
+                }              
+            }
         }
         
         &.icon{

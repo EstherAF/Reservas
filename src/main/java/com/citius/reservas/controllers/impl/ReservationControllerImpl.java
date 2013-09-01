@@ -27,7 +27,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 @Controller
 public class ReservationControllerImpl implements ReservationController {
@@ -86,7 +85,7 @@ public class ReservationControllerImpl implements ReservationController {
     @Override
     public Reservation create(ReservationCustom r, BindingResult result)
             throws NotAvaliableException, NotPossibleInstancesException,
-            InputRequestValidationException {
+            InputRequestValidationException, UnknownResourceException {
 
 //        Errors errors 
 //        ReservationValidator validator = new ReservationValidator();
@@ -121,7 +120,7 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public void delete(Integer id) throws AccessDeniedException {
+    public Boolean delete(Integer id) throws AccessDeniedException {
         String uniqueName = access.getUniqueNameOfLoggedUser();
 
         if (!rb.canEdit(id, uniqueName)) {
@@ -129,6 +128,8 @@ public class ReservationControllerImpl implements ReservationController {
         }
 
         rb.deleteReservation(id);
+        
+        return true;
     }
 
     /**
@@ -266,6 +267,7 @@ public class ReservationControllerImpl implements ReservationController {
             model.addAttribute("year", year);
             model.addAttribute("month", month);
             model.addAttribute("day", day);
+            model.addAttribute("operation", "create");
         }
         return this.createReservationView(model);
     }
@@ -274,7 +276,7 @@ public class ReservationControllerImpl implements ReservationController {
     public String updateReservationView(Model model, Integer id) {
         String uniqueName = access.getUniqueNameOfLoggedUser();
 
-        Boolean canEdit = (access.isAdmin(uniqueName) || rb.isOwner(id, uniqueName));
+        Boolean canEdit = (access.isAdmin() || rb.isOwner(id, uniqueName));
 
         if (canEdit) {
 
@@ -291,7 +293,7 @@ public class ReservationControllerImpl implements ReservationController {
             }
             return "new_reservation";
         } else {
-            return this.viewReservation(model, id);
+            return "redirect:/reservations/"+id;
         }
     }
 
@@ -302,7 +304,7 @@ public class ReservationControllerImpl implements ReservationController {
             model.addAttribute("reservation", reservation);
             return "view_reservation";
         } else {
-            return this.weeklyReservation();
+            return "redirect:/reservations/";
         }
     }
 }

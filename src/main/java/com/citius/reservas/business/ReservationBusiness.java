@@ -60,8 +60,10 @@ public interface ReservationBusiness {
 
     public Reservation saveReservation(Reservation reservation, 
             List<ResourceGroupCustom> groups) 
-            throws NotAvaliableException, NotPossibleInstancesException;
+            throws NotAvaliableException, NotPossibleInstancesException, 
+            UnknownResourceException;
     
+    @Transactional(rollbackFor = {Throwable.class})
     public Reservation updateReservation(Reservation reservation, 
             List<ResourceGroupCustom> groups) 
             throws NotAvaliableException, NotPossibleInstancesException, 
@@ -69,6 +71,7 @@ public interface ReservationBusiness {
     
     public void deleteReservation(Integer id);
     
+    @Transactional(readOnly = true)
     public Boolean isOwner(Integer reservationId, String ownerUniqueName);
     
     public Boolean canEdit(Integer reservationId, String uniqueName);

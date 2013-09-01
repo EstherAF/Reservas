@@ -1,14 +1,26 @@
 //var reservationNavView = new Object();
 var ReservationNavigation = Object();
 
-ReservationNavigation.goToWeek = function(date){
-    if(! (date instanceof Date))
+ReservationNavigation.goToWeek = function(date, success) {
+    if (!date)
+        date = new Date();
+
+    if (!(date instanceof Date))
         date = new Date(date);
-    
+
     var year = date.getFullYear();
     var week = $.datepicker.iso8601Week(date);
-    var urlRedirect = applicationPath+'reservations/week/' + year + '/' + week;
-    window.location.href = urlRedirect;
+    var urlRedirect = applicationPath + 'reservations/week/' + year + '/' + week;
+    $("html").load(
+            urlRedirect,
+            function() {
+                window.history.pushState(null, null, urlRedirect);
+                Modals.bindCloseEvent();
+                success();
+            }
+    );
+
+    //window.location.href = urlRedirect;
 };
 
 
@@ -19,7 +31,7 @@ ReservationNavigation.onLoad = function() {
     $.datepicker.setDefaults($.datepicker.regional[locale]);
     $("#calendarIcon").datepicker({
         showOn: "button",
-        buttonImage: "/Reservas/resources/img/calendarIcon.png",
+        buttonImage: applicationPath+"resources/img/calendarIcon.png",
         buttonImageOnly: true,
         showOtherMonths: true,
         selectOtherMonths: true,

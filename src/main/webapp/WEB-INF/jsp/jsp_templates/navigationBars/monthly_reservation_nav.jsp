@@ -23,7 +23,7 @@
     <nav class="right">
         <ul>
             <li><span><s:message code="reservation.nav.as"/></span></li>
-            <li><a href="<c:url value="/reservations/week/" />" class="reservas_btn">
+            <li><a name="weeklyView" href="<c:url value="/reservations/week/" />" class="reservas_btn">
                     <s:message code="reservation.nav.week" /></a></li>
             <li><a href="<c:url value="/reservations/month/" />" class="reservas_btn">
                 <s:message code="reservation.nav.month" /></a></li>

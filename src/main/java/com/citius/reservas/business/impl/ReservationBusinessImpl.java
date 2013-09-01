@@ -15,10 +15,13 @@ import com.citius.reservas.business.ResourceBusiness;
 import com.citius.reservas.controllers.customModel.ResourceGroupCustom;
 import com.citius.reservas.exceptions.*;
 import com.citius.reservas.models.DayOfWeek;
+import com.citius.reservas.models.Invitation;
 import static com.citius.reservas.models.RepetitionType.*;
 import com.citius.reservas.models.Resource;
+import com.citius.reservas.models.User;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -145,7 +148,17 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     }
 
     @Override
-    public Reservation saveReservation(Reservation reservation, List<ResourceGroupCustom> groups) throws NotAvaliableException, NotPossibleInstancesException {
+    public Reservation saveReservation(Reservation reservation, List<ResourceGroupCustom> groups)
+            throws NotAvaliableException, NotPossibleInstancesException, UnknownResourceException {
+
+        User owner = this.accessBusiness.findUserFromDB(reservation.getOwner().getUniqueName());
+        reservation.setOwner(owner);
+
+
+        //Complete invitation's reservation reference
+        Set<Invitation> invitations = reservation.getInvitations();
+        Set<Invitation> newInvitations = new LinkedHashSet<>();
+        reservation.setInvitations(newInvitations);
 
         Set<ReservationInstance> instances = this.generateInstances(reservation);
 
@@ -161,75 +174,100 @@ public class ReservationBusinessImpl implements ReservationBusiness {
         reservation.setResources(this.getAvaliabiliableResources(
                 reservation.getResources(), reservation.getInstances()));
 
-        if (groups == null) {
-            return rr.save((Reservation) reservation);
-        }
+        if (groups != null) {
+            for (ResourceGroupCustom resourceToReserve : groups) {
 
-        for (ResourceGroupCustom resourceToReserve : groups) {
+                Set<Resource> avaliableResources = new HashSet<>();
 
-            Set<Resource> avaliableResources = new HashSet<>();
+                Boolean firstResultSearch = true;
+                for (ReservationInstance instance : instances) {
 
-            Boolean firstResultSearch = true;
-            for (ReservationInstance instance : instances) {
+                    Date start = instance.getStartTimeDate();
+                    Date end = instance.getEndTimeDate();
 
-                Date start = instance.getStartTimeDate();
-                Date end = instance.getEndTimeDate();
+                    List<Resource> avaliablePerInstance = resourceBusiness.readAvaliableByGroupBetweenDates(resourceToReserve.getId(), start, end);
 
-                List<Resource> avaliablePerInstance = resourceBusiness.readAvaliableByGroupBetweenDates(resourceToReserve.getId(), start, end);
+                    //Intersection of list of posible resources, and avaliable resources in this instance
+                    if (firstResultSearch) {
+                        firstResultSearch = false;
+                        avaliableResources.addAll(avaliablePerInstance);
+                    } else {
+                        avaliableResources.retainAll(avaliablePerInstance);
+                    }
 
-                //Intersection of list of posible resources, and avaliable resources in this instance
-                if (firstResultSearch) {
-                    firstResultSearch = false;
-                    avaliableResources.addAll(avaliablePerInstance);
+                    //Build error if ther aren't enough avaliable resources
+                    if (avaliablePerInstance.size() < resourceToReserve.getQuantity()) {
+                        notAvaliableResources.add(new NotAvaliable(resourceToReserve.getName(), instance, avaliablePerInstance.size()));
+                        break;
+                    }
+                }
+
+                /*End of search in this group*/
+
+                //If there are more than neccesary, choose from the start
+                if (avaliableResources.size() > resourceToReserve.getQuantity()) {
+                    List<Resource> avaliableResourcesList = new ArrayList<>(avaliableResources);
+                    for (int i = 0; i < resourceToReserve.getQuantity(); i++) {
+                        reservation.addResource(avaliableResourcesList.get(i));
+                    }
                 } else {
-                    avaliableResources.retainAll(avaliablePerInstance);
-                }
-
-                //Build error if ther aren't enough avaliable resources
-                if (avaliablePerInstance.size() < resourceToReserve.getQuantity()) {
-                    notAvaliableResources.add(new NotAvaliable(resourceToReserve.getName(), instance, avaliablePerInstance.size()));
-                    break;
+                    reservation.addResources(avaliableResources);
                 }
             }
 
-            /*End of search in this group*/
-
-            //If there are more than neccesary, choose from the start
-            if (avaliableResources.size() > resourceToReserve.getQuantity()) {
-                List<Resource> avaliableResourcesList = new ArrayList<>(avaliableResources);
-                for (int i = 0; i < resourceToReserve.getQuantity(); i++) {
-                    reservation.addResource(avaliableResourcesList.get(i));
-                }
-            } else {
-                reservation.addResources(avaliableResources);
+            if (!notAvaliableResources.isEmpty()) {
+                throw new NotAvaliableException(notAvaliableResources);
             }
         }
 
-        if (!notAvaliableResources.isEmpty()) {
-            throw new NotAvaliableException(notAvaliableResources);
+
+
+        reservation = rr.save((Reservation) reservation);
+        rr.detach(reservation);
+
+        if (invitations != null && !invitations.isEmpty()) {
+            for (Invitation invitation : invitations) {
+                User guest = this.accessBusiness.findUserFromDB(invitation.getGuest().getUniqueName());
+                if (guest == null) {
+                    throw new UnknownResourceException();
+                }
+
+                invitation.setGuest(guest);
+                invitation.setReservation(reservation);
+                reservation.getInvitations().add(invitation);
+            }
         }
 
-        return rr.save((Reservation) reservation);
+        return reservation;
 
     }
 
     @Override
-    public Reservation updateReservation(Reservation reservation, List<ResourceGroupCustom> groups) throws NotAvaliableException, NotPossibleInstancesException, UnknownResourceException {
+    public Reservation updateReservation(Reservation reservation, List<ResourceGroupCustom> groups) 
+            throws NotAvaliableException, NotPossibleInstancesException, UnknownResourceException {
 
-        if(this.rr.find(reservation.getId())==null)
+        if (this.rr.find(reservation.getId()) == null) {
             throw new UnknownResourceException();
-            
-        return this.saveReservation(reservation, groups);
+        }
+        this.rr.delete(reservation.getId());
         
+        return this.saveReservation(reservation, groups);
+
     }
 
     private Set<Resource> getAvaliabiliableResources(Set<Resource> resources,
             Set<ReservationInstance> instances)
-            throws NotAvaliableException {
+            throws NotAvaliableException, UnknownResourceException {
+        
+        Set<Resource> loaddedResources = new LinkedHashSet<>();
 
         List<NotAvaliable> notAvaliableResources = new ArrayList<>();
         for (Resource resource : resources) {
-
+            Resource loaddedResource = this.resourceBusiness.read(resource.getId());
+            if(loaddedResource==null)
+                throw new UnknownResourceException();
+            
+            loaddedResources.add(loaddedResource);
             //Check if resource is avaliable
             for (ReservationInstance instance : instances) {
                 if (!rir.isAvaliable(resource, instance.getStartTimeDate(), instance.getEndTimeDate())) {
@@ -240,11 +278,11 @@ public class ReservationBusinessImpl implements ReservationBusiness {
         }
 
         //If there are no errors
-        if (notAvaliableResources.isEmpty()) {
-            return resources;
+        if (!notAvaliableResources.isEmpty()) {
+            throw new NotAvaliableException(notAvaliableResources);
         }
 
-        throw new NotAvaliableException(notAvaliableResources);
+        return loaddedResources;
 
     }
 
@@ -254,7 +292,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
         Calendar iterator = r.startAsACalendar();
         long duration = r.getDuration();
         Calendar endRepetitionDate = r.getRepetition().getEndDateAsCalendar();
-        int interval = r.getRepetition().getInterval();
+        Integer interval = r.getRepetition().getInterval();
 
 
         //Generación de las instancias de la reserva
@@ -317,6 +355,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
             }
         }
 
+        Collections.sort(normalizedDays);
 
         while (!iterator.after(endRepetitionDate)) {
             for (Integer d : normalizedDays) {
@@ -422,6 +461,10 @@ public class ReservationBusinessImpl implements ReservationBusiness {
 
     @Override
     public Boolean canEdit(Integer reservationId, String uniqueName) {
-        return (this.isOwner(reservationId, uniqueName) || accessBusiness.isAdmin(uniqueName));
+        return (this.isOwner(reservationId, uniqueName) || accessBusiness.isAdmin());
+    }
+
+    private Exception UnknownResourceException() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

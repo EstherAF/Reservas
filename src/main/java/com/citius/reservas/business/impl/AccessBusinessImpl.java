@@ -79,7 +79,8 @@ public class AccessBusinessImpl implements AccessBusiness {
         List<User> l = ldapRepository.getByUID(uniqueName);
 
         logger.debug("Found " + l.size() + " results");
-
+        if(l.isEmpty())
+            return null;
         return l.get(0);
     }
 
@@ -95,9 +96,18 @@ public class AccessBusinessImpl implements AccessBusiness {
     }
 
     @Override
-    public Boolean isAdmin(String uniqueName) {
-        User user = this.findUser(uniqueName);
-        return user.getRole().equals("tic");
+    public Boolean isAdmin() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
+        String roleName="";
+        for (GrantedAuthority ga : auth.getAuthorities()) {
+                roleName = ga.getAuthority().toLowerCase().split("_")[1];
+                if (roleName.equals("tic")) {
+                    return true;
+                }
+            }
+        
+        return false;
     }
 
     @Override
@@ -137,5 +147,13 @@ public class AccessBusinessImpl implements AccessBusiness {
     
     public List<User> getUsers(){
         return userRepository.findAll();
+    }
+
+    @Override
+    public User findUserFromDB(String uniqueName) {
+        User user = this.userRepository.findByUniqueName(uniqueName);
+        //this.userRepository.detach(user);
+                
+        return user;
     }
 }

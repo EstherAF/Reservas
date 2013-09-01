@@ -8,8 +8,11 @@ import com.citius.reservas.models.Resource;
 import com.citius.reservas.models.ResourceGroup;
 import com.citius.reservas.business.ResourceBusiness;
 import com.citius.reservas.business.ResourceGroupBusiness;
+import com.citius.reservas.models.ReservationInstance;
 import com.citius.reservas.repositories.ResourceGroupRepository;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,11 +27,9 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
 
     @Autowired
     private ResourceGroupRepository resourceGroupRepository;
-    
     @Autowired
     private ResourceBusiness resourceBusiness;
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    
     @Override
     public List<ResourceGroup> readAll() {
 
@@ -36,13 +37,13 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
         return l;
     }
 
-    @Transactional
+
     @Override
     public ResourceGroup read(Integer id) {
         return resourceGroupRepository.find(id);
     }
 
-    @Transactional
+
     @Override
     public ResourceGroup create(ResourceGroup r) {
 
@@ -51,7 +52,7 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
         return r;
     }
 
-    @Transactional
+
     @Override
     public ResourceGroup save(ResourceGroup resourceGroup) {
 
@@ -60,7 +61,7 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
         return resourceGroup;
     }
 
-    @Transactional
+
     @Override
     public void delete(Integer id) {
         ResourceGroup g = resourceGroupRepository.find(id);
@@ -75,7 +76,7 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
         resourceGroupRepository.delete(id);
     }
 
-    @Transactional
+
     @Override
     public void deleteWithResources(Integer id) {
         ResourceGroup g = resourceGroupRepository.find(id);
@@ -88,5 +89,10 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
         }
         
         resourceGroupRepository.delete(id);
+    }
+
+    @Override
+    public ResourceGroup readByName(String name) {
+        return this.resourceGroupRepository.findByName(name);
     }
 }

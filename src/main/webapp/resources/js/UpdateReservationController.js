@@ -40,16 +40,24 @@ UpdateReservationController.prototype.loadDefaultData = function(form) {
 
     form.find('[name="repetition_type"] > option[value="' + type + '"]').prop('selected', true);
     if (reservation.repetition.type !== Repetition.type.once) {
+        $('.repetition').show();
         var repetition = reservation.repetition;
         form.find('[name="interval"]').val(repetition.interval);
-        form.find('[name="endRepetitionDate"]').datepicker('setDate', repetition.endDate);
-
+        form.find('[name="endRepetitionDate"]').datepicker('setDate', new Date(repetition.endDate));
+        var textInterval = $("#textInterval");
+        textInterval.html("");
         if (repetition.type === Repetition.type.weekly) {
+            $('#weekly_repetition').show();
+            textInterval.text(textInterval.attr('weekly'));
             repetition.weekDays.forEach(function(day) {
                 form.find('[name="weekly_days"][value="' + day + '"]').prop('checked', true);
             });
+        } else if (repetition.type !== Repetition.type.daily) {
+            textInterval.text(textInterval.attr('monthly'));
+            $('#monthly_repetition').show();
+            form.find('[name="monthlyRepetition"][value="' + repetition.type + '"]').prop('checked', true);
         } else {
-            form.find('[name="monthlyRepetition"][value="' + repetition.type + '"]');
+            textInterval.text(textInterval.attr('daily'));
         }
     }
 
@@ -58,13 +66,19 @@ UpdateReservationController.prototype.loadDefaultData = function(form) {
     for (var i = 0; i < invitations.length; i++) {
         this.addGuest(invitations[i]);
     }
+    
+    //Resources
+    for(var i=0; i< this.reservation.resources; i++){
+        var node = $("#resourcesTree ul li #"+this.reservation.resources[i].id);
+        this.resouceTree.toggleCheckBox(node);
+    }
 };
 
 UpdateReservationController.prototype.loadButtons = function() {
-    var submitBtn = $('input[name="submit"]');
+    var submitBtn = $('[name="submit"]');
     submitBtn.val(submitBtn.attr('update'));
 
-    var deleteBtn = $('input[name="delete"]');
+    var deleteBtn = $('[name="delete"]');
     deleteBtn.show();
 };
 
@@ -92,10 +106,15 @@ UpdateReservationController.prototype.addGuestUpdating = function() {
 UpdateReservationController.prototype.updateReservation = function() {
     var reservation = this.getReservationFromForm();
     if (reservation) {
+        reservation.owner = this.reservation.owner;
+        reservation.id = this.reservation.id;
         NewReservation.updateReservation(
                 reservation,
                 function(response) {
-                    ReservationNavigation.goToWeek(response.start);
+                    ReservationNavigation.goToWeek(response.start,
+                            function() {
+                                Notifications.showMessage(Notifications.messages[locale]["update_reservation_ok"]);
+                            });
                 },
                 ajaxError
         );

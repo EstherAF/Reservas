@@ -19,14 +19,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class NotAvaliableResourceResolver extends GenericErrorResolver {
+    private static final String MESSAGE = "error.notAvaliableResource";
 
-    public NotAvaliableResourceResolver() {
+    private NotAvaliableResourceResolver() {
         super();
     }
 
-    public void setMessage(NotAvaliable notAvaliable, RestError error, String message, HttpServletRequest request) {
+    private void setMessage(NotAvaliable notAvaliable, RestError error, HttpServletRequest request) {
 
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("H:mm d/M/yyyy");
         String start = format.format(notAvaliable.getStart());
         String end = format.format(notAvaliable.getEnd());
 
@@ -35,11 +36,11 @@ public class NotAvaliableResourceResolver extends GenericErrorResolver {
             notAvaliable.getResourceName(),
             start,
             end
-        }, message);
+        }, MESSAGE);
         error.setMessage(builtMessage);
     }
 
-    public void setDeveloperMessage(RestError error, HttpServletRequest request, Throwable exception) {
+    private void setDeveloperMessage(RestError error, HttpServletRequest request, Throwable exception) {
         error.setDeveloperMessage(error.getMessage());
     }
 
@@ -53,7 +54,6 @@ public class NotAvaliableResourceResolver extends GenericErrorResolver {
         List<RestError> restErrors = new ArrayList<>();
 
         //create RestError for each not avaliable resource
-        String message = this.i18n.getMessage(request, null, error.getMessage());
         for (NotAvaliable notAvaliable : ex.getNotAvaliableResources()) {
 
             RestError restError = new RestError(
@@ -61,7 +61,7 @@ public class NotAvaliableResourceResolver extends GenericErrorResolver {
                     error.getCode(),
                     error.getMessage());
 
-            this.setMessage(notAvaliable, restError, message, request);
+            this.setMessage(notAvaliable, restError, request);
             this.setDeveloperMessage(restError, request, exception);
             this.setTrace(restError, request, exception);
 

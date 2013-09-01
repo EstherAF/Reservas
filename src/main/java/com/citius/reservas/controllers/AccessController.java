@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author Esther
  */
 @RequestMapping("/login")
-//@Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 public interface AccessController {
 
     /*---------JSON---------*/

@@ -49,11 +49,9 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
     @Autowired
     protected AccessBusiness accessBusiness;
     @Autowired
-    private NotAvaliableResourceResolver notAvaliableResourceResolver;
-    @Autowired
-    private InputRequestValidationResolver inputRequestValidationResolver;
-    @Autowired
-    private ThrowableResolver throwableResolver;
+    private ResolverFactory resolverFactory;
+    
+    
     private static final Map<String, RestError> exceptionMappings;
 
     static {
@@ -108,7 +106,7 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
 
         
         //APPLICATION EXCEPTIONS
-        exceptionMappings.put(NotAvaliableException.class.getName(), new RestError(HttpStatus.NOT_MODIFIED, 10901));
+        exceptionMappings.put(NotAvaliableException.class.getName(), new RestError(HttpStatus.NOT_MODIFIED, 10901, "error.notAvaliableResource", null));
         exceptionMappings.put(NotPossibleInstancesException.class.getName(), new RestError(HttpStatus.NOT_MODIFIED, 10902, "error.default", "error.dev.default"));
         exceptionMappings.put(InputRequestValidationException.class.getName(), new RestError(HttpStatus.BAD_REQUEST, 10910));
     }
@@ -212,22 +210,10 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
         log.debug("Resolving to RestError template '" + error + "' for exception of type [" + ex.getClass().getName()
                 + "], based on exception mapping [" + dominantMapping + "]");
 
-        return populateError(error, request, ex);
+        GenericErrorResolver resolver = resolverFactory.getResolver(ex);
+        
+        return resolver.populateError(error, request, ex);
 
-    }
-
-    public Object populateError(RestError error, HttpServletRequest request, Throwable exception) {
-        GenericErrorResolver resolver;
-
-        if (exception.getClass().equals(NotAvaliableException.class)) {
-            resolver = this.notAvaliableResourceResolver;
-        } else if (exception.getClass().equals(InputRequestValidationException.class)) {
-            resolver = this.inputRequestValidationResolver;
-        } else {
-            resolver = this.throwableResolver;
-        }
-
-        return resolver.populateError(error, request, exception);
     }
 
     /**

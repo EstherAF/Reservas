@@ -7,6 +7,17 @@ var MonthlyCalendarByOwn = function(year, month){
         var historyObject = e.state;
         $('#calendar').fullCalendar('gotoDate', historyObject.year, historyObject.month-1);
     });
+    
+    
+    $('[name="weeklyView"]').click(function(){
+        var date = MyCalendar.getStartDate();
+        var week = MyCalendar.getWeek(date);
+        var month = date.getMonth();
+        
+        var URL = applicationPath + "reservations/week/" +year+"/"+week;
+        
+        $('[name="weeklyView"]').attr('href', URL)
+    });
 };
 
 /*Extends of Calendar*/

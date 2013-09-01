@@ -16,23 +16,23 @@ var ViewReservationController = function(){
         );
     });
 
-    $('[name="delete"]').click(function() {
+    $('[name="delete"]').click(function(e) {
+        e.stopPropagation();
+        
         var id = $(this).attr('reservationId');
-        var URL = aplicationPath + "reservations/" + id;
+        var URL = applicationPath + "reservations/" + id;
+        
+        var redirectURL = applicationPath + "reservations";
 
-        Reservation.delete(
+        Reservation.deleteReservation(
                 id,
-                function() {
-                    $("html").load(
-                            URL,
-                            function() {
-                                Notifications.showMessage("delete_resource_ok");
-                                window.history.pushState(null, null, URL);
-                            });
-                },
-                function(error) {
-                    Notifications.showError(error);
-                }
+                function(response) {
+                    var success = function(){
+                        Notifications.showMessage("delete_reservation_ok");
+                    };
+                    
+                    ReservationNavigation.goToWeek(undefined, success);
+                },ajaxError
         );
     });
 };

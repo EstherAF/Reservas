@@ -245,7 +245,7 @@ div.ui-datepicker{
 
 
 /*FORMS*/
-/*.reservas_btn{
+reservas_btn{
     @include button;
     
     display: inline-block;
@@ -254,7 +254,7 @@ div.ui-datepicker{
     border-radius: 0px;
     margin:0px;
     padding: 5px 15px;
-}*/
+}
 
 .radio, 
 .checkbox{
@@ -311,21 +311,20 @@ select.hour{
         padding: 5px 30px 5px 20px;
         text-align: center;
         display: inline-block;
-        opacity: 0.8;
         border-radius: 2px;
         box-shadow: 1px 1px 10px 0px #CCC;
         margin-top:5px;
         color: #111;
 
         &.ok{
-            background-color: #F25C5C;
+            background-color: #76CB75;
             border: solid 1px #389C18;
             .close-modal{
-                color: #6F1D1D;
+                color: #184B18;
             }
         }
         &.fail{
-            background-color: #E03D3D;
+            background-color: #FB8D8D;
             border: solid 1px #A23939;
             .close-modal{
                 color: #4B0909;

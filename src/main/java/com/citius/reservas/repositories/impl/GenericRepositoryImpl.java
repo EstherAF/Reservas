@@ -56,7 +56,7 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
     @Override
     public T create(T t) {
         em.persist(t);
-        em.flush();
+//        em.flush();
         em.refresh(t);
         return t;
     }
@@ -66,6 +66,7 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
         em.flush();
         t = em.merge(t);
         em.flush();
+        em.detach(t);
         return t;
     }
 
@@ -110,6 +111,11 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
     @Override
     public void detach(T t){
         em.detach(t);
+    }
+
+    @Override
+    public void flush() {
+        em.flush();
     }
             
 }

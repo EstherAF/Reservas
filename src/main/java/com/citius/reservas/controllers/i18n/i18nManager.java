@@ -29,7 +29,7 @@ public class i18nManager {
     }
 
     public String getMessage(Locale locale, Object[] args, String code) {
-        return ms.getMessage(code, null, locale);
+        return ms.getMessage(code, args, locale);
     }
 
     public Locale getLocale(HttpServletRequest request) {

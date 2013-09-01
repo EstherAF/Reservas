@@ -23,10 +23,13 @@ public interface AccessBusiness {
     public String getUniqueNameOfLoggedUser();
     
     @Transactional(readOnly = true)
-    public Boolean isAdmin(String uniqueName);
+    public Boolean isAdmin();
     
     @Transactional(readOnly = true)
     public User findUser(String uniqueName);   
+
+    @Transactional(readOnly = true)
+    public User findUserFromDB(String uniqueName);   
     
     @Transactional(readOnly = true)
     public LoginStatus getLoginStatus();

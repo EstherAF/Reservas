@@ -15,6 +15,7 @@ Ajax.handleModifier = function(request, modifier){
                     request.async = true;
                     break;
                 case 'json':
+                    request.contents="application/json"
                     request.dataType= 'json';
                     break;
                 case 'html':
@@ -27,14 +28,17 @@ Ajax.handleModifier = function(request, modifier){
 
 Ajax.requestInUrl = function(method, path, modifier)
 {
+    if(path[0]=='/')
+        path = path.substr(1);
 
     return function(id, success_cb, error_cb)
     {
         var request = {
-            url: path + id,
+            url: applicationPath + path + id,
             type: method,
             success: success_cb,
-            error: error_cb
+            error: error_cb,
+            async:false
         };
 
         Ajax.handleModifier(request,modifier);
@@ -47,10 +51,14 @@ Ajax.requestInUrl = function(method, path, modifier)
 //modifier possible values: "sync", "async"
 Ajax.requestInBody = function(method, path, modifier)
 {
+    
+    if(path[0]=='/')
+        path = path.substr(1);
+    
     return function(entity, success_cb, error_cb)
     {
         var request = {
-            url: path,
+            url: applicationPath + path,
             type: method,
             contentType: "application/json",
             dataType: "json",

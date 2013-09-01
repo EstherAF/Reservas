@@ -9,40 +9,47 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<c:set var="navigation"/>
-<c:set var="uniqueName" value="admin"/>
+<nav id="reservation_nav">
+    <nav class="left">
+        <ul>
 
-<!--${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.firstName}-->
+            <!--Return-->
+            <li>
+                <a class="reservas_btn" 
+                   name="return"
+                   href="<c:url value="/reservations/${reservation.id}" />" 
+                   id="create_resource">
+                    <s:message code="form.returnBtn" />
+                </a>
+            </li>
 
-<c:if test="${not empty navigation}">
-    <nav id="reservation_nav">
+            <!--Save-->
+            <li>
+                <a class="reservas_btn" 
+                   name="submit"
+                   href="#"
+                   create="<s:message code="form.createBtn"/>" 
+                   update="<s:message code="form.updateBtn"/>"
+                   id="create_resource">
+                    <s:message code="form.saveBtn" />
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+    <c:if test="${operation eq 'update'}">
+
         <nav class="right">
             <ul>
+                <!--Delete-->
                 <li>
-                    <a class="reservas_btn" 
-                       name="cancel"
-                       href="<c:url value="/reservations/${reservation.id}" />" 
-                       id="create_resource">
-                        <s:message code="form.deleteBtn" />
-                    </a>
-                </li>
-                <li>
-                    <a class="reservas_btn" 
-                       name="submit"
-                       href="<c:url value="/reservations/${reservation.id}" />" 
-                       id="create_resource">
-                        <s:message code="form.saveBtn" />
-                    </a>
-                </li>
-                <li>
-                    <a class="reservas_btn delete" 
-                       href="<c:url value="/reservations/${reservation.id}" />" 
+                    <a class="reservas_btn delete"  
+                       href="#"
                        id="create_resource">
                         <s:message code="form.deleteBtn" />
                     </a>
                 </li>
             </ul>
         </nav>
-    </nav>
-</c:if>
-<%--<jsp:include page="/WEB-INF/jsp/jsp_templates/notifications_errors_section.jsp" flush="true"/>--%>
+    </c:if>
+</nav>

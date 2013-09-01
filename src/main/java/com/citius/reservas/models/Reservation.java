@@ -80,13 +80,14 @@ public class Reservation implements Serializable {
     @Size(min=1)
     private Set<ReservationInstance> instances;
     
+    //,cascade = CascadeType.MERGE
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "reserved_resources",
             joinColumns = {
-                @JoinColumn(name = "reservation_id", referencedColumnName = "id")},
+                @JoinColumn(name = "reservation_id")},
             inverseJoinColumns = {
-                @JoinColumn(name = "resource_id", referencedColumnName = "id")})
+                @JoinColumn(name = "resource_id")})
     private Set<Resource> resources;
 
     @Valid
@@ -192,7 +193,7 @@ public class Reservation implements Serializable {
         if(this.start!=null)
             this.duration = this.end.getTime()-this.start.getTime();
         
-        if(this.repetition== null)
+//        if(this.repetition== null)
             this.repetition = new Repetition();
         
         if(this.repetition.getEndDate()==null)
@@ -244,13 +245,18 @@ public class Reservation implements Serializable {
     public void addResources(Collection<? extends Resource> resources){
         this.getResources().addAll(resources);
     }
-    
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.name);
-        hash = 37 * hash + Objects.hashCode(this.start);
-        hash = 37 * hash + Objects.hashCode(this.end);
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.name);
+        hash = 59 * hash + Objects.hashCode(this.description);
+        hash = 59 * hash + Objects.hashCode(this.owner);
+        hash = 59 * hash + Objects.hashCode(this.start);
+        hash = 59 * hash + Objects.hashCode(this.end);
+        hash = 59 * hash + Objects.hashCode(this.duration);
+        hash = 59 * hash + Objects.hashCode(this.repetition);
         return hash;
     }
 
@@ -263,7 +269,13 @@ public class Reservation implements Serializable {
             return false;
         }
         final Reservation other = (Reservation) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
             return false;
         }
         if (!Objects.equals(this.owner, other.owner)) {
@@ -275,11 +287,22 @@ public class Reservation implements Serializable {
         if (!Objects.equals(this.end, other.end)) {
             return false;
         }
+        if (!Objects.equals(this.duration, other.duration)) {
+            return false;
+        }
         if (!Objects.equals(this.repetition, other.repetition)) {
+            return false;
+        }
+        if (!Objects.equals(this.instances, other.instances)) {
+            return false;
+        }
+        if (!Objects.equals(this.resources, other.resources)) {
             return false;
         }
         return true;
     }
+    
+    
 
     @Override
     public String toString() {

@@ -108,13 +108,13 @@ table.guests{
             }
         }
         
-        .icon-remove:before {
+        td.icon-remove{
             @include link;
             
             text-align:right;
             color: $red-error;
             &:before{
-                content: "\e018";    
+                content: "\e000";    
             }
         }
         

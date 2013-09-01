@@ -24,6 +24,9 @@ public interface ResourceBusiness {
     @Transactional(readOnly = true)
     public Resource read(Integer id);
     
+    @Transactional(readOnly = true)
+    public Resource readByName(String name);
+    
     @Transactional(readOnly=true)
     public List<Resource> readAvaliableByGroupBetweenDates(Integer groupId, Date start, Date end);
     

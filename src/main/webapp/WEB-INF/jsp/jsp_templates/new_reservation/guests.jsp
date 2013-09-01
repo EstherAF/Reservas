@@ -12,9 +12,9 @@
                                 NEW="<s:message code="invitation.state.NEW" />"></span>
                             <p>
                                 <label for="guest"><s:message code="reservation.form.guests.search.label" /></label>
-                                <input type="button" name="add" class="autocomplete" value="<s:message code="form.addBtn" />" />
+                                <input type="button" name="add" class="autocomplete" value="<s:message code="form.addBtn" />" style="display:none;"/>
                                 <input type="text" name="guest" class="autocomplete users" />
-                                <label for="errorGuestList" class="hidden containsFormError"><span><s:message code="reservation.form.guests.search.error" /></span></label>
+                                <label for="errorGuestList" class="containsFormError" style="display:none;"><span><s:message code="reservation.form.guests.search.error" /></span></label>
                                 <label for="guestList" 
                                     empty="<s:message code="reservation.form.guests.list.label.empty" />" 
                                     notEmpty="<s:message code="reservation.form.guests.list.label" />">

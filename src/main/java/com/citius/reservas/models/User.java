@@ -10,6 +10,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.junit.Ignore;
 
 /**
  *
@@ -42,6 +44,7 @@ public class User implements Serializable {
     private String email;
     
 //    @JoinColumn(referencedColumnName = "name", table="roles")
+    @JsonIgnore
     @Transient
     private String role;
     
@@ -92,11 +95,14 @@ public class User implements Serializable {
     public void setRole(String role) {
         this.role = role;
     }
-    
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.uniqueName);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.uniqueName);
+        hash = 97 * hash + Objects.hashCode(this.fullName);
+        hash = 97 * hash + Objects.hashCode(this.email);
+        hash = 97 * hash + Objects.hashCode(this.role);
         return hash;
     }
 
@@ -112,8 +118,19 @@ public class User implements Serializable {
         if (!Objects.equals(this.uniqueName, other.uniqueName)) {
             return false;
         }
+        if (!Objects.equals(this.fullName, other.fullName)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.role, other.role)) {
+            return false;
+        }
         return true;
     }
+    
+    
 
     @Override
     public String toString() {

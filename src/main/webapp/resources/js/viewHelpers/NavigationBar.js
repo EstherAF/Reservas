@@ -1,6 +1,7 @@
 NavigationBar = function() {
     NavigationBar.invitationMenu();
     NavigationBar.invitationOnReservationView();
+    NavigationBar.bindReturn();
 };
 
 NavigationBar.dropDownWrapper = '.dropdown_wrapper';
@@ -70,7 +71,10 @@ NavigationBar.invitationMenu = function() {
 };
 
 NavigationBar.invitationOnReservationView = function() {
-    var resolveInvitationOnReservationView = function() {
+
+    $('html').on('click', '.btn.invitation', function() {
+        e.stopPropagation();
+        
         var id = $(this).attr('reservationId');
         var state = $(this).attr('state');
 
@@ -93,8 +97,12 @@ NavigationBar.invitationOnReservationView = function() {
                     console.log(e);
                 }
         );
-    };
+    });
+};
 
-
-    $('html').on('click', '.btn.invitation', resolveInvitationOnReservationView);
+NavigationBar.bindReturn = function(){
+    $('html').on('click', '[name="return"]', function(e, a){
+        window.history.back();
+        return false;
+    });
 };

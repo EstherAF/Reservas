@@ -3,15 +3,17 @@ var Notifications = function(){};
 Notifications.showError = function(error){
     var code = error.code;
     
-    if(typeof error == String)
+    if(typeof error == String){
         message=error;
-    else if(typeof error == Array){
-        if(error.length === 0)
-            return false;
-        
-        Modals.BuildFromErrorList()
     }else if(error.responseJSON && error.responseJSON.restError){
-        Modals.BuildFromError(error.responseJSON.restError);
+        var restError = error.responseJSON.restError;
+        
+        if(restError instanceof Array){
+            if(error.length === 0) return false;
+            Modals.BuildFromErrorList(restError);
+        }else{
+            Modals.BuildFromError(error.responseJSON.restError);
+        }
     }else{
         //Default server message
         Modals.BuildFromServerError(error);
@@ -19,7 +21,7 @@ Notifications.showError = function(error){
 };
 
 Notifications.showMessage = function(message){
-    var text = this.messages[location][message];
+    var text = this.messages[locale][message];
     Modals.BuildFromData(Modals.type.ok, text, "");
 };
 

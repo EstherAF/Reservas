@@ -44,7 +44,7 @@ CREATE TABLE reservas.resources(
 -- -----------------------------------------------------
 CREATE TABLE reservas.reservations (
 	id SERIAL,
-	name VARCHAR(50) NOT NULL,
+	name VARCHAR(100) NOT NULL,
 	description TEXT NULL,
 	owner VARCHAR(50) NOT NULL,
 	start_time_date TIMESTAMP NOT NULL,

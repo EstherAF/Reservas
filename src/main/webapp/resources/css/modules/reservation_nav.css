@@ -3,6 +3,7 @@
 #reservation_nav {
   display: block;
   border-bottom: 1px solid #cccccc;
+  box-shadow: 1px 0.2px 5px 0 #eeeeee;
   overflow: hidden;
   width: 98%;
   padding: 6px 1%;
@@ -29,6 +30,12 @@
       #reservation_nav nav a.reservas_btn:hover, #reservation_nav a.reservas_btn:hover {
         background: #333333;
         cursor: pointer; }
+      #reservation_nav nav a.reservas_btn.delete, #reservation_nav a.reservas_btn.delete {
+        font-family: 'icomoon';
+        speak: none;
+        background-color: #dd2211; }
+        #reservation_nav nav a.reservas_btn.delete:after, #reservation_nav a.reservas_btn.delete:after {
+          content: "\e000"; }
     #reservation_nav nav a.icon, #reservation_nav a.icon {
       display: inline;
       font-size: 2em;

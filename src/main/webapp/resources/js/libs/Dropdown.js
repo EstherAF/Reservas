@@ -67,9 +67,15 @@ Dropdown.toggleDropDown = function() {
     dropdownButton.toggleClass('show');
     if (dropdownMenu.css('display') != 'none') {
         //Add handler for click outside of dropdown event
-        $('html').bind('click', function(e) {Dropdown.hideDropdown(e);});
+        $('html').bind('click', function(e) {
+            e.stopPropagation();
+            Dropdown.hideDropdown(e);
+        });
     } else {
         //Remove handler for click outside of dropdown event
-        $('html').unbind('click', function(e) {Dropdown.hideDropdown(e);});
+        $('html').unbind('click', function(e) {
+            e.stopPropagation();
+            Dropdown.hideDropdown(e);
+        });
     }
 };

@@ -86,7 +86,7 @@ public interface ReservationController {
     public Reservation create(@Valid @RequestBody ReservationCustom reservationCustom,
             BindingResult result)
             throws NotAvaliableException, NotPossibleInstancesException,
-            InputRequestValidationException;
+            InputRequestValidationException, UnknownResourceException;
 
     @ResponseBody
     @RequestMapping(value = {"/", ""},
@@ -98,10 +98,10 @@ public interface ReservationController {
             InputRequestValidationException, UnknownResourceException;
 
     @ResponseBody
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.DELETE,
+    @RequestMapping(value = "/delete/{id}",
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable(value = "id") Integer id)
+    public Boolean delete(@PathVariable(value = "id") Integer id)
             throws AccessDeniedException;
 
     /**

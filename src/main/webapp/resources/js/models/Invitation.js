@@ -17,5 +17,5 @@ Invitation.prototype.serialize = function(){
     return JSON.stringify(this);
 };
 
-Invitation.getInvitations = Ajax.requestInUrl("GET", "/Reservas/invitations/", 'json');
-Invitation.changeStateInvitation = Ajax.requestInUrl("PUT", "/Reservas/invitations/");
+Invitation.getInvitations = Ajax.requestInUrl("GET", "/invitations/", 'json');
+Invitation.changeStateInvitation = Ajax.requestInUrl("PUT", "/invitations/");

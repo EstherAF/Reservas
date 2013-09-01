@@ -13,9 +13,9 @@ var Modals = function(type, content, id) {
 
 Modals.BuildFromData = function(type, message, developerMessage, id) {
     var content = $('<p></p>');
-    if(developerMessage)
+    if (developerMessage)
         content.attr("developerMessage", developerMessage);
-    
+
     content.append(message);
     Modals(type, content, id);
 };
@@ -25,21 +25,21 @@ Modals.BuildFromError = function(error) {
 };
 
 Modals.BuildFromServerError = function(error) {
-    var message = Notifications.messages[location][error.status];
+    var message = Notifications.messages[locale][error.status];
     Modals.BuildFromData(Modals.type.fail, message, error.responseText);
 };
 
 Modals.BuildFromErrorList = function(error) {
-    
-    var content='';
-    
-    for(var i=0; i<error.length; i++){
+
+    var content = '';
+
+    for (var i = 0; i < error.length; i++) {
         var line = $('<p></p>').attr("developerMessage", error[i].developerMessage);
         line.append(error[i].message);
-        content+=line[0].outerHTML;
+        content += line[0].outerHTML;
     }
-    
-    Modals(Modals.type.error, content);
+
+    Modals(Modals.type.fail, content);
 };
 
 Modals.removeAll = function() {
@@ -60,8 +60,8 @@ Modals.type = {
 };
 
 
-$(function() {
-    $('#modal-wrapper').on('click', '.close-modal', function() {
+Modals.bindCloseEvent = function() {
+    $('#modal-wrapper').on('click', '.simple-modal .close-modal', function() {
         $(this.parentNode).remove();
-    });
-});
+    })
+};

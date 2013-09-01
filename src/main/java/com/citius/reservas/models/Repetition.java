@@ -53,7 +53,6 @@ public class Repetition implements Serializable {
     @Column(name = "week_day")
     @Enumerated(EnumType.ORDINAL)
     @ElementCollection(fetch = FetchType.EAGER, targetClass = DayOfWeek.class)
-    @Size(min = 1, message = "error.form.reservation.repetition.weekDays.min")
     private Set<DayOfWeek> weekDays;
 
 //    private int monthlyRelativeWeek;
@@ -62,7 +61,7 @@ public class Repetition implements Serializable {
 
     public Repetition(RepetitionType type) {
         this.type = type;
-        this.interval = 0;
+        this.interval = 1;
         this.weekDays = null;
     }
 
@@ -95,6 +94,9 @@ public class Repetition implements Serializable {
     
     @JsonIgnore
     public Calendar getEndDateAsCalendar() {
+        if(this.endDate==null)
+            return null;
+        
         Calendar c = Calendar.getInstance();
         c.setTime(endDate);
         return c;
@@ -116,7 +118,7 @@ public class Repetition implements Serializable {
     public int hashCode() {
         int hash = 3;
         hash = 29 * hash + (this.type != null ? this.type.hashCode() : 0);
-        hash = 29 * hash + this.interval;
+        hash = 29 * hash + Objects.hashCode(this.interval);
         hash = 29 * hash + Objects.hashCode(this.weekDays);
         return hash;
     }

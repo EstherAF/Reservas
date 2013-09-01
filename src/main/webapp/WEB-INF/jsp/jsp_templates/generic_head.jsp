@@ -67,18 +67,18 @@
 
 <script type="text/javascript">
     var locale = "${pageContext.response.locale}";
-    var loggedUniqueName='';
+    var loggedUniqueName = '';
+
     <c:if test="${pageContext['request'].userPrincipal != null}">
-        loggedUniqueName = '<sec:authentication property="principal.username" />';
+    loggedUniqueName = '<sec:authentication property="principal.username" />';
     </c:if>
-        
-    <c:if test="${error != null}">
-        $(function(){
-           var modal = new Modal(Modal.type.fail, "${error.message}", "${error.status}-${error.code}-${error.developerMessage}");
-        });
-    </c:if>
-    
-    <sec:authorize access="isFullyAuthenticated()">
-        NavigationBar();
-    </sec:authorize>
+    $(function() {
+        <c:if test="${error != null}">
+            var modal = new Modal(Modal.type.fail, "${error.message}", "${error.status}-${error.code}-${error.developerMessage}");
+        </c:if>
+        Modals.bindCloseEvent();
+        <sec:authorize access="isFullyAuthenticated()">
+            new NavigationBar();
+        </sec:authorize>
+    });
 </script>

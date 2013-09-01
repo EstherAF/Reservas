@@ -15,7 +15,6 @@
 
         <script type="text/javascript">
             $(function() {
-                //ViewReservationController.onLoad(${reservationJson});
                 ResourcePopUp.onLoad();
                 var controller = new ViewReservationController();
             });
@@ -76,7 +75,7 @@
                                                 <s:message code="reservation.form.repetition.type.${fn:toLowerCase(reservation.repetition.type)}" />
                                             </c:when>
                                             <c:otherwise>
-                                                <s:message code="reservation.form.repetition.type.MONTHLY}" />
+                                                <s:message code="reservation.form.repetition.type.monthly" />
                                             </c:otherwise>
                                         </c:choose>
                                     </span>
@@ -85,7 +84,17 @@
                                     <p>
                                         <span class="label"><s:message code="reservation.view.interval" /></span><!--Cada-->
                                         <span class="data inline">${reservation.repetition.interval}</span>
-                                        <span class="label inline"><s:message code="reservation.view.interval.${fn:toLowerCase(reservation.repetition.type)}" /></span><!--días-->
+
+                                        <span class="label inline">
+                                            <c:choose>
+                                                <c:when test="${reservation.repetition.type ne 'MONTHLY_RELATIVE'}">
+                                                    <s:message code="reservation.view.interval.${fn:toLowerCase(reservation.repetition.type)}" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <s:message code="reservation.view.interval.monthly" />
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </span><!--días-->
                                     </p>
                                     <p>
                                         <c:if test="${reservation.repetition.type eq 'MONTHLY' || reservation.repetition.type eq 'MONTHLY_RELATIVE'}">
@@ -96,13 +105,14 @@
                                         <c:if test="${reservation.repetition.type eq 'WEEKLY'}">
                                             <span class="label"><s:message code="reservation.view.weekly.label" /></span><!--hasta-->
                                             <c:forEach var="day" items="${reservation.repetition.weekDays}" varStatus="status">
+
                                                 <span class="data"><s:message code="date.week.day.${day.number}" /></span>
                                                 <c:if test="${not status.first && not status.last}"><c:out value=", " /></c:if>
                                             </c:forEach>
                                         </c:if>
                                     </p><p>
                                         <span class="label"><s:message code="reservation.view.endDate" /></span><!--hasta-->
-                                        <span class="data"><fmt:formatDate dateStyle="medium" type="date" value="${reservation.start}" /></span>
+                                        <span class="data"><fmt:formatDate dateStyle="medium" type="date" value="${reservation.repetition.endDate}" /></span>
                                     </p>
                                 </c:if>
 

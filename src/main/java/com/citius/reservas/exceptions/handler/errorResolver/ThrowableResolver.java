@@ -22,7 +22,7 @@ public class ThrowableResolver extends GenericErrorResolver{
         super();
     }
     
-    public void setMessage(RestError error, HttpServletRequest request, Throwable exception) {
+    private void setMessage(RestError error, HttpServletRequest request, Throwable exception) {
         String messageReference = error.getMessage();
 
         if (messageReference.isEmpty()) {
@@ -33,7 +33,7 @@ public class ThrowableResolver extends GenericErrorResolver{
         error.setMessage(message);
     }
 
-    public void setDeveloperMessage(RestError error, HttpServletRequest request, Throwable exception) {
+    private void setDeveloperMessage(RestError error, HttpServletRequest request, Throwable exception) {
         String messageReference = error.getDeveloperMessage();
 
         if (messageReference.isEmpty()) {

@@ -10,9 +10,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="navigation"/>
-<c:set var="uniqueName" value="admin"/>
-
-<!--${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.firstName}-->
+<c:set var="uniqueName" value="<%= request.getUserPrincipal().getName()%>"/>
+<!--{sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userName}-->
 
 <c:choose>
     <c:when test="${uniqueName eq reservation.owner.uniqueName}">
@@ -29,8 +28,17 @@
 
 <c:if test="${not empty navigation}">
     <nav id="reservation_nav">
-        <nav class="right">
+        <nav class="left">
             <ul>
+                <!--Return-->
+                <li>
+                    <a class="reservas_btn" 
+                       name="return"
+                       href="<c:url value="/reservations/${reservation.id}" />" 
+                       id="create_resource">
+                        <s:message code="form.returnBtn" />
+                    </a>
+                </li>
                 <c:choose>
                     <c:when test="${navigation.class.simpleName == 'InvitationState'}">
                         <li><span class="invitation_label"
@@ -69,18 +77,23 @@
                                 <s:message code="form.updateBtn" />
                             </a>
                         </li>
-                        
-                        <!--By javascript-->
-                        <li>
-                            <a class="reservas_btn delete" 
-                               resrevationId="${reservation.id}"
-                               href="#"
-                               name="delete">
-                                <s:message code="form.deleteBtn" />
-                            </a>
-                        </li>
                     </c:when>
                 </c:choose>
+            </ul>
+        </nav>
+
+        <nav class="right">
+            <ul>
+                <!--By javascript-->
+                <li>
+                    <a class="reservas_btn delete" 
+                       resrevationId="${reservation.id}"
+                       href="#"
+                       name="delete"
+                       reservationId="${reservation.id}">
+                        <s:message code="form.deleteBtn" />
+                    </a>
+                </li>
             </ul>
         </nav>
     </nav>

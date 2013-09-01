@@ -88,4 +88,9 @@ public class ResourceBusinessImpl implements ResourceBusiness {
     public List<Resource> readAvaliableByGroupBetweenDates(Integer groupId, Date start, Date end) {
         return resourceRepository.findAvaliableByGroupDates(groupId, start, end);
     }
+
+    @Override
+    public Resource readByName(String name) {
+        return this.resourceRepository.findByName(name);
+    }
 }

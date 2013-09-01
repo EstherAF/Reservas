@@ -18,7 +18,11 @@
           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 ">
-    <context:component-scan base-package="com.citius.reservas" />
+    <!--    <context:component-scan base-package="com.citius.reservas" />-->
+    <context:component-scan base-package="com.citius.reservas">
+        <context:exclude-filter expression="org.springframework.stereotype.Controller"
+                                type="annotation"/>
+    </context:component-scan>
 
     <jpa:repositories base-package="com.citius.reservas.repositories" />
     
@@ -26,47 +30,53 @@
     
     <context:annotation-config />
     
-    
-    <beans>
-   
-        <!--Persistencia-->
-        <bean id="EntityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-            <property name="persistenceUnitName" value="JPAReservas"/>
-        </bean>
+    <!--Validation of Beans-->
+    <bean id="localValidatorFactoryBean" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+        
+    <!--Local resolver by cookies (CookieLocaleResolver)
+    How locale is stored. In this case, in user's session-->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="es"/>
+    </bean>
+        
+    <!--Persistencia-->
+    <bean id="EntityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="JPAReservas"/>
+    </bean>
 
-        <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
                 
-        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-            <property name="entityManagerFactory" ref="EntityManagerFactory" />
-        </bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="EntityManagerFactory" />
+    </bean>
         
-        <!--INTERNACIONALIZACIÓN-->
-        <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-            <property name="basename" value="classpath:/messages/messages" />
-            <property name="defaultEncoding" value="UTF-8" />
-            <property name="fileEncodings" value="UTF-8" />
-        </bean>
+    <!--Source of messages-->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:/messages/messages" />
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="fileEncodings" value="UTF-8" />
+    </bean>
  
-        <!--Se almacena y se recupera el idioma del usuario mediante cookies-->
-        <bean id="localeResolver"
-              class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-            <property name="defaultLocale" value="es"/>
-        </bean>
- 
+    <!--Enable anotations about HTTP (@RequestMapping, @ResponseBody, @PathVariable)-->
+    <!--        <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />-->
+    <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
         
-        <bean id="handlerMapping"
-              class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-        </bean>
-        
-        
-        <bean id="log4jInitializer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">  
-            <property name="staticMethod" value="org.springframework.util.Log4jConfigurer.initLogging" />  
-            <property name="arguments">  
-                <list>  
-                    <value>classpath:META-INF/log4j.properties</value>  
-                </list>  
-            </property>  
-        </bean> 
-    </beans>
-    
+    <!--logs-->
+    <bean id="log4jInitializer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">  
+        <property name="staticMethod" value="org.springframework.util.Log4jConfigurer.initLogging" />  
+        <property name="arguments">  
+            <list>  
+                <value>classpath:META-INF/log4j.properties</value>  
+            </list>  
+        </property>  
+    </bean>  
+
+    <bean id="annotationMethodHandlerExceptionResolver"
+          class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
+        <property name="order" value="0"/>
+    </bean>
+    <bean id="handlerExceptionResolver" class="com.citius.reservas.exceptions.handler.ApplicationHandlerException">
+        <property name="order" value="100"/>
+    </bean>
+
 </beans>

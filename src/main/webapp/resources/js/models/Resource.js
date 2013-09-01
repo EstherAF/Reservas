@@ -65,17 +65,17 @@ Resource.serializeListToTree = function(resources){
     return jsonTree;
 };
 
-Resource.getResourceSync = Ajax.requestInUrl("GET", "/Reservas/resources/", "sync");
-Resource.getResource = Ajax.requestInUrl("GET", "/Reservas/resources/");
-Resource.getGroup = Ajax.requestInUrl("GET", "/Reservas/resources/groups/");
-Resource.createGroup = Ajax.requestInBody("POST", "/Reservas/resources/groups/");
-Resource.createResource = Ajax.requestInBody("POST", "/Reservas/resources/");
-Resource.updateGroup = Ajax.requestInBody("PUT", "/Reservas/resources/groups/");
-Resource.updateResource = Ajax.requestInBody("PUT", "/Reservas/resources/");
-Resource.deleteResource = Ajax.requestInUrl("DELETE", "/Reservas/resources/");
-Resource.deleteGroup = Ajax.requestInUrl("DELETE", "/Reservas/resources/groups/");
-Resource.deleteAllGroup = Ajax.requestInUrl("DELETE", "/Reservas/resources/groups/");
+Resource.getResourceSync = Ajax.requestInUrl("GET", "/resources/", "sync");
+Resource.getResource = Ajax.requestInUrl("GET", "/resources/");
+Resource.getGroup = Ajax.requestInUrl("GET", "/resources/groups/");
+Resource.createGroup = Ajax.requestInBody("POST", "/resources/groups/");
+Resource.createResource = Ajax.requestInBody("POST", "/resources/");
+Resource.updateGroup = Ajax.requestInBody("PUT", "/resources/groups/");
+Resource.updateResource = Ajax.requestInBody("PUT", "/resources/");
+Resource.deleteResource = Ajax.requestInUrl("DELETE", "/resources/");
+Resource.deleteGroup = Ajax.requestInUrl("DELETE", "/resources/groups/");
+Resource.deleteAllGroup = Ajax.requestInUrl("DELETE", "/resources/groups/");
 Resource.getAllByGroup = function(success_cb, error_cb){
-    var request = Ajax.requestInUrl("GET", "/Reservas/resources/groups/");
+    var request = Ajax.requestInUrl("GET", "/resources/groups/");
     request("", success_cb, error_cb);
 };

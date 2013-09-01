@@ -5,7 +5,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><s:message code="reservation.form.title"/></title>
+        <c:choose>
+            <c:when test="${operation eq 'create'}">
+                <title><s:message code="reservation.form.create.title"/></title>
+            </c:when>
+            <c:otherwise>
+                <title><s:message code="reservation.form.update.title"/></title>
+            </c:otherwise>
+
+        </c:choose>
         <jsp:include page="/WEB-INF/jsp/jsp_templates/generic_head.jsp" />
         <link rel="stylesheet" href="<c:url value="/resources/css/new_reservation.css" />" type="text/css" /> 
 
@@ -30,18 +38,19 @@
                 var date = new Date(${year}, ${month}, ${day}, 0, 0, 0, 0);
             </c:if>
 
-            $(function() {
-                if (operation == 'create')
-                    CreateReservationController.onLoad(users, resources, date);
-                else
-                    UpdateReservationController.onLoad(users, resources, reservation);
-            });
+                $(function() {
+                    if (operation == 'create')
+                        CreateReservationController.onLoad(users, resources, date);
+                    else
+                        UpdateReservationController.onLoad(users, resources, reservation);
+                });
         </script>
     </head>
     <body>
         <div id="body">
             <div id="main_body">
                 <jsp:include page="/WEB-INF/jsp/jsp_templates/simple_header.jsp" flush="true"/>
+                <jsp:include page="/WEB-INF/jsp/jsp_templates/navigationBars/new_reservation_nav.jsp" flush="true"/>
                 <section id="content">
                     <form class="new_reservation_form">
 
@@ -57,11 +66,11 @@
                                 <jsp:include page="/WEB-INF/jsp/jsp_templates/new_reservation/guests.jsp" flush="true"/>
                             </section>
                         </div>
-                        <input name="submit" type="button"
+<!--                        <input name="submit" type="button"
                                create="<s:message code="form.createBtn"/>" 
                                update="<s:message code="form.updateBtn"/>"
                                value="<s:message code="form.createBtn"/>">
-                        <input name="delete" type="button" style="display:none;" value="<s:message code="form.deleteBtn"/>">
+                        <input name="delete" type="button" style="display:none;" value="<s:message code="form.deleteBtn"/>">-->
                     </form>
                 </section>    
             </div>   

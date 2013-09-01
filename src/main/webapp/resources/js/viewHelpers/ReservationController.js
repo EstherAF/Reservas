@@ -19,7 +19,7 @@ var ReservationController = function(users, resources, precheckedResources) {
                         selectorError: "p[for='name']",
                         restrictions: [
                             {type: 'required'},
-                            {type: 'max_length', args: [50]},
+                            {type: 'max_length', args: [100]},
                             {type: 'min_length', args: [1]}
                         ]
                     },
@@ -423,21 +423,26 @@ ReservationController.load = function(resourceTree, selectGuess) {
     var viewController = this;
 
     //Add guess
-    $('input[type="button"].autocomplete').click(function() {
+    $('input[type="button"].autocomplete').click(function(event) {
         selectGuess.call(viewController);
+        $('.ui-autocomplete-input').val("");
+        event.stopPropagation();
     });
 
     //Remove guess
-    $("table.guests").on("click", "td.icon-remove", function() {
+    $("table.guests").on("click", "td.icon-remove", function(event) {
+        event.stopPropagation();
         viewController.removeGuest.call(viewController, $(this).parent());
     });
 
     //Check/Uncheck resource
     resourceTree.tree.bind({
         "check_node.jstree": function(event, data) {
+            event.stopPropagation();
             viewController.bindCheckResourceTree.call(viewController, data);
         },
         "uncheck_node.jstree": function(event, data) {
+            event.stopPropagation();
             viewController.bindUncheckResourceTree.call(viewController, data);
         }
     });
@@ -448,12 +453,47 @@ ReservationController.load = function(resourceTree, selectGuess) {
     });
 
     //Change DOM when repetition_type is changed
-    $('select[name="repetition_type"]').change(function() {
+    $('select[name="repetition_type"]').change(function(event) {
+        event.stopPropagation();
         viewController.bindSelectRepetition.call(viewController, $(this).val());
     });
 
     //Change quantity of a resource group when its selector is changed
-    $('html').on('change', '.resource_group_selector', function() {
+    $('html').on('change', '.resource_group_selector', function(event) {
+        event.stopPropagation();
         viewController.changeResourceQuantity.call(viewController, $(this).attr('id'), $(this).val());
+    });
+    
+    $('[name$="Date"]').bind('change',function(){
+        var start = $('[name="startDate"]');
+        var end = $('[name="endDate"]');
+        var startDate = start.datepicker("getDate");
+        var endDate = end.datepicker("getDate");
+        
+        if(endDate<startDate && $(this).attr('name') == 'startDate')
+            end.datepicker("setDate", startDate );
+        else if(endDate<startDate && $(this).attr('name') == 'endDate')
+            start.datepicker("setDate", endDate );
+    });
+    
+    $('[name="startTimeHour"]').bind('change',function(){
+        var value = parseInt($(this).val())+1;
+        
+        var end = $('[name="endDate"]');
+        if(value==24){
+            value=0;
+            var endDate = end.datepicker('getDate');
+            endDate.setDate(endDate.getDate()+1);
+            end.datepicker('setDate', endDate);
+        }
+        $('[name="endTimeHour"]').val( value );
+    });
+    
+    $('[name="startTimeMinute"]').bind('change',function(){
+        $('[name="endTimeMinute"]').val($(this).val());
+    });
+    
+    $('[name^="endTime"]').bind('change',function(){
+        $('[name^="startTime"]').unbind('change');
     });
 };

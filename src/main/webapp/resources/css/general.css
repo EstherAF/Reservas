@@ -217,16 +217,27 @@ div.ui-datepicker {
 
 /*END OVERRIDE EXTERNAL CSS*/
 /*FORMS*/
-/*.reservas_btn{
-    @include button;
-    
-    display: inline-block;
-    vertical-align: bottom;
-    background-color: $dark_grey;
-    border-radius: 0px;
-    margin:0px;
-    padding: 5px 15px;
-}*/
+reservas_btn {
+  display: inline-block;
+  vertical-align: middle;
+  width: auto;
+  margin: 10px;
+  border-width: 0px;
+  border-radius: 5px;
+  padding: 8px 15px;
+  color: white;
+  background: #f36126;
+  font-size: 0.90em;
+  display: inline-block;
+  vertical-align: bottom;
+  background-color: #666666;
+  border-radius: 0px;
+  margin: 0px;
+  padding: 5px 15px; }
+  reservas_btn:hover {
+    background: #333333;
+    cursor: pointer; }
+
 .radio label,
 .checkbox label {
   display: inline-block; }
@@ -267,18 +278,17 @@ select.hour {
     padding: 5px 30px 5px 20px;
     text-align: center;
     display: inline-block;
-    opacity: 0.8;
     border-radius: 2px;
     box-shadow: 1px 1px 10px 0px #CCC;
     margin-top: 5px;
     color: #111; }
     #modal-wrapper .simple-modal.ok {
-      background-color: #F25C5C;
+      background-color: #76CB75;
       border: solid 1px #389C18; }
       #modal-wrapper .simple-modal.ok .close-modal {
-        color: #6F1D1D; }
+        color: #184B18; }
     #modal-wrapper .simple-modal.fail {
-      background-color: #E03D3D;
+      background-color: #FB8D8D;
       border: solid 1px #A23939; }
       #modal-wrapper .simple-modal.fail .close-modal {
         color: #4B0909; }

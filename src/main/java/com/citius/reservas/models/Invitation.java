@@ -44,9 +44,8 @@ public class Invitation implements Serializable {
     @Id
     @NotNull(message = "error.form.invitations.user.required")
     @Valid
-    @ManyToOne()
-    @JoinColumn(name = "\"user\"",
-            referencedColumnName = "unique_name")
+    @ManyToOne(cascade = {})
+    @JoinColumn(name = "\"user\"")
     private User guest;
     
     @Enumerated(EnumType.STRING)
@@ -102,8 +101,9 @@ public class Invitation implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.guest);
-        hash = 29 * hash + Objects.hashCode(this.reservation);
+        hash = 29 * hash + (this.guest!=null ? this.guest.hashCode() : 0);
+        hash = 29 * hash + (this.reservation!=null ? Objects.hashCode(this.reservation.getId()) : 0);
+        hash = 29 * hash + (this.state!=null ? this.state.hashCode() : 0);
         return hash;
     }
 
@@ -122,9 +122,13 @@ public class Invitation implements Serializable {
         if (this.state != other.state) {
             return false;
         }
-        if (!Objects.equals(this.reservation, other.reservation)) {
+        if(this.reservation!=null && this.reservation!=null){
+            if (!Objects.equals(this.reservation.getId(), other.reservation.getId())) {
+                return false;
+            }
+        }else if(!this.reservation.equals(other.reservation))
             return false;
-        }
+        
         return true;
     }
     
