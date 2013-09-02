@@ -11,8 +11,10 @@ import com.citius.reservas.exceptions.NotPossibleInstancesException;
 import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -24,6 +26,10 @@ public interface ReservationBusiness {
         
     @Transactional(readOnly = true)
     public Reservation read(Integer reservation_id);
+    
+    @Transactional(readOnly = true)
+    public String readAsJson(ObjectMapper mapper, Integer reservation_id) 
+            throws IOException;
     
     @Transactional(readOnly = true)
     public List<ReservationInstance> readAll();
@@ -72,9 +78,11 @@ public interface ReservationBusiness {
     public void deleteReservation(Integer id);
     
     @Transactional(readOnly = true)
-    public Boolean isOwner(Integer reservationId, String ownerUniqueName);
+    public Boolean isOwner(Integer reservationId, String ownerUniqueName) 
+            throws UnknownResourceException;
     
-    public Boolean canEdit(Integer reservationId, String uniqueName);
+    public Boolean canEdit(Integer reservationId, String uniqueName) 
+            throws UnknownResourceException;
     
     
     

@@ -20,8 +20,8 @@ Notifications.showError = function(error){
     }
 };
 
-Notifications.showMessage = function(message){
-    var text = this.messages[locale][message];
+Notifications.showMessage = function(messageName){
+    var text = Notifications.messages[locale][messageName];
     Modals.BuildFromData(Modals.type.ok, text, "");
 };
 
@@ -42,6 +42,15 @@ Notifications.messages = {
         'update_resource_ok': 'El recurso se ha modificado correctamente',
         'delete_reservation_ok': 'La reserva se ha eliminado correctamente',
         'delete_resource_ok': 'El recurso se ha eliminado correctamente',
+        'confirm_remove_reservation':'¿Eliminar esta reserva?',
+        'confirm_remove_resource':'¿Eliminar este recurso?\n\
+                             Se eliminará de las reservas existentes, y aquellas que\n\
+                               sólo reservan este recurso se eliminarán del sistema',
+        'confirm_remove_group':'¿Eliminar este grupo de recursos?\n\
+                                Los recursos que contiene también se eliminarán,\n\
+                                Estos recursos se eliminará de las reservas existentes, \
+                                y aquellas que \n sólo reservan este recurso se eliminarán \n\
+                                del sistema',
         500: '500: Error interno del servidor'
     },
     'en': {
@@ -51,6 +60,15 @@ Notifications.messages = {
         'update_resource_ok': 'El recurso se ha modificado correctamente',
         'delete_reservation_ok': 'La reserva se ha eliminado correctamente',
         'delete_resource_ok': 'El recurso se ha eliminado correctamente',
+        'confirm_remove_reservation':'¿Eliminar esta reserva?',
+        'confirm_remove_resource':'¿Eliminar este recurso?\n\
+                             Se eliminará de las reservas existentes, y aquellas que\n\
+                               sólo reservan este recurso se eliminarán del sistema',
+        'confirm_remove_group':'¿Eliminar este grupo de recursos?\n\
+                                Los recursos que contiene también se eliminarán,\n\
+                                Estos recursos se eliminará de las reservas existentes, \
+                                y aquellas que \n sólo reservan este recurso se eliminarán \n\
+                                del sistema',
         500: '500: Error interno del servidor'
     },
     'ga': {
@@ -60,7 +78,19 @@ Notifications.messages = {
         'update_resource_ok': 'El recurso se ha modificado correctamente',
         'delete_reservation_ok': 'La reserva se ha eliminado correctamente',
         'delete_resource_ok': 'El recurso se ha eliminado correctamente',
+        'confirm_remove_reservation':'¿Eliminar esta reserva?',
+        'confirm_remove_resource':'¿Eliminar este recurso?\n\
+                             Se eliminará de las reservas existentes, y aquellas que\n\
+                               sólo reservan este recurso se eliminarán del sistema',
+        'confirm_remove_group':'¿Eliminar este grupo de recursos?\n\
+                                Los recursos que contiene también se eliminarán,\n\
+                                Estos recursos se eliminará de las reservas existentes, \
+                                y aquellas que \n sólo reservan este recurso se eliminarán \n\
+                                del sistema',
         500: '500: Error interno del servidor'
     }
 };
 
+Notifications.getMessage=function(messageName){
+    return Notifications.messages[locale][message];
+};

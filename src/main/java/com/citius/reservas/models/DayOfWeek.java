@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
@@ -37,6 +39,10 @@ public enum DayOfWeek {
 
     public int getNumber() {
         return number;
+    }
+    
+    public void setNumber(int number) {
+        this.number=number;
     }
 
     public static DayOfWeek fromInteger(Integer x) {

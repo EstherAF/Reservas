@@ -33,7 +33,7 @@
                     </c:when>
                     <c:when test="${not empty week}" >
                             year =${year};
-                            month =${week} - 1;
+                            week =${week}-1;
                     </c:when>
                 </c:choose>
                 <c:if test="${not empty view}" >

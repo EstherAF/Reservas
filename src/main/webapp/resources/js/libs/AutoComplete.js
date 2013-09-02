@@ -12,18 +12,6 @@ Autocomplete = function(items, selectorInput, selectorButton) {
 
     //Initialize plugin
     this.initialize();
-
-    $(this.selectorInput).bind('keypress', function(e) {
-        if (e.which === 13)
-            $(selectorButton).trigger('click');
-    });
-
-
-//    $(this.selectorInput).bind('autocompleteselect', function(event,item){
-//        $(selector).val(item.item.value);
-//        $(selectorButton).trigger('click');
-//    });
-
 };
 
 Autocomplete.prototype.initialize = function() {
@@ -36,6 +24,8 @@ Autocomplete.prototype.initialize = function() {
         select: function(event, ui) {
             $(selector).val(ui.item.value);
             $(button).trigger('click');
+            event.stopPropagation();
+            $(selector).val("");
         }
     });
 };

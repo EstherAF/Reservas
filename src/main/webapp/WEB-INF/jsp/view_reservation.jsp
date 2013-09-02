@@ -29,7 +29,7 @@
 
                     <div class="expandFloats">
 
-                        <section class="formSection width30pc">
+                        <section class="formSection width80pc">
 
                             <!-- Information -->
                             <fieldset class="information_fieldset">
@@ -38,10 +38,10 @@
                                     <span class="label"><s:message code="form.textName" /></span>
                                     <span class="data">${reservation.name}</span>
                                 </p>
-                                <p>
+                                <div>
                                     <span class="label"><s:message code="form.description" /></span>
-                                    <span class="data">${reservation.description}</span>
-                                </p>
+                                    <span><pre class="data">${reservation.description}</pre></span>
+                                </div>
                                 <p>
                                     <span class="label"><s:message code="reservation.view.owner" /></span>
                                     <span class="data">${reservation.owner.fullName} <span class="email">(${reservation.owner.email})</span></span>

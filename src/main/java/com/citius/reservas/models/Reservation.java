@@ -41,7 +41,7 @@ public class Reservation implements Serializable {
     private static final long serialVersionUID = 2L;
     @Id
     @Min(value = 1, message = "error.form.reservation.id.min")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
     @NotNull(message = "error.form.reservation.name.empty")
@@ -91,9 +91,16 @@ public class Reservation implements Serializable {
     private Set<Resource> resources;
 
     @Valid
-    @OneToMany(fetch = FetchType.EAGER,
+//    @OneToMany(fetch = FetchType.EAGER,
+//            mappedBy = "reservation",
+//            cascade = CascadeType.ALL)
+    
+        @OneToMany(fetch = FetchType.EAGER,
             mappedBy = "reservation",
             cascade = CascadeType.ALL)
+    
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "reservation_id")
     private Set<Invitation> invitations;
 
     public Reservation() {

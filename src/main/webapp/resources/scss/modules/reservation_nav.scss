@@ -23,12 +23,25 @@
             padding: 8px px;
             
             &.delete{
-                font-family: 'icomoon';
-                speak: none;
                 background-color:$red_remove;
-                &:after{
-                    content: "\e000";    
-                }              
+                
+                &:hover{
+                    background-color:$black;
+                }
+                
+                span[class|=icon]{                
+                    color:$white;
+                    margin-left:5px;
+                    margin-right: 0;
+                }
+            }
+            
+            &.return{
+                span[class|=icon]{                
+                    color:$white;
+                    margin-left:0px;
+                    margin-right: 5px;
+                }
             }
         }
         

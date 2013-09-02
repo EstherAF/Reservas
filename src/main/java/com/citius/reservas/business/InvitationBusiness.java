@@ -25,4 +25,10 @@ public interface InvitationBusiness {
     
     public Invitation createOrSaveInvitation(Invitation invitation);
     
+    public List<Invitation> findByGuestAndState(String uniqueName, InvitationState state);
+    
+    public Invitation find(Integer reservationId, String guestUniqueName);
+    
+    public Invitation save(Invitation invitation);
+    
 }

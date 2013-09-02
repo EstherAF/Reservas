@@ -129,6 +129,9 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request,
             HttpServletResponse response, Object handler, Exception ex) {
+        
+//        ex.printStackTrace(System.out);
+        log.error("HANDLER:", ex);   //LdC
 
         Object error = this.getRestError(request, ex);
 

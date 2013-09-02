@@ -9,36 +9,35 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<c:set var="navigation"/>
+<c:set var="invited"/>
 <c:set var="uniqueName" value="<%= request.getUserPrincipal().getName()%>"/>
 <!--{sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.userName}-->
 
-<c:choose>
-    <c:when test="${uniqueName eq reservation.owner.uniqueName}">
-        <c:set var="navigation" value="owner" />
-    </c:when>
-    <c:otherwise>
-        <c:forEach var="invitation" items="${reservation.invitations}">
-            <c:if test="${invitation.guest.uniqueName eq uniqueName}">
-                <c:set var="navigation" value="${invitation.state}" />
-            </c:if>
-        </c:forEach>
-    </c:otherwise>
-</c:choose>
+<c:forEach var="invitation" items="${reservation.invitations}">
+    <c:if test="${invitation.guest.uniqueName eq uniqueName}">
+        <c:set var="invited" value="${invitation.state}" />
+    </c:if>
+</c:forEach>
 
-<c:if test="${not empty navigation}">
+<c:if test="${not empty invitation || canEdit}">
     <nav id="reservation_nav">
         <nav class="left">
             <ul>
                 <!--Return-->
                 <li>
-                    <a class="reservas_btn" 
+                    <a class="reservas_btn return" 
                        name="return"
                        href="<c:url value="/reservations/${reservation.id}" />" 
                        id="create_resource">
+                        <span class="icon-arrow-left-3"></span>
                         <s:message code="form.returnBtn" />
                     </a>
                 </li>
+            </ul>
+        </nav>
+
+        <nav class="right">
+            <ul>
                 <c:choose>
                     <c:when test="${navigation.class.simpleName == 'InvitationState'}">
                         <li><span class="invitation_label"
@@ -68,7 +67,7 @@
                             </a></li>
 
                     </c:when>
-                    <c:when test="${navigation.class.simpleName == 'String'}">
+                    <c:when test="${canEdit}">
 
                         <li>
                             <!--Direct redirect-->
@@ -79,12 +78,9 @@
                         </li>
                     </c:when>
                 </c:choose>
-            </ul>
-        </nav>
-
-        <nav class="right">
-            <ul>
+                
                 <!--By javascript-->
+                <c:if test="${canEdit}">
                 <li>
                     <a class="reservas_btn delete" 
                        resrevationId="${reservation.id}"
@@ -92,8 +88,10 @@
                        name="delete"
                        reservationId="${reservation.id}">
                         <s:message code="form.deleteBtn" />
+                        <span class="icon-remove"></span>
                     </a>
                 </li>
+                </c:if>
             </ul>
         </nav>
     </nav>

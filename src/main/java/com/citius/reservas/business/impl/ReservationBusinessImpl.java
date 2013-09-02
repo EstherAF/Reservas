@@ -6,19 +6,23 @@ package com.citius.reservas.business.impl;
 
 import com.citius.reservas.exceptions.NotAvaliable;
 import com.citius.reservas.business.AccessBusiness;
+import com.citius.reservas.business.InvitationBusiness;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
 import com.citius.reservas.repositories.ReservationInstanceRepository;
 import com.citius.reservas.repositories.ReservationRepository;
 import com.citius.reservas.business.ReservationBusiness;
 import com.citius.reservas.business.ResourceBusiness;
+import com.citius.reservas.controllers.customModel.ReservationCustom;
 import com.citius.reservas.controllers.customModel.ResourceGroupCustom;
 import com.citius.reservas.exceptions.*;
 import com.citius.reservas.models.DayOfWeek;
 import com.citius.reservas.models.Invitation;
+import com.citius.reservas.models.InvitationState;
 import static com.citius.reservas.models.RepetitionType.*;
 import com.citius.reservas.models.Resource;
 import com.citius.reservas.models.User;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -27,6 +31,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +50,8 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     private ResourceBusiness resourceBusiness;
     @Autowired
     private AccessBusiness accessBusiness;
+    @Autowired
+    private InvitationBusiness invitationBusiness;
 
     @Override
     public void deleteReservation(Integer id) {
@@ -133,10 +140,10 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     }
 
     @Override
-    public Boolean isOwner(Integer reservationId, String ownerUniqueName) {
+    public Boolean isOwner(Integer reservationId, String ownerUniqueName) throws UnknownResourceException{
         Reservation r = rr.find(reservationId);
         if (r == null) {
-            return null;
+            throw new UnknownResourceException();
         }
 
         return r.getOwner().getUniqueName().equals(ownerUniqueName);
@@ -157,8 +164,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
 
         //Complete invitation's reservation reference
         Set<Invitation> invitations = reservation.getInvitations();
-        Set<Invitation> newInvitations = new LinkedHashSet<>();
-        reservation.setInvitations(newInvitations);
+        reservation.setInvitations(new LinkedHashSet<Invitation>());
 
         Set<ReservationInstance> instances = this.generateInstances(reservation);
 
@@ -166,14 +172,42 @@ public class ReservationBusinessImpl implements ReservationBusiness {
             throw new NotPossibleInstancesException("Not posible instances");
         }
 
-
-        List<NotAvaliable> notAvaliableResources = new ArrayList<>();
         reservation.setInstances(instances);
 
         //Check avaliability of child resources
         reservation.setResources(this.getAvaliabiliableResources(
                 reservation.getResources(), reservation.getInstances()));
 
+        //Check avaliability for resources of groups
+        if(reservation.getClass().equals(ReservationCustom.class)){
+            ReservationCustom custom = (ReservationCustom) reservation;
+            reservation.addResources(this.getNecesaryResourcesFromGroups(custom.getGroups(), instances));
+        }
+        reservation = this.rr.save(reservation);
+        
+        reservation = this.saveInvitations(reservation, invitations);
+                  
+        return reservation;
+
+    }
+
+    @Override
+    public Reservation updateReservation(Reservation reservation, List<ResourceGroupCustom> groups)
+            throws NotAvaliableException, NotPossibleInstancesException, UnknownResourceException {
+
+        if (this.rr.find(reservation.getId()) == null) {
+            throw new UnknownResourceException();
+        }
+        this.rr.delete(reservation.getId());
+
+        return this.saveReservation(reservation, groups);
+
+    }
+    
+    private Set<Resource> getNecesaryResourcesFromGroups(List<ResourceGroupCustom> groups, Set<ReservationInstance> instances) throws NotAvaliableException{
+        
+        List<NotAvaliable> notAvaliableResources = new ArrayList<>();
+        Set<Resource> resources = new LinkedHashSet<>();
         if (groups != null) {
             for (ResourceGroupCustom resourceToReserve : groups) {
 
@@ -208,10 +242,10 @@ public class ReservationBusinessImpl implements ReservationBusiness {
                 if (avaliableResources.size() > resourceToReserve.getQuantity()) {
                     List<Resource> avaliableResourcesList = new ArrayList<>(avaliableResources);
                     for (int i = 0; i < resourceToReserve.getQuantity(); i++) {
-                        reservation.addResource(avaliableResourcesList.get(i));
+                        resources.add(avaliableResourcesList.get(i));
                     }
                 } else {
-                    reservation.addResources(avaliableResources);
+                    resources.addAll(avaliableResources);
                 }
             }
 
@@ -219,54 +253,56 @@ public class ReservationBusinessImpl implements ReservationBusiness {
                 throw new NotAvaliableException(notAvaliableResources);
             }
         }
-
-
-
-        reservation = rr.save((Reservation) reservation);
-        rr.detach(reservation);
-
+        
+        return resources;
+    }
+    
+    private Reservation saveInvitations(Reservation reservation, Set<Invitation> invitations) 
+            throws UnknownResourceException{
+        
         if (invitations != null && !invitations.isEmpty()) {
             for (Invitation invitation : invitations) {
-                User guest = this.accessBusiness.findUserFromDB(invitation.getGuest().getUniqueName());
-                if (guest == null) {
-                    throw new UnknownResourceException();
+                Invitation found = null;
+
+                //If invitation already exists
+                if (reservation.getId() != null) {
+                    found = this.invitationBusiness.find(reservation.getId(), invitation.getGuest().getUniqueName());
                 }
 
-                invitation.setGuest(guest);
-                invitation.setReservation(reservation);
-                reservation.getInvitations().add(invitation);
+                //If invitation didn't exist before
+                if (found == null) {
+                    found = new Invitation();
+                    User guest = this.accessBusiness.findUserFromDB(invitation.getGuest().getUniqueName());
+                    if (guest == null) {
+                        throw new UnknownResourceException();
+                    }
+
+                    found.setGuest(guest);
+                    found.setState(InvitationState.WAITING);
+                    found.setReservation(reservation);
+                }
+                
+                //this.invitationBusiness.save(invitation);
+                reservation.getInvitations().add(found);
             }
         }
-
-        return reservation;
-
-    }
-
-    @Override
-    public Reservation updateReservation(Reservation reservation, List<ResourceGroupCustom> groups) 
-            throws NotAvaliableException, NotPossibleInstancesException, UnknownResourceException {
-
-        if (this.rr.find(reservation.getId()) == null) {
-            throw new UnknownResourceException();
-        }
-        this.rr.delete(reservation.getId());
         
-        return this.saveReservation(reservation, groups);
-
+        return this.rr.save(reservation);
     }
 
     private Set<Resource> getAvaliabiliableResources(Set<Resource> resources,
             Set<ReservationInstance> instances)
             throws NotAvaliableException, UnknownResourceException {
-        
+
         Set<Resource> loaddedResources = new LinkedHashSet<>();
 
         List<NotAvaliable> notAvaliableResources = new ArrayList<>();
         for (Resource resource : resources) {
             Resource loaddedResource = this.resourceBusiness.read(resource.getId());
-            if(loaddedResource==null)
+            if (loaddedResource == null) {
                 throw new UnknownResourceException();
-            
+            }
+
             loaddedResources.add(loaddedResource);
             //Check if resource is avaliable
             for (ReservationInstance instance : instances) {
@@ -460,11 +496,20 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     }
 
     @Override
-    public Boolean canEdit(Integer reservationId, String uniqueName) {
+    public Boolean canEdit(Integer reservationId, String uniqueName) 
+            throws UnknownResourceException{
         return (this.isOwner(reservationId, uniqueName) || accessBusiness.isAdmin());
     }
 
     private Exception UnknownResourceException() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String readAsJson(ObjectMapper mapper, Integer reservation_id) throws IOException{
+        String json = null;
+        Reservation reservation = this.read(reservation_id);
+        json = mapper.writeValueAsString(reservation);
+        return json;
     }
 }

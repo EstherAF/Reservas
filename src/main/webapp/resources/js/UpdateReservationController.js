@@ -66,10 +66,10 @@ UpdateReservationController.prototype.loadDefaultData = function(form) {
     for (var i = 0; i < invitations.length; i++) {
         this.addGuest(invitations[i]);
     }
-    
+
     //Resources
-    for(var i=0; i< this.reservation.resources; i++){
-        var node = $("#resourcesTree ul li #"+this.reservation.resources[i].id);
+    for (var i = 0; i < this.reservation.resources; i++) {
+        var node = $("#resourcesTree ul li #" + this.reservation.resources[i].id);
         this.resouceTree.toggleCheckBox(node);
     }
 };
@@ -113,27 +113,30 @@ UpdateReservationController.prototype.updateReservation = function() {
                 function(response) {
                     ReservationNavigation.goToWeek(response.start,
                             function() {
-                                Notifications.showMessage(Notifications.messages[locale]["update_reservation_ok"]);
+                                Notifications.showMessage("update_reservation_ok");
                             });
                 },
                 ajaxError
-        );
+                );
     }
 };
 
 //TO-DO
-UpdateReservationController.prototype.removeReservation = function() {
-    var reservation = this.getReservationFromForm();
-    if (reservation) {
-        NewReservation.updateReservation(
-                reservation,
+UpdateReservationController.prototype.removeReservation = function(id) {
+//    var URL = applicationPath + "reservations/" + id;
+//    var redirectURL = applicationPath + "reservations";
+    var r = confirm(Notifications.getMessage("confirm_remove_reservation"));
+    if(r){
+        Reservation.deleteReservation(
+                id,
                 function(response) {
-                    ReservationNavigation.goToWeek(response.start);
-                },
-                function(error) {
-                    Notifications.showError(error);
-                }
-        );
+                    var success = function() {
+                        Notifications.showMessage("delete_reservation_ok");
+                    };
+
+                    ReservationNavigation.goToWeek(undefined, success);
+                }, ajaxError
+                );
     }
 };
 
@@ -145,12 +148,21 @@ UpdateReservationController.onLoad = function(users, resources, reservation) {
     viewController.loadDefaultData(viewController.form.form.selector, reservation);
     viewController.loadButtons();
 
-    $('[name="submit"]').click(function() {
+    $('[name="submit"]').click(function(e) {
+        e.stopPropagation();
         viewController.updateReservation.call(viewController);
     });
 
-    $('[name="delete"]').click(function() {
+    $('[name="delete"]').click(function(e) {
+        e.stopPropagation();
         viewController.updateReservation.call(viewController);
     });
+
+    $('[name="delete"]').click(function(e) {
+        e.stopPropagation();
+        var id = $(this).attr('reservationId');
+        UpdateReservationController.removeReservation(id);
+    });
+
     viewController.refreshHTMLResourcesList();
 };

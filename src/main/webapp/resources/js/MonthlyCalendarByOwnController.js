@@ -53,6 +53,8 @@ MonthlyCalendarByOwn.events = function(start, end, callback){
 MonthlyCalendarByOwn.serializeToCalendarEvents = function(instances) {
     var events = [];
 
+    var icon = $('<span></span>').addClass('icon-user')[0].outerHTML;
+
     for (var i = 0; i < instances.length; i++) {
         var instance = instances[i];
         var event = {
@@ -64,7 +66,10 @@ MonthlyCalendarByOwn.serializeToCalendarEvents = function(instances) {
         
         event.backgroundColor = (loggedUniqueName == instance.reservation.owner.uniqueName)? 
             MyCalendar.orange : event.backgroundColor = MyCalendar.grey;
-
+            
+            if(loggedUniqueName != instance.reservation.owner.uniqueName){
+                event.icon=icon;
+            }
         events.push(event);
     }
     return events;

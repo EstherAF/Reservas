@@ -9,16 +9,6 @@
 	font-style: normal;
 }
 
-@font-face {
-	font-family: 'candelabook';
-	src:url('fonts/candelabook-webfont.eot');
-	src:url('fonts/candelabook-webfont.eot?#iefix') format('embedded-opentype'),
-		url('fonts/candelabook-webfont.woff') format('woff'),
-		url('fonts/candelabook-webfont.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
-}
-
 /* Use the following CSS code if you want to use data attributes for inserting your icons */
 [data-icon]:before {
 	font-family: 'icomoon';
@@ -29,6 +19,7 @@
 	text-transform: none;
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 /* Use the following CSS code if you want to have a class per icon */
@@ -37,7 +28,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-in, .icon-paperclip, .icon-cancel-circle, .icon-x, .icon-close, .icon-checkmark-circle, .icon-checkmark, .icon-plus, .icon-plus-2, .icon-plus-3, .icon-plus-4, .icon-minus, .icon-calendar, .icon-user, .icon-notice, .icon-notice-2, .icon-envelope, .icon-arrow-left, .icon-arrow-right, .icon-caret-right, .icon-caret-left, .icon-clock, .icon-remove, .icon-double-angle-left, .icon-double-angle-right {
+.icon-untitled, .icon-in, .icon-paperclip, .icon-cancel-circle, .icon-x, .icon-close, .icon-checkmark-circle, .icon-checkmark, .icon-plus, .icon-plus-2, .icon-plus-3, .icon-plus-4, .icon-minus, .icon-calendar, .icon-user, .icon-notice, .icon-notice-2, .icon-envelope, .icon-arrow-left, .icon-arrow-right, .icon-caret-right, .icon-caret-left, .icon-clock, .icon-remove, .icon-double-angle-left, .icon-double-angle-right, .icon-reply, .icon-forward, .icon-undo, .icon-redo, .icon-arrow-left-2, .icon-arrow-right-2, .icon-arrow-left-3, .icon-untitled-2 {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -46,6 +37,9 @@ you can use the generic selector below, but it's slower:
 	text-transform: none;
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
+}
+.icon-untitled:before {
+	content: "\f000";
 }
 .icon-in:before {
 	content: "\e002";
@@ -113,9 +107,6 @@ you can use the generic selector below, but it's slower:
 .icon-clock:before {
 	content: "\e018";
 }
-.icon-denied:before {
-	content: "\e01a";
-}
 .icon-remove:before {
 	content: "\e000";
 }
@@ -124,4 +115,28 @@ you can use the generic selector below, but it's slower:
 }
 .icon-double-angle-right:before {
 	content: "\f101";
+}
+.icon-reply:before {
+	content: "\e001";
+}
+.icon-forward:before {
+	content: "\e003";
+}
+.icon-undo:before {
+	content: "\e004";
+}
+.icon-redo:before {
+	content: "\e00b";
+}
+.icon-arrow-left-2:before {
+	content: "\e019";
+}
+.icon-arrow-right-2:before {
+	content: "\e01a";
+}
+.icon-arrow-left-3:before {
+	content: "\e01b";
+}
+.icon-untitled-2:before {
+	content: "\e01c";
 }

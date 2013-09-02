@@ -57,7 +57,7 @@ public class ReservationControllerImpl implements ReservationController {
     public List<ReservationInstance> readAllMonth(Integer year, Integer month, Integer id) {
         return rb.readByMonthByResource(id, month, year);
     }
-    
+
     @Override
     public List<ReservationInstance> readAllWeek(Integer year, Integer week, Integer id) {
         Calendar c = Calendar.getInstance();
@@ -65,7 +65,7 @@ public class ReservationControllerImpl implements ReservationController {
         c.set(Calendar.WEEK_OF_YEAR, week);
         return rb.readByWeekByResource(id, c);
     }
-    
+
     @Override
     public List<ReservationInstance> readAll(Integer year, Integer month) {
         return rb.readByMonth(month, year);
@@ -90,7 +90,7 @@ public class ReservationControllerImpl implements ReservationController {
 //        Errors errors 
 //        ReservationValidator validator = new ReservationValidator();
 //        validator.validate(r, result.get);
-        
+
         if (!result.getAllErrors().isEmpty()) {
             throw new InputRequestValidationException(result.getAllErrors());
         }
@@ -120,7 +120,7 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public Boolean delete(Integer id) throws AccessDeniedException {
+    public Boolean delete(Integer id) throws AccessDeniedException, UnknownResourceException {
         String uniqueName = access.getUniqueNameOfLoggedUser();
 
         if (!rb.canEdit(id, uniqueName)) {
@@ -128,7 +128,7 @@ public class ReservationControllerImpl implements ReservationController {
         }
 
         rb.deleteReservation(id);
-        
+
         return true;
     }
 
@@ -228,24 +228,19 @@ public class ReservationControllerImpl implements ReservationController {
         return "weekly_reservations";
     }
 
-    private void initializeNewReservationView(Model model) {
+    private void initializeNewReservationView(Model model) throws IOException {
         List<ResourceGroup> resourcesList = rgb.readAll();
         List<User> usersList = access.getUsers();
 
-        try {
-            String resourcesJson = mapper.writeValueAsString(resourcesList);
-            String usersJson = mapper.writeValueAsString(usersList);
+        String resourcesJson = mapper.writeValueAsString(resourcesList);
+        String usersJson = mapper.writeValueAsString(usersList);
 
-            model.addAttribute("resourcesJson", resourcesJson);
-            model.addAttribute("usersJson", usersJson);
-
-        } catch (IOException ex) {
-            logger.error(ex, ex);
-        }
+        model.addAttribute("resourcesJson", resourcesJson);
+        model.addAttribute("usersJson", usersJson);
     }
 
     @Override
-    public String createReservationView(Model model) {
+    public String createReservationView(Model model) throws IOException {
 
         this.initializeNewReservationView(model);
         model.addAttribute("operation", "create");
@@ -254,7 +249,9 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public String createReservationView(Model model, Integer year, Integer month, Integer day) {
+    public String createReservationView(Model model, Integer year, Integer month,
+            Integer day) throws IOException {
+
         Calendar now = Calendar.getInstance();
         Integer yearNow = now.get(Calendar.YEAR);
         Integer monthNow = now.get(Calendar.MONTH) + 1;
@@ -273,7 +270,8 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public String updateReservationView(Model model, Integer id) {
+    public String updateReservationView(Model model, Integer id) 
+            throws IOException, UnknownResourceException {
         String uniqueName = access.getUniqueNameOfLoggedUser();
 
         Boolean canEdit = (access.isAdmin() || rb.isOwner(id, uniqueName));
@@ -281,30 +279,28 @@ public class ReservationControllerImpl implements ReservationController {
         if (canEdit) {
 
             this.initializeNewReservationView(model);
-            Reservation reservation = rb.read(id);
-
-            try {
-                String reservationJSON = mapper.writeValueAsString(reservation);
-                model.addAttribute("reservationJson", reservationJSON);
-                model.addAttribute("operation", "update");
-
-            } catch (IOException ex) {
-                logger.error(ex, ex);
-            }
+            String reservationJson = rb.readAsJson(this.mapper, id);
+            model.addAttribute("reservationJson", reservationJson);
+            model.addAttribute("operation", "update");
             return "new_reservation";
         } else {
-            return "redirect:/reservations/"+id;
+            return "redirect:/reservations/" + id;
         }
     }
 
     @Override
-    public String viewReservation(Model model, Integer id) {
+    public String viewReservation(Model model, Integer id) throws UnknownResourceException{
         Reservation reservation = rb.read(id);
         if (reservation != null) {
+            String uniqueName = access.getUniqueNameOfLoggedUser();
+            Boolean canEdit = (access.isAdmin() || rb.isOwner(id, uniqueName));
+            
+            model.addAttribute("canEdit",canEdit);
+            
             model.addAttribute("reservation", reservation);
             return "view_reservation";
         } else {
-            return "redirect:/reservations/";
+            throw new UnknownResourceException();
         }
     }
 }

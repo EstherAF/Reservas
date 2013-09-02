@@ -15,10 +15,11 @@
 
             <!--Return-->
             <li>
-                <a class="reservas_btn" 
+                <a class="reservas_btn return" 
                    name="return"
                    href="<c:url value="/reservations/${reservation.id}" />" 
                    id="create_resource">
+                    <span class="icon-arrow-left-3"></span>
                     <s:message code="form.returnBtn" />
                 </a>
             </li>
@@ -45,8 +46,10 @@
                 <li>
                     <a class="reservas_btn delete"  
                        href="#"
+                       name="delete"
                        id="create_resource">
                         <s:message code="form.deleteBtn" />
+                        <span class="icon-remove"></span>
                     </a>
                 </li>
             </ul>

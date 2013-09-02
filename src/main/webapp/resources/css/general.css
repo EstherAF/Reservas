@@ -124,6 +124,13 @@ section {
 .nomargin {
   margin: 0px; }
 
+pre {
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'candelabook', Ubuntu, sans-serif;
+  font-size: 14px; }
+
 /*END TEMPLATE*/
 /*ERRORS & NOTIFICATIONS*/
 .notification {
@@ -177,6 +184,21 @@ span .formError {
   min-width: 300px;
   margin-right: 0px;
   margin-left: 2%; }
+
+.width80pc {
+  width: 80%;
+  min-width: 400px;
+  margin-right: 0px;
+  margin-left: 2%;
+  /*    pre{
+          margin-left: 170px;
+          margin-top: -5ex;
+      }*/ }
+  .width80pc span.data {
+    width: -moz-calc(100% - 2% - 175px);
+    width: calc(100% - 2% - 175px); }
+  .width80pc span.label {
+    width: 170px; }
 
 .inline {
   padding: 0px 5px;
@@ -299,3 +321,8 @@ select.hour {
       cursor: pointer; }
 
 /*MODAL LABELS*/
+/*CALENDARS*/
+.fc-event-title .icon-user {
+  margin-left: 5px; }
+
+/*CALENDARS*/

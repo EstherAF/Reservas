@@ -44,7 +44,7 @@ public class Invitation implements Serializable {
     @Id
     @NotNull(message = "error.form.invitations.user.required")
     @Valid
-    @ManyToOne(cascade = {})
+    @ManyToOne()
     @JoinColumn(name = "\"user\"")
     private User guest;
     
@@ -52,9 +52,14 @@ public class Invitation implements Serializable {
     private InvitationState state;
     
     @Id
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "reservation_id",
             referencedColumnName = "id")
+//    @JoinColumn(name = "reservation_id",
+//            referencedColumnName = "id",
+//            insertable = false,
+//            updatable = false)
+    
     private Reservation reservation;
 
     public Invitation(User guest, InvitationState state, Reservation reservation) {

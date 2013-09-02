@@ -58,13 +58,13 @@ public class ReservationRepositoryImpl extends GenericRepositoryImpl<Reservation
         
         return l;
     }
-    
-    @Override
-    public Reservation save(Reservation reservation){
-        logger.debug("Reservation.save.");
-        //this.flush();
-        super.save(reservation);
-        
-        return reservation;
-    }
+//    
+//    @Override
+//    public Reservation save(Reservation reservation){
+//        logger.debug("Reservation.save.");
+//        //this.flush();
+//        return super.save(reservation);
+//        
+//        return reservation;
+//    }
 }

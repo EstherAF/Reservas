@@ -124,13 +124,15 @@ CalendarAvaliability.prototype.selectResource = function(data) {
 
         var view = MyCalendar.getView();
         
+        
         if (view === MyCalendar.viewName.monthly) {
             Reservation.getReservationsByMonthResource(
                     MyCalendar.getYear(), MyCalendar.getMonth(), id,
                     success, ajaxError);
         } else if (view === MyCalendar.viewName.weekly) {
+            
             Reservation.getReservationsByWeekResource(
-                    MyCalendar.getYear(), MyCalendar.getMonth(), id,
+                    MyCalendar.getYear(), MyCalendar.getWeek() , id,
                     success, ajaxError);
         }
 
@@ -212,20 +214,22 @@ CalendarAvaliability.onLoad = function(view, year, month, week) {
                     viewController.removeEvents();
                     var historyObject = e.state;
 //                    viewController.saveState();
-                    viewController.selected = historyObject.selected;
-                    viewController.resources = historyObject.resources;
-                    $('#calendar').fullCalendar('changeView', historyObject.view);
-                    $('#calendar').fullCalendar('gotoDate', historyObject.date);
-                    switch (historyObject.view) {
-                        case MyCalendar.viewName.monthly:
-                            $('#calendar').fullCalendar('option', 'aspectRatio', 2 / 1);
-                            break;
-                        case MyCalendar.viewName.weekly:
-                            $('#calendar').fullCalendar('option', 'aspectRatio', 1 / 16);
-                            break;
-                    }
+                    if(historyObject){
+                        viewController.selected = historyObject.selected;
+                        viewController.resources = historyObject.resources;
+                        $('#calendar').fullCalendar('changeView', historyObject.view);
+                        $('#calendar').fullCalendar('gotoDate', historyObject.date);
+                        switch (historyObject.view) {
+                            case MyCalendar.viewName.monthly:
+                                $('#calendar').fullCalendar('option', 'aspectRatio', 2 / 1);
+                                break;
+                            case MyCalendar.viewName.weekly:
+                                $('#calendar').fullCalendar('option', 'aspectRatio', 1 / 16);
+                                break;
+                        }
 
-                    viewController.afterChangeDay();
+                        viewController.afterChangeDay();
+                    }
                 });
             },
             ajaxError

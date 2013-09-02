@@ -57,6 +57,21 @@
         width: 69%;
     }
     
+    .width80pc{
+        span.data, pre.data{
+            width: -moz-calc(100% - 2% - 175px);
+            width: calc(100% - 2% - 175px);
+        }
+        
+        pre.data{
+            margin-top:0px;
+        }
+
+        span.label{
+            width: 170px;
+        }
+    }
+    
 }
 
 .jstree ul li a{

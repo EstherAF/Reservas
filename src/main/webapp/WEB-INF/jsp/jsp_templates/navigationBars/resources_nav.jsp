@@ -11,7 +11,12 @@
     <nav id="reservation_nav">
         <nav class="left">
             <ul>
-                <li><a class="reservas_btn" href="#" id="create_resource"><s:message code="resources.form.add"/></a></li>
+                <li>
+                    <a class="reservas_btn" href="#" 
+                       id="create_resource">
+                        <s:message code="resources.form.add"/>
+                    </a>
+                </li>
             </ul>
         </nav>
         <nav class="right">
@@ -22,8 +27,10 @@
                        update="<s:message code="resources.form.update"/>">
                         <s:message code="resources.form.create"/>
                     </a></li>
-                <li><a href="#" class="reservas_btn" name="delete" type="button" style="display:none;">
+                <li><a href="#" class="reservas_btn" name="delete" type="button"
+                       style="display:none;">
                         <s:message code="resources.form.delete"/>
+                        <span class="icon-remove"></span>
                     </a></li>
             </ul>
         </nav>

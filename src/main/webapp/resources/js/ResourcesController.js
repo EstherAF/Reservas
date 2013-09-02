@@ -212,18 +212,24 @@ var resourcesView = function(resources) {
     this.remove = function() {
         var selectedNode = self.resTree.getSelectedNode();
         var id = selectedNode.attr('id');
-        var resourceType = selectedNode.attr('rel')
+        var resourceType = selectedNode.attr('rel');
 
         //var is_group = (id.charAt(1) === 'g') ? true : false;
-        var success = function() {
-            self.resTree.removeNode(selectedNode)
-        };
+        var messageName = (resourceType === 'group') ? "confirm_remove_group" : "confirm_remove_resource";
+        
+        var r = confirm(Notifications.getMessage(messageName));
+        if(r){
+        
+            var success = function() {
+                self.resTree.removeNode(selectedNode)
+            };
 
-        if (resourceType === "group") {
-            id = id.substr(1);
-            Resource.deleteGroup(id + '/all', success, ajaxError);
-        } else {
-            Resource.deleteResource(id, success, ajaxError);
+            if (resourceType === "group") {
+                id = id.substr(1);
+                Resource.deleteGroup(id + '/all', success, ajaxError);
+            } else {
+                Resource.deleteResource(id, success, ajaxError);
+            }
         }
     };
 

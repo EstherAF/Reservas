@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +31,6 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
         return rgs.read(id);
     }
 
-    //@Secured("ROLE_TIC")
     @Override
     public ResourceGroup create(ResourceGroup resourceGroup, BindingResult result) throws InputRequestValidationException {
         if (!result.getAllErrors().isEmpty()) {
@@ -40,7 +40,6 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
         return rgs.create(resourceGroup);
     }
 
-    //@Secured("ROLE_TIC")
     @Override
     public ResourceGroup update(ResourceGroup resourceGroup, BindingResult result) throws InputRequestValidationException {
         if (!result.getAllErrors().isEmpty()) {
@@ -51,13 +50,11 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
         return rgs.save(resourceGroup);
     }
 
-    //@Secured("ROLE_TIC")
     @Override
     public void deleteOnlyGroup(Integer id) {
         rgs.delete(id);
     }
 
-    //@Secured("ROLE_TIC")
     @Override
     public void delete(Integer id) {
         rgs.deleteWithResources(id);

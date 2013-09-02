@@ -129,7 +129,7 @@ public class ResourceControllerImpl implements ResourceController {
 
         return "redirect:" + url;
     }
-
+    
     @Override
     public String resourcesWeek(Model model, Integer year, Integer week) {
         model.addAttribute("year", year);

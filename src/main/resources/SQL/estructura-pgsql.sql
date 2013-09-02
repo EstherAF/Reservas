@@ -101,9 +101,11 @@ CREATE TABLE reservas.reserved_resources (
 	reservation_id INTEGER,
 	PRIMARY KEY (resource_id, reservation_id),
 	FOREIGN KEY (resource_id) references reservas.resources (id)
-            ON UPDATE CASCADE,
+            ON DELETE CASCADE 
+            UPDATE CASCADE,
 	FOREIGN KEY (reservation_id) references reservas.reservations (id)
-            ON DELETE CASCADE ON UPDATE CASCADE
+            ON DELETE CASCADE 
+            ON UPDATE CASCADE 
 );
 
 

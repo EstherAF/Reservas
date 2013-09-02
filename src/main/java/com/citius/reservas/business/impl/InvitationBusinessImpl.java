@@ -45,5 +45,20 @@ public class InvitationBusinessImpl implements InvitationBusiness{
         
         return invitation;
     }
+
+    @Override
+    public List<Invitation> findByGuestAndState(String uniqueName, InvitationState state) {
+        return this.ir.findByGuestAndState(uniqueName, state);
+    }
+
+    @Override
+    public Invitation find(Integer reservationId, String guestUniqueName) {
+        return this.ir.find(reservationId, guestUniqueName);
+    }
+
+    @Override
+    public Invitation save(Invitation invitation) {
+        return this.ir.save(invitation);
+    }
     
 }

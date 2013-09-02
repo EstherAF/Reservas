@@ -7,6 +7,7 @@ import com.citius.reservas.exceptions.NotPossibleInstancesException;
 import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
+import java.io.IOException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -102,7 +103,7 @@ public interface ReservationController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean delete(@PathVariable(value = "id") Integer id)
-            throws AccessDeniedException;
+            throws AccessDeniedException, UnknownResourceException;
 
     /**
      * ****************** HTML ************************
@@ -139,7 +140,7 @@ public interface ReservationController {
     @RequestMapping(value = {"/new"},
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public String createReservationView(Model model);
+    public String createReservationView(Model model) throws IOException;
 
     @RequestMapping(value = {"/new/{year}/{month}/{day}"},
             method = RequestMethod.GET,
@@ -147,15 +148,18 @@ public interface ReservationController {
     public String createReservationView(Model model,
             @PathVariable(value = "year") Integer year,
             @PathVariable(value = "month") Integer month,
-            @PathVariable(value = "day") Integer day);
+            @PathVariable(value = "day") Integer day)  
+            throws IOException;
 
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public String viewReservation(Model model, @PathVariable(value = "id") Integer id);
+    public String viewReservation(Model model, @PathVariable(value = "id") Integer id) 
+            throws UnknownResourceException;
 
     @RequestMapping(value = "/update/{id}",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
-    public String updateReservationView(Model model, @PathVariable(value = "id") Integer id);
+    public String updateReservationView(Model model, @PathVariable(value = "id") Integer id)  
+            throws IOException, UnknownResourceException;
 }

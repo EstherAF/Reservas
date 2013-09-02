@@ -28,7 +28,7 @@ var ReservationController = function(users, resources, precheckedResources) {
                     },
                     {name: 'startDate',
                         selector: function() {
-                            return $("input[name='startDate']").datepicker("getDate");
+                            return new Date($("input[name='startDate']").datepicker("getDate"));
                         },
                         selectorError: "p[for='startDate']",
                         restrictions: [
@@ -71,7 +71,7 @@ var ReservationController = function(users, resources, precheckedResources) {
                             {type: 'myRestriction',
                                 validation: function(value) {
                                     var start = new Date(this.values.startDate);
-                                    start.setHours(this.values.startHour, value);
+                                    start.setHours(this.values.startHour, this.values.startMinute);
                                     var now = new Date();
                                     return (start >= now);
                                 },
@@ -353,8 +353,8 @@ ReservationController.prototype.removeGuest = function(row) {
     //var invitation = new Invitation(user, row.attr('state'));
 
     //Remove it from arrays and DOM
-    var index = this.guests.search('user.uniqueName', user.uniqueName);
-    this.guests.remove(index);
+    var index = this.guests.search('guest.uniqueName', user.uniqueName);
+    this.guests.remove(parseInt(index));
     row.remove();
 
     //Add user to autocomplete list

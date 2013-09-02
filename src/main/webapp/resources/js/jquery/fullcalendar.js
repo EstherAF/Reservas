@@ -3955,7 +3955,7 @@ function AgendaEventRenderer() {
 			htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
 			"</div>" +
 			"<div class='fc-event-title'>" +
-			htmlEscape(event.title) +
+			htmlEscape(event.title) + ((event.icon)? (event.icon) : "") +
 			"</div>" +
 			"</div>" +
 			"<div class='fc-event-bg'></div>";
@@ -5123,8 +5123,9 @@ function DayEventRenderer() {
 				) +
 				"</span>";
 		}
+                
 		html +=
-			"<span class='fc-event-title'>" + htmlEscape(event.title) + "</span>" +
+			"<span class='fc-event-title'>" + htmlEscape(event.title) + ((event.icon)? (event.icon) : "") + "</span>" +
 			"</div>";
 		if (segment.isEnd && isEventResizable(event)) {
 			html +=

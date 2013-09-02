@@ -32,6 +32,13 @@
   #content .data {
     display: inline-block;
     width: 69%; }
+  #content .width80pc span.data, #content .width80pc pre.data {
+    width: -moz-calc(100% - 2% - 175px);
+    width: calc(100% - 2% - 175px); }
+  #content .width80pc pre.data {
+    margin-top: 0px; }
+  #content .width80pc span.label {
+    width: 170px; }
 
 .jstree ul li a {
   -o-text-overflow: ellipsis;

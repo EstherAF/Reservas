@@ -12,8 +12,7 @@ html, body{
     margin: 0px;
     height: 100%;
 /*    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-    font-family: 'candelabook', Ubuntu, sans-serif;
-    font-size:14px;
+    @include standard_font;
     padding:0px;
 }
 
@@ -120,6 +119,14 @@ section{
 .nomargin{
     margin:0px;
 }
+
+pre{
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    @include standard_font;
+}
+
 /*END TEMPLATE*/
 
 
@@ -193,6 +200,27 @@ span .formError{
     min-width:300px;
     margin-right:0px;
     margin-left:2%;
+}
+
+.width80pc{
+    width:80%;
+    min-width:400px;
+    margin-right:0px;
+    margin-left:2%;
+    
+    span.data{
+        width: -moz-calc(100% - 2% - 175px);
+        width: calc(100% - 2% - 175px);
+    }
+    
+    span.label{
+        width: 170px;
+    }
+    
+/*    pre{
+        margin-left: 170px;
+        margin-top: -5ex;
+    }*/
 }
 
 .inline{
@@ -340,3 +368,8 @@ select.hour{
 }
 /*MODAL LABELS*/
 
+/*CALENDARS*/
+.fc-event-title .icon-user{
+    margin-left:5px;
+}
+/*CALENDARS*/

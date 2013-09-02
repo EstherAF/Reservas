@@ -60,9 +60,9 @@ GeneralCalendar.updateLinks = function(path) {
     };
 
     var weekly = function(path) {
-        var week = MyCalendar.getWeek();
+        var week = MyCalendar.getWeek(start);
 
-        var endYear = MyCalendar.getEndDate().getFullYear();
+        var endYear = end.getFullYear();
         var next = (endYear > year) ?
                 path + (year + 1) + '/' + 1 :
                 path + year + '/' + (week + 1);

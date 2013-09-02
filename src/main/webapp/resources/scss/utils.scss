@@ -7,6 +7,7 @@ $white: #FFF;
 $light_light_grey: #EEE;
 $red_error: #F00;
 $red_remove: #D21;
+$red_remove_hover: #A82211;
 $green_ok: #6B6;
 
 /*Citius UI*/
@@ -15,6 +16,10 @@ $dark_orange: #C45B30;
 
 $height_navigation_bar: 40px;
 
+@mixin standard_font(){
+    font-family: 'candelabook', Ubuntu, sans-serif;
+    font-size: 14px;
+}
 
 @mixin full_bar($height, $color){
     height:$height;

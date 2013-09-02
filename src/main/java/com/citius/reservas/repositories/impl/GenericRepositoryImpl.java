@@ -66,7 +66,6 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
         em.flush();
         t = em.merge(t);
         em.flush();
-        em.detach(t);
         return t;
     }
 

@@ -31,11 +31,17 @@
         background: #333333;
         cursor: pointer; }
       #reservation_nav nav a.reservas_btn.delete, #reservation_nav a.reservas_btn.delete {
-        font-family: 'icomoon';
-        speak: none;
         background-color: #dd2211; }
-        #reservation_nav nav a.reservas_btn.delete:after, #reservation_nav a.reservas_btn.delete:after {
-          content: "\e000"; }
+        #reservation_nav nav a.reservas_btn.delete:hover, #reservation_nav a.reservas_btn.delete:hover {
+          background-color: #333333; }
+        #reservation_nav nav a.reservas_btn.delete span[class|=icon], #reservation_nav a.reservas_btn.delete span[class|=icon] {
+          color: white;
+          margin-left: 5px;
+          margin-right: 0; }
+      #reservation_nav nav a.reservas_btn.return span[class|=icon], #reservation_nav a.reservas_btn.return span[class|=icon] {
+        color: white;
+        margin-left: 0px;
+        margin-right: 5px; }
     #reservation_nav nav a.icon, #reservation_nav a.icon {
       display: inline;
       font-size: 2em;
