@@ -9,8 +9,8 @@
 }
 
 .dropdown{
-    &.show{
-        background: $black;
+    &.show, &.show a {
+        background: $black !important;
     }
 }
 

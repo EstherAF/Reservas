@@ -37,5 +37,31 @@ public abstract class GenericValidator<T> implements Validator{
     public boolean supports(Class<?> clazz) {
         return type.equals(clazz);
     }
+
+    public i18nManager getI18() {
+        return i18;
+    }
+
+    public void setI18(i18nManager i18) {
+        this.i18 = i18;
+    }
+
+    public LocalValidatorFactoryBean getStandardValidator() {
+        return standardValidator;
+    }
+
+    public void setStandardValidator(LocalValidatorFactoryBean standardValidator) {
+        this.standardValidator = standardValidator;
+    }
+
+    public Class<T> getType() {
+        return type;
+    }
+
+    public void setType(Class<T> type) {
+        this.type = type;
+    }
+    
+    
     
 }

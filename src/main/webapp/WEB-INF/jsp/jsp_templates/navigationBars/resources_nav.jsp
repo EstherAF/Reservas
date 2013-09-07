@@ -17,17 +17,18 @@
                         <s:message code="resources.form.add"/>
                     </a>
                 </li>
-            </ul>
-        </nav>
-        <nav class="right">
-            <ul>
-
+                
                 <li><a href="#" class="reservas_btn" name="submit" type="button"
                        create="<s:message code="resources.form.create"/>" 
                        update="<s:message code="resources.form.update"/>">
                         <s:message code="resources.form.create"/>
                     </a></li>
-                <li><a href="#" class="reservas_btn" name="delete" type="button"
+                
+            </ul>
+        </nav>
+        <nav class="right">
+            <ul>
+                <li><a href="#" class="reservas_btn delete" name="delete" type="button"
                        style="display:none;">
                         <s:message code="resources.form.delete"/>
                         <span class="icon-remove"></span>

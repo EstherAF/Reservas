@@ -5,7 +5,7 @@
 package com.citius.reservas.exceptions.handler;
 
 import com.citius.reservas.business.AccessBusiness;
-import com.citius.reservas.controllers.customModel.LoginStatus;
+import com.citius.reservas.controllers.controllerModel.LoginStatus;
 import com.citius.reservas.exceptions.*;
 import com.citius.reservas.exceptions.handler.errorResolver.*;
 import java.io.IOException;
@@ -99,6 +99,7 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
         exceptionMappings.put(Throwable.class.getName(), new RestError(HttpStatus.INTERNAL_SERVER_ERROR, 10600, "error.default", "error.dev.default"));
 
         //AccessDenied
+        exceptionMappings.put(org.springframework.security.authentication.InternalAuthenticationServiceException.class.getName(), new RestError(HttpStatus.INTERNAL_SERVER_ERROR, 10200, "error.default", "error.dev.internalAuthenticationService"));
         exceptionMappings.put(AccessDeniedException.class.getName(), new RestError(HttpStatus.METHOD_NOT_ALLOWED, 10201, "error.accessDenied", "error.dev.accessDenied"));
         exceptionMappings.put(org.springframework.security.authentication.AuthenticationCredentialsNotFoundException.class.getName(), new RestError(HttpStatus.METHOD_NOT_ALLOWED, 10202, "error.accessDenied", "error.dev.accessDenied"));
         exceptionMappings.put(org.springframework.web.HttpSessionRequiredException.class.getName(), new RestError(HttpStatus.METHOD_NOT_ALLOWED, 10203, "error.accessDenied", "error.dev.accessDenied"));
@@ -133,7 +134,7 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
 //        ex.printStackTrace(System.out);
         log.error("HANDLER:", ex);   //LdC
 
-        Object error = this.getRestError(request, ex);
+        Object error = this.generateRestError(request, ex);
 
         ServletWebRequest webRequest = new ServletWebRequest(request, response);
         HttpInputMessage inputMessage = new ServletServerHttpRequest(webRequest.getRequest());
@@ -176,7 +177,7 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
                 return m;
             } else if (loginStatus.isLoggedIn() && !loginStatus.isAdmin()) {
                 Exception exception = new UnknownResourceException();
-                error = this.getRestError(request, exception);
+                error = this.generateRestError(request, exception);
             }
         }
 
@@ -186,7 +187,7 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
         return m;
     }
 
-    private Object getRestError(HttpServletRequest request, Exception ex) {
+    private Object generateRestError(HttpServletRequest request, Exception ex) {
         Map<String, RestError> mappings = this.exceptionMappings;
 
         if (CollectionUtils.isEmpty(mappings)) {

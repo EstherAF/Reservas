@@ -4,9 +4,10 @@ import com.citius.reservas.controllers.*;
 import com.citius.reservas.models.Resource;
 import com.citius.reservas.business.ResourceBusiness;
 import com.citius.reservas.business.ResourceGroupBusiness;
-import com.citius.reservas.controllers.customModel.ResourceCustom;
+import com.citius.reservas.controllers.controllerModel.ResourceCustom;
 import com.citius.reservas.controllers.validators.ResourceValidator;
 import com.citius.reservas.exceptions.InputRequestValidationException;
+import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.ResourceGroup;
 import java.io.IOException;
 import java.util.Calendar;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
@@ -30,14 +32,11 @@ public class ResourceControllerImpl implements ResourceController {
     private ResourceBusiness rb;
     @Autowired
     private ObjectMapper mapper;
+    @Autowired
+    private ResourceValidator validator;
     private static final Logger logger = Logger.getLogger(ResourceControllerImpl.class);
 
-    @Override
-    public void initBinder(WebDataBinder binder) {
-        binder.setValidator(new ResourceValidator());
-    }
-
-    /**
+       /**
      * ****************** JSON ************************
      */
     @Override
@@ -57,6 +56,8 @@ public class ResourceControllerImpl implements ResourceController {
     @Override
     public List<Resource> create(ResourceCustom resourceCustom, BindingResult result)
             throws InputRequestValidationException{
+        validator.validate(resourceCustom, result);
+        
         if (!result.getAllErrors().isEmpty()) {
             throw new InputRequestValidationException(result.getAllErrors());
         }
@@ -77,6 +78,8 @@ public class ResourceControllerImpl implements ResourceController {
     @Override
     public Resource update(Resource resource, BindingResult result) 
             throws InputRequestValidationException{
+        validator.validate(resource, result);
+        
         if (!result.getAllErrors().isEmpty()) {
             throw new InputRequestValidationException(result.getAllErrors());
         }
@@ -87,9 +90,10 @@ public class ResourceControllerImpl implements ResourceController {
     }
 
     @Override
-    public void delete(Integer id) {
+    public Boolean delete(Integer id) throws UnknownResourceException{
         rb.delete(id);
         logger.debug("Delete " + id);
+        return true;
     }
 
     /**

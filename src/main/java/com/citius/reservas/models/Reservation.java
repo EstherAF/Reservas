@@ -33,6 +33,8 @@ import javax.validation.constraints.Min;
     @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
     @NamedQuery(name = "Reservation.findByOwner", query = "SELECT r FROM Reservation r WHERE r.owner.uniqueName = :ownerUniqueName"),
     @NamedQuery(name = "Reservation.findBetweenDates", query = "SELECT r FROM Reservation r WHERE r.start <= :endDate OR r.end >= :startDate"),
+    @NamedQuery(name = "Reservation.findByResource", query = "SELECT r FROM Reservation r WHERE :resource MEMBER OF r.resources"),
+    @NamedQuery(name = "Reservation.findByResourceGroup", query = "SELECT r FROM Reservation r JOIN r.resources rce WHERE rce.group = :resourceGroup"),
 
 })
 @XmlRootElement
@@ -41,7 +43,7 @@ public class Reservation implements Serializable {
     private static final long serialVersionUID = 2L;
     @Id
     @Min(value = 1, message = "error.form.reservation.id.min")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @NotNull(message = "error.form.reservation.name.empty")
@@ -279,33 +281,33 @@ public class Reservation implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (!Objects.equals(this.owner, other.owner)) {
-            return false;
-        }
-        if (!Objects.equals(this.start, other.start)) {
-            return false;
-        }
-        if (!Objects.equals(this.end, other.end)) {
-            return false;
-        }
-        if (!Objects.equals(this.duration, other.duration)) {
-            return false;
-        }
-        if (!Objects.equals(this.repetition, other.repetition)) {
-            return false;
-        }
-        if (!Objects.equals(this.instances, other.instances)) {
-            return false;
-        }
-        if (!Objects.equals(this.resources, other.resources)) {
-            return false;
-        }
+//        if (!Objects.equals(this.name, other.name)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.description, other.description)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.owner, other.owner)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.start, other.start)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.end, other.end)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.duration, other.duration)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.repetition, other.repetition)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.instances, other.instances)) {
+//            return false;
+//        }
+//        if (!Objects.equals(this.resources, other.resources)) {
+//            return false;
+//        }
         return true;
     }
     

@@ -47,6 +47,7 @@
                     <a class="reservas_btn delete"  
                        href="#"
                        name="delete"
+                       reservationId="${reservation.id}"
                        id="create_resource">
                         <s:message code="form.deleteBtn" />
                         <span class="icon-remove"></span>

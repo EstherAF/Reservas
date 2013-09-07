@@ -4,7 +4,7 @@
  */
 package com.citius.reservas.business;
 
-import com.citius.reservas.controllers.customModel.LoginStatus;
+import com.citius.reservas.controllers.controllerModel.LoginStatus;
 import com.citius.reservas.models.User;
 import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;

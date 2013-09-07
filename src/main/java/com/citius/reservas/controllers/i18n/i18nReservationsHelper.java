@@ -4,7 +4,7 @@
  */
 package com.citius.reservas.controllers.i18n;
 
-import com.citius.reservas.controllers.customModel.ReservationInstanceCustom;
+import com.citius.reservas.controllers.controllerModel.ReservationInstanceCustom;
 import com.citius.reservas.models.ReservationInstance;
 import java.util.ArrayList;
 import java.util.Calendar;

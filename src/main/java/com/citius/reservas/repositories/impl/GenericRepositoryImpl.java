@@ -116,5 +116,10 @@ public class GenericRepositoryImpl<T> implements GenericRepository<T> {
     public void flush() {
         em.flush();
     }
+
+    @Override
+    public boolean isInContext(T t) {
+        return em.contains(t);
+    }
             
 }

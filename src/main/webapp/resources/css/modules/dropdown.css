@@ -5,8 +5,8 @@
   float: right;
   position: relative; }
 
-.dropdown.show {
-  background: #333333; }
+.dropdown.show, .dropdown.show a {
+  background: #333333 !important; }
 
 ul.dropdown_child {
   display: none;

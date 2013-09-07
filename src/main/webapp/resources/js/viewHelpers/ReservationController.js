@@ -331,8 +331,14 @@ ReservationController.prototype.addGuest = function(invitation) {
     newGuestTable.appendTo('table.guests');
 
     //Add invitation to ReservationController.guests
-    invitation.state = (invitation.state) ? invitation.state : Invitation.states.waiting;
-    this.guests.push(invitation);
+    var index = this.guests.search('guest.uniqueName', invitation.guest.uniqueName);
+    if(index){
+        delete invitation.reservation;
+    }else{
+        invitation.state = (invitation.state) ? invitation.state : Invitation.states.waiting;
+        delete invitation.reservation;
+        this.guests.push(invitation);
+    }
 
     //Remove from autocomplete list
     this.autoComplete.remove();
@@ -355,6 +361,7 @@ ReservationController.prototype.removeGuest = function(row) {
     //Remove it from arrays and DOM
     var index = this.guests.search('guest.uniqueName', user.uniqueName);
     this.guests.remove(parseInt(index));
+    this.autoComplete.remove(user.uniqueName);
     row.remove();
 
     //Add user to autocomplete list
@@ -427,11 +434,13 @@ ReservationController.load = function(resourceTree, selectGuess) {
         selectGuess.call(viewController);
         $('.ui-autocomplete-input').val("");
         event.stopPropagation();
+        event.preventDefault();
     });
 
     //Remove guess
     $("table.guests").on("click", "td.icon-remove", function(event) {
         event.stopPropagation();
+        event.preventDefault();
         viewController.removeGuest.call(viewController, $(this).parent());
     });
 
@@ -455,12 +464,14 @@ ReservationController.load = function(resourceTree, selectGuess) {
     //Change DOM when repetition_type is changed
     $('select[name="repetition_type"]').change(function(event) {
         event.stopPropagation();
+        event.preventDefault();
         viewController.bindSelectRepetition.call(viewController, $(this).val());
     });
 
     //Change quantity of a resource group when its selector is changed
     $('html').on('change', '.resource_group_selector', function(event) {
         event.stopPropagation();
+        event.preventDefault();
         viewController.changeResourceQuantity.call(viewController, $(this).attr('id'), $(this).val());
     });
     

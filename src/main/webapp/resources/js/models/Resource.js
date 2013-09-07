@@ -20,7 +20,7 @@ Resource.prototype.serialize = function(){
 /*AJAX*/
 Resource.serializeResourceToTree = function(resource){
     return {
-        "attr": {"id": resource.id,
+        "attr": {"id": ((resource.id[0]!=='g')? 'g'+resource.id: resource.id),
             "name": resource.name,
             "description": resource.description,
             "rel": "group"},
@@ -46,16 +46,17 @@ Resource.serializeListToTree = function(resources){
             $.each(elem.resources, function(index2, elem2) {
                 var res = Resource.serializeResourceToTree(elem2);
                 res.attr.rel = "resource";
+                res.attr.id=res.attr.id.substr(1);
                 jsonTree[index2] = res;
             });
         } else {
             var res = Resource.serializeResourceToTree(elem);
-            res.attr.id = "g" + res.attr.id;
             if (elem.resources !== null && elem.resources.length !== 0) {
                 var child;
                 $.each(elem.resources, function(index2, elem2) {
                     child = Resource.serializeResourceToTree(elem2);
                     child.attr.rel = "resource";
+                    child.attr.id=child.attr.id.substr(1);
                     res.children[index2] = child;
                 });
             }

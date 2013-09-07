@@ -48,7 +48,8 @@ CreateReservationController.onLoad = function(users, resources, date) {
         date = new Date();
     viewController.populateDates(date);
     
-    $('[name="submit"]').bind('click',function(){
+    $('[name="submit"]').bind('click',function(e){
+        e.preventDefault();
         viewController.createReservation.call(viewController);
     });
 };

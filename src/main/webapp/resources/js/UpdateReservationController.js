@@ -12,6 +12,10 @@ UpdateReservationController = function(users, resources, reservation) {
 UpdateReservationController.prototype = Object.create(ReservationController.prototype);
 
 UpdateReservationController.prototype.loadDefaultData = function(form) {
+    for(var i=0; i<this.guests.length; i++){
+        delete this.guests[i].reservation;
+    }
+    
     var reservation = this.reservation;
     var form = $(form);
     form.find('[name="name"]').val(reservation.name);
@@ -105,6 +109,7 @@ UpdateReservationController.prototype.addGuestUpdating = function() {
 
 UpdateReservationController.prototype.updateReservation = function() {
     var reservation = this.getReservationFromForm();
+    
     if (reservation) {
         reservation.owner = this.reservation.owner;
         reservation.id = this.reservation.id;
@@ -150,18 +155,15 @@ UpdateReservationController.onLoad = function(users, resources, reservation) {
 
     $('[name="submit"]').click(function(e) {
         e.stopPropagation();
+        e.preventDefault();
         viewController.updateReservation.call(viewController);
     });
 
     $('[name="delete"]').click(function(e) {
         e.stopPropagation();
-        viewController.updateReservation.call(viewController);
-    });
-
-    $('[name="delete"]').click(function(e) {
-        e.stopPropagation();
+        e.preventDefault();
         var id = $(this).attr('reservationId');
-        UpdateReservationController.removeReservation(id);
+        viewController.removeReservation(id);
     });
 
     viewController.refreshHTMLResourcesList();

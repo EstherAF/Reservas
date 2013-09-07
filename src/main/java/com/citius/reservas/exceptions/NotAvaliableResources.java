@@ -11,27 +11,27 @@ import java.util.Date;
  *
  * @author Esther Álvarez Feijoo
  */
-public class NotAvaliable {
+public class NotAvaliableResources {
 
     private String resourceName;
     private Date start;
     private Date end;
     private Integer quantityAvaliable;
 
-    public NotAvaliable(String resourceName, ReservationInstance instance, Integer quantity) {
+    public NotAvaliableResources(String resourceName, ReservationInstance instance, Integer quantity) {
         this.resourceName = resourceName;
         this.start = instance.getStartTimeDate();
         this.end = instance.getEndTimeDate();
         this.quantityAvaliable = (quantity == null) ? 0 : quantity;
     }
 
-    public NotAvaliable(String resourceName, Date start, Date end) {
+    public NotAvaliableResources(String resourceName, Date start, Date end) {
         this.resourceName = resourceName;
         this.start = start;
         this.end = end;
     }
 
-    public NotAvaliable(String resourceName, Date start, Date end, Integer quantityAvaliable) {
+    public NotAvaliableResources(String resourceName, Date start, Date end, Integer quantityAvaliable) {
         this.resourceName = resourceName;
         this.start = start;
         this.end = end;

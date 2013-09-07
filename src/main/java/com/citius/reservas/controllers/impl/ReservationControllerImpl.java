@@ -4,13 +4,14 @@ import com.citius.reservas.controllers.*;
 import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.business.ReservationBusiness;
 import com.citius.reservas.business.ResourceGroupBusiness;
-import com.citius.reservas.controllers.customModel.ReservationCustom;
-import com.citius.reservas.controllers.customModel.ReservationInstanceCustom;
+import com.citius.reservas.controllers.controllerModel.ReservationCustom;
+import com.citius.reservas.controllers.controllerModel.ReservationInstanceCustom;
 import com.citius.reservas.controllers.i18n.i18nReservationsHelper;
 import com.citius.reservas.exceptions.InputRequestValidationException;
 import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.exceptions.NotPossibleInstancesException;
 import com.citius.reservas.exceptions.UnknownResourceException;
+import com.citius.reservas.models.Invitation;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
 import com.citius.reservas.models.ResourceGroup;
@@ -297,6 +298,13 @@ public class ReservationControllerImpl implements ReservationController {
             
             model.addAttribute("canEdit",canEdit);
             
+            String invitation="";
+            for(Invitation inv:reservation.getInvitations()){
+                if(inv.getGuest().getUniqueName().equals(uniqueName)){
+                    model.addAttribute("invitation", inv.getState().toString());
+                    break;
+                }
+            }
             model.addAttribute("reservation", reservation);
             return "view_reservation";
         } else {

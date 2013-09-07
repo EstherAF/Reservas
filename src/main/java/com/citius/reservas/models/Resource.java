@@ -157,15 +157,6 @@ public class Resource implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (!Objects.equals(this.group, other.group)) {
-            return false;
-        }
         return true;
     }
 

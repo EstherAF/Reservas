@@ -4,7 +4,7 @@
  */
 package com.citius.reservas.controllers;
 
-import com.citius.reservas.controllers.customModel.LoginStatus;
+import com.citius.reservas.controllers.controllerModel.LoginStatus;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;

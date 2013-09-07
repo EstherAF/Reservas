@@ -8,7 +8,7 @@ import com.citius.reservas.models.User;
 import com.citius.reservas.repositories.LdapRepository;
 import com.citius.reservas.repositories.UserRepository;
 import com.citius.reservas.business.AccessBusiness;
-import com.citius.reservas.controllers.customModel.LoginStatus;
+import com.citius.reservas.controllers.controllerModel.LoginStatus;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +66,7 @@ public class AccessBusinessImpl implements AccessBusiness {
             user.setRole(roleName);
 
             //Store in DB
-            user = userRepository.create(user);
+            user = userRepository.save(user);
             logger.debug("User '" + user.getUniqueName() + "' created on DB");
         }
         return user;
@@ -145,6 +145,7 @@ public class AccessBusinessImpl implements AccessBusiness {
         }
     }
     
+    @Override
     public List<User> getUsers(){
         return userRepository.findAll();
     }

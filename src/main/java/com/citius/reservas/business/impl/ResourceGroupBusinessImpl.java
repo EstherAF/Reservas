@@ -8,6 +8,7 @@ import com.citius.reservas.models.Resource;
 import com.citius.reservas.models.ResourceGroup;
 import com.citius.reservas.business.ResourceBusiness;
 import com.citius.reservas.business.ResourceGroupBusiness;
+import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.ReservationInstance;
 import com.citius.reservas.repositories.ResourceGroupRepository;
 import java.util.List;
@@ -78,7 +79,7 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
 
 
     @Override
-    public void deleteWithResources(Integer id) {
+    public void deleteWithResources(Integer id) throws UnknownResourceException{
         ResourceGroup g = resourceGroupRepository.find(id);
         if (g == null) {
             throw new IllegalArgumentException(id + " can't be found");

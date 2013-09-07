@@ -4,10 +4,14 @@
  */
 package com.citius.reservas.business.impl;
 
+import com.citius.reservas.business.ReservationBusiness;
 import com.citius.reservas.models.Resource;
 import com.citius.reservas.models.ResourceGroup;
 import com.citius.reservas.business.ResourceBusiness;
-import com.citius.reservas.repositories.ResourceGroupRepository;
+import com.citius.reservas.business.ResourceGroupBusiness;
+import com.citius.reservas.exceptions.UnknownResourceException;
+import com.citius.reservas.models.Reservation;
+import com.citius.reservas.repositories.ReservationRepository;
 import com.citius.reservas.repositories.ResourceRepository;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +29,8 @@ public class ResourceBusinessImpl implements ResourceBusiness {
     @Autowired
     private ResourceRepository resourceRepository;
     @Autowired
-    private ResourceGroupRepository resourceGroupRepository;
+    private ResourceGroupBusiness resourceGroupBusiness;
+    @Autowired ReservationRepository reservationRepository;
 
     @Override
     public List<Resource> readAll() {
@@ -44,7 +49,7 @@ public class ResourceBusinessImpl implements ResourceBusiness {
         
         //Check group
         if(resource.getGroup()==null)
-            resource.setGroup(resourceGroupRepository.findByName("default"));
+            resource.setGroup(resourceGroupBusiness.readByName("default"));
         
         resource = resourceRepository.save(resource);
         
@@ -52,7 +57,7 @@ public class ResourceBusinessImpl implements ResourceBusiness {
         
         if(! group.getResources().contains(resource)){
             group.getResources().add(resource);
-            resourceGroupRepository.save(group);
+            resourceGroupBusiness.save(group);
         }
         
         return resource;
@@ -67,6 +72,14 @@ public class ResourceBusinessImpl implements ResourceBusiness {
         String initName = resource.getName();
         String incrementalName;
         
+        if(quantity == 1){
+            Resource created = this.createOrSave(iterator);
+            resources.add(created);
+            resourceRepository.detach(iterator);
+             
+            return resources;
+        }
+        
         for(int i=0; i<quantity; i++){
             incrementalName = initName + " ("+(i+1)+")";
             iterator.setName(incrementalName);
@@ -80,7 +93,20 @@ public class ResourceBusinessImpl implements ResourceBusiness {
     }
     
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id) throws UnknownResourceException{
+        Resource resource = this.resourceRepository.find(id);
+        
+        List<Reservation> l = this.reservationRepository.findByResource(new Resource(id, null, null));
+        
+        for(Reservation r: l){
+            if(r.getResources().size()==1){
+                this.reservationRepository.delete(r.getId());
+            }else{
+                r.getResources().remove(resource);
+                this.reservationRepository.save(r);
+            }
+        }
+        
         resourceRepository.delete(id);
     }
 

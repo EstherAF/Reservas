@@ -43,14 +43,11 @@ Notifications.messages = {
         'delete_reservation_ok': 'La reserva se ha eliminado correctamente',
         'delete_resource_ok': 'El recurso se ha eliminado correctamente',
         'confirm_remove_reservation':'¿Eliminar esta reserva?',
-        'confirm_remove_resource':'¿Eliminar este recurso?\n\
-                             Se eliminará de las reservas existentes, y aquellas que\n\
-                               sólo reservan este recurso se eliminarán del sistema',
-        'confirm_remove_group':'¿Eliminar este grupo de recursos?\n\
-                                Los recursos que contiene también se eliminarán,\n\
-                                Estos recursos se eliminará de las reservas existentes, \
-                                y aquellas que \n sólo reservan este recurso se eliminarán \n\
-                                del sistema',
+        'confirm_remove_resource':'¿Eliminar este recurso?\n'+
+                             'Se eliminará de las reservas existentes, y aquellas\n'+
+                             'que sólo tienen este recurso se eliminarán del sistema.',
+        'confirm_remove_group':'¿Eliminar este grupo de recursos?\n'+
+                                'Los recursos que contiene también se eliminarán.',
         500: '500: Error interno del servidor'
     },
     'en': {
@@ -61,14 +58,11 @@ Notifications.messages = {
         'delete_reservation_ok': 'La reserva se ha eliminado correctamente',
         'delete_resource_ok': 'El recurso se ha eliminado correctamente',
         'confirm_remove_reservation':'¿Eliminar esta reserva?',
-        'confirm_remove_resource':'¿Eliminar este recurso?\n\
-                             Se eliminará de las reservas existentes, y aquellas que\n\
-                               sólo reservan este recurso se eliminarán del sistema',
-        'confirm_remove_group':'¿Eliminar este grupo de recursos?\n\
-                                Los recursos que contiene también se eliminarán,\n\
-                                Estos recursos se eliminará de las reservas existentes, \
-                                y aquellas que \n sólo reservan este recurso se eliminarán \n\
-                                del sistema',
+        'confirm_remove_resource':'¿Eliminar este recurso?\n'+
+                             'Se eliminará de las reservas existentes, y aquellas\n'+
+                             'que sólo tienen este recurso se eliminarán del sistema.',
+        'confirm_remove_group':'¿Eliminar este grupo de recursos?\n'+
+                                'Los recursos que contiene también se eliminarán.',
         500: '500: Error interno del servidor'
     },
     'ga': {
@@ -79,18 +73,15 @@ Notifications.messages = {
         'delete_reservation_ok': 'La reserva se ha eliminado correctamente',
         'delete_resource_ok': 'El recurso se ha eliminado correctamente',
         'confirm_remove_reservation':'¿Eliminar esta reserva?',
-        'confirm_remove_resource':'¿Eliminar este recurso?\n\
-                             Se eliminará de las reservas existentes, y aquellas que\n\
-                               sólo reservan este recurso se eliminarán del sistema',
-        'confirm_remove_group':'¿Eliminar este grupo de recursos?\n\
-                                Los recursos que contiene también se eliminarán,\n\
-                                Estos recursos se eliminará de las reservas existentes, \
-                                y aquellas que \n sólo reservan este recurso se eliminarán \n\
-                                del sistema',
+        'confirm_remove_resource':'¿Eliminar este recurso?\n'+
+                             'Se eliminará de las reservas existentes, y aquellas\n'+
+                             'que sólo tienen este recurso se eliminarán del sistema.',
+        'confirm_remove_group':'¿Eliminar este grupo de recursos?\n'+
+                                'Los recursos que contiene también se eliminarán.',
         500: '500: Error interno del servidor'
     }
 };
 
 Notifications.getMessage=function(messageName){
-    return Notifications.messages[locale][message];
+    return Notifications.messages[locale][messageName];
 };

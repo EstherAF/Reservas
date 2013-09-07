@@ -1,6 +1,6 @@
 package com.citius.reservas.controllers;
 
-import com.citius.reservas.controllers.customModel.ReservationCustom;
+import com.citius.reservas.controllers.controllerModel.ReservationCustom;
 import com.citius.reservas.exceptions.InputRequestValidationException;
 import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.exceptions.NotPossibleInstancesException;

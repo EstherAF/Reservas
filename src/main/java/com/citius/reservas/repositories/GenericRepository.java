@@ -25,5 +25,7 @@ public interface GenericRepository<T> {
     public void detach(T t);
     
     public void flush();
+    
+    public boolean isInContext(T t);
 
 }

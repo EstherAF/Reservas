@@ -4,7 +4,7 @@
  */
 package com.citius.reservas.exceptions.handler.errorResolver;
 
-import com.citius.reservas.exceptions.NotAvaliable;
+import com.citius.reservas.exceptions.NotAvaliableResources;
 import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.exceptions.handler.RestError;
 import java.text.SimpleDateFormat;
@@ -25,7 +25,7 @@ public class NotAvaliableResourceResolver extends GenericErrorResolver {
         super();
     }
 
-    private void setMessage(NotAvaliable notAvaliable, RestError error, HttpServletRequest request) {
+    private void setMessage(NotAvaliableResources notAvaliable, RestError error, HttpServletRequest request) {
 
         SimpleDateFormat format = new SimpleDateFormat("H:mm d/M/yyyy");
         String start = format.format(notAvaliable.getStart());
@@ -54,7 +54,7 @@ public class NotAvaliableResourceResolver extends GenericErrorResolver {
         List<RestError> restErrors = new ArrayList<>();
 
         //create RestError for each not avaliable resource
-        for (NotAvaliable notAvaliable : ex.getNotAvaliableResources()) {
+        for (NotAvaliableResources notAvaliable : ex.getNotAvaliableResources()) {
 
             RestError restError = new RestError(
                     error.getStatus(),

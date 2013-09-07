@@ -51,7 +51,7 @@ import javax.xml.bind.annotation.XmlRootElement;
             + "(r.reservation.owner.uniqueName LIKE :userUniqueName) OR "
             + "(r.reservation.id IN "
                 + "(SELECT i.reservation.id FROM Invitation i"
-            + "      WHERE i.guest.uniqueName LIKE :userUniqueName2)))"
+            + "      WHERE i.guest.uniqueName LIKE :userUniqueName2 AND i.state LIKE com.citius.reservas.models.InvitationState.ACCEPTED)))"
             + "ORDER BY r.startTimeDate"),
     @NamedQuery(name = "ReservationInstance."
             + "findBetweenDatesByResource",

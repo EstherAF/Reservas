@@ -4,6 +4,7 @@
  */
 package com.citius.reservas.business;
 
+import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.Resource;
 import java.util.Date;
 import java.util.List;
@@ -32,5 +33,5 @@ public interface ResourceBusiness {
     
     public List<Resource> create(Resource resource, Integer quantity);
     public Resource createOrSave(Resource resource);
-    public void delete(Integer id);
+    public void delete(Integer id) throws UnknownResourceException;
 }

@@ -8,8 +8,10 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -18,11 +20,15 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -42,6 +48,10 @@ public class Repetition implements Serializable {
     @Column(name = "repetition_end_date")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
+    
+    @ElementCollection(targetClass = DayOfWeek.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "week_day", table = "reservation_weekdays", insertable = true, updatable = true)
 //    @JoinTable(
 //        name = "reservation_weekdays",
 //        joinColumns = @JoinColumn(name = "reservation_id", referencedColumnName = "id")
@@ -50,10 +60,25 @@ public class Repetition implements Serializable {
             name = "reservation_weekdays",
             joinColumns =
             @JoinColumn(name = "reservation_id", referencedColumnName = "id"))
-    @Column(name = "week_day", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    @ElementCollection(fetch = FetchType.EAGER, targetClass = DayOfWeek.class)
     private Collection<DayOfWeek> weekDays;
+    
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @CollectionTable(name = "reservation_weekdays", 
+//            joinColumns = @JoinColumn(name = "reservation_id"))
+//    @ElementCollection(fetch = FetchType.EAGER, targetClass = DayOfWeekWrapper.class)
+//    @JoinTable(name = "reservation_weekdays", joinColumns = @Join)
+//    @JoinColumn(name = "reservation_id")
+//    private Collection<DayOfWeekWrapper> weekDays;
+    
+    
+//        @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "reserved_resources",
+//            joinColumns = {
+//                @JoinColumn(name = "reservation_id")},
+//            inverseJoinColumns = {
+//                @JoinColumn(name = "resource_id")})
+//    private Set<Resource> resources;
 
 //    private int monthlyRelativeWeek;
     public Repetition() {
@@ -65,13 +90,20 @@ public class Repetition implements Serializable {
         this.weekDays = null;
     }
 
+//    public Repetition(RepetitionType type, Integer interval, Set<DayOfWeekWrapper> weekDays, Date endDate) {
+//        this.type = type;
+//        this.interval = interval;
+//        this.weekDays = weekDays;
+//        this.endDate = endDate;
+//    }
+
     public Repetition(RepetitionType type, Integer interval, Set<DayOfWeek> weekDays, Date endDate) {
         this.type = type;
         this.interval = interval;
-        this.weekDays = weekDays;
+        this.setWeekDays(weekDays);
         this.endDate = endDate;
     }
-
+    
     public RepetitionType getType() {
         return type;
     }
@@ -107,13 +139,37 @@ public class Repetition implements Serializable {
         this.endDate = endDate;
     }
 
-    public Collection<DayOfWeek> getWeekDays() {
-        return weekDays;
-    }
-
-    public void setWeekDays(Collection<DayOfWeek> weekDays) {
-        this.weekDays = weekDays;
-    }
+        public Collection<DayOfWeek> getWeekDays() {
+            return weekDays;
+        }
+    
+        public void setWeekDays(Collection<DayOfWeek> weekDays) {
+            this.weekDays = weekDays;
+        }
+    
+//    public Collection<DayOfWeek> getWeekDays() {
+//        Collection<DayOfWeek> custom = new LinkedList<>();
+//        for(DayOfWeekWrapper day: this.weekDays)
+//            custom.add(day.getWeekDay());
+//        
+//        return custom;
+//    }
+//
+//    public void setWeekDays(Collection<DayOfWeek> weekDays) {
+//        this.weekDays = new LinkedList<>();
+//        for(DayOfWeek day: weekDays)
+//            this.weekDays.add(new DayOfWeekWrapper(day));
+//    }
+//    
+//    public Collection<DayOfWeekWrapper> getWeekDaysAsWrapper() {
+//        return weekDays;
+//    }
+//
+//    public void setWeekDaysAsWrapper(Collection<DayOfWeekWrapper> weekDays) {
+//        this.weekDays = weekDays;
+//    }
+    
+    
 
     @Override
     public int hashCode() {

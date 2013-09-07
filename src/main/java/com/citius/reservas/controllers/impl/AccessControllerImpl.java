@@ -6,7 +6,7 @@ package com.citius.reservas.controllers.impl;
 
 import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.controllers.*;
-import com.citius.reservas.controllers.customModel.LoginStatus;
+import com.citius.reservas.controllers.controllerModel.LoginStatus;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;

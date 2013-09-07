@@ -11,7 +11,8 @@ var ResourceTree = function(resources, option, prechecked) {
             "types": {
                 "type_attr": "type_jstree",
                 "types": {
-                    "closed": {"open_node": false}
+                    "closed": {"open_node": false},
+                    "no_select": {"select_node": false}
                 }
             }
         };
@@ -20,13 +21,17 @@ var ResourceTree = function(resources, option, prechecked) {
             case 'multiselect':
                 jstree.ui = {"select_multiple_modifier": "on"};
 
-                //don't allow to select parent nodes
                 $("#resourcesTree").bind("before.jstree", function(e, data) {
-                    if (data.func === "select_node" && 
-                            !data.inst.is_leaf(data.args[0])){
-                        data.inst.toggle_node(data.args[0]);
-                        e.preventDefault();
-                    }});
+                    if (data.func === "select_node")
+                        if (!data.inst.is_leaf(data.args[0]) || $(data.args[0]).parent().attr('rel')==='group')
+                        {
+//                            data.inst.toggle_node(data.args[0]);
+                            $('#resourcesTree').jstree('toggle_node', data.args[0]);
+                            e.preventDefault();
+                            return false;
+                        }
+                });
+
                 break;
 
             case 'checkbox':

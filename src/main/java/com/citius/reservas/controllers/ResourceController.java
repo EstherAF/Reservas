@@ -1,7 +1,8 @@
 package com.citius.reservas.controllers;
 
-import com.citius.reservas.controllers.customModel.ResourceCustom;
+import com.citius.reservas.controllers.controllerModel.ResourceCustom;
 import com.citius.reservas.exceptions.InputRequestValidationException;
+import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.Resource;
 import com.citius.reservas.models.ResourceGroup;
 import java.util.List;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.*;
 @Secured("IS_AUTHENTICATED_FULLY")
 public interface ResourceController {
 
-    @InitBinder(value = {"resource","resourceCustom"})
-    public void initBinder(WebDataBinder binder);
+//    @InitBinder(value = {"resource","resourceCustom"})
+//    public void initBinder(WebDataBinder binder);
 
     /**
      * ****************** JSON   ************************
@@ -58,7 +59,7 @@ public interface ResourceController {
     @RequestMapping(value = "/{id}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable(value = "id") Integer id);
+    public Boolean delete(@PathVariable(value = "id") Integer id) throws UnknownResourceException;
 
     /**
      * ****************** HTML   ************************

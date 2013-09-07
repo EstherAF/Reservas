@@ -120,6 +120,7 @@ var resourcesView = function(resources) {
     var createResource = function(resource) {
         if (!resource.group) {
             //Is group
+            delete resource.quantity;
             Resource.createGroup(resource,
                     function(response) {
                         self.resTree.addGroupNode(response);
@@ -127,15 +128,17 @@ var resourcesView = function(resources) {
                             value: response.id,
                             text: response.name
                         }));
+                        Notifications.showMessage("create_resource_ok");
                     },ajaxError);
         } else {
             Resource.createResource(resource,
                     function(response) {
                         for(var i=0; i<response.length; i++){
-                            response.group = new Object();
-                            response.group.id = resource.group.id;
-                            self.resTree.addResourceNode(response);
+                            response[0].group = new Object();
+                            response[0].group.id = resource.group.id;
+                            self.resTree.addResourceNode(response[0]);
                         }
+                        Notifications.showMessage("create_resource_ok");
                     },ajaxError);
         }
     };
@@ -147,12 +150,15 @@ var resourcesView = function(resources) {
         };
 
         if (resource.group) {
+            delete resource.quantity;
             Resource.updateResource(resource, function() {
                 self.resTree.updateNode(resource);
+                Notifications.showMessage("update_resource_ok");
             }, ajaxError);
         } else {
             Resource.updateGroup(resource, function() {
                 self.resTree.updateNode(resource);
+                Notifications.showMessage("update_resource_ok");
             }, ajaxError);
         }
     };
@@ -221,7 +227,8 @@ var resourcesView = function(resources) {
         if(r){
         
             var success = function() {
-                self.resTree.removeNode(selectedNode)
+                self.resTree.removeNode(selectedNode);
+                Notifications.showMessage("delete_resource_ok");
             };
 
             if (resourceType === "group") {

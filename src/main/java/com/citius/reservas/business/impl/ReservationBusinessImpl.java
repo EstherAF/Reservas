@@ -4,7 +4,7 @@
  */
 package com.citius.reservas.business.impl;
 
-import com.citius.reservas.exceptions.NotAvaliable;
+import com.citius.reservas.exceptions.NotAvaliableResources;
 import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.business.InvitationBusiness;
 import com.citius.reservas.models.Reservation;
@@ -13,22 +13,27 @@ import com.citius.reservas.repositories.ReservationInstanceRepository;
 import com.citius.reservas.repositories.ReservationRepository;
 import com.citius.reservas.business.ReservationBusiness;
 import com.citius.reservas.business.ResourceBusiness;
-import com.citius.reservas.controllers.customModel.ReservationCustom;
-import com.citius.reservas.controllers.customModel.ResourceGroupCustom;
+import com.citius.reservas.business.ResourceGroupBusiness;
+import com.citius.reservas.controllers.controllerModel.ReservationCustom;
+import com.citius.reservas.controllers.controllerModel.ResourceGroupCustom;
 import com.citius.reservas.exceptions.*;
 import com.citius.reservas.models.DayOfWeek;
 import com.citius.reservas.models.Invitation;
 import com.citius.reservas.models.InvitationState;
+import com.citius.reservas.models.RepetitionType;
 import static com.citius.reservas.models.RepetitionType.*;
 import com.citius.reservas.models.Resource;
+import com.citius.reservas.models.ResourceGroup;
 import com.citius.reservas.models.User;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -49,6 +54,8 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     @Autowired
     private ResourceBusiness resourceBusiness;
     @Autowired
+    private ResourceGroupBusiness resourceGroupBusiness;
+    @Autowired
     private AccessBusiness accessBusiness;
     @Autowired
     private InvitationBusiness invitationBusiness;
@@ -60,7 +67,9 @@ public class ReservationBusinessImpl implements ReservationBusiness {
 
     @Override
     public Reservation read(Integer reservation_id) {
-        return rr.find(reservation_id);
+        Reservation reservation = rr.find(reservation_id);
+        this.formatWeekDays(reservation);
+        return reservation;
     }
 
     private Date[] prepareWeek(Calendar week) {
@@ -140,7 +149,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     }
 
     @Override
-    public Boolean isOwner(Integer reservationId, String ownerUniqueName) throws UnknownResourceException{
+    public Boolean isOwner(Integer reservationId, String ownerUniqueName) throws UnknownResourceException {
         Reservation r = rr.find(reservationId);
         if (r == null) {
             throw new UnknownResourceException();
@@ -179,14 +188,18 @@ public class ReservationBusinessImpl implements ReservationBusiness {
                 reservation.getResources(), reservation.getInstances()));
 
         //Check avaliability for resources of groups
-        if(reservation.getClass().equals(ReservationCustom.class)){
+        if (reservation.getClass().equals(ReservationCustom.class)) {
             ReservationCustom custom = (ReservationCustom) reservation;
             reservation.addResources(this.getNecesaryResourcesFromGroups(custom.getGroups(), instances));
         }
+
+        Collection<DayOfWeek> days = reservation.getRepetition().getWeekDays();
         reservation = this.rr.save(reservation);
-        
+
         reservation = this.saveInvitations(reservation, invitations);
-                  
+
+        this.formatWeekDays(reservation);
+
         return reservation;
 
     }
@@ -203,10 +216,10 @@ public class ReservationBusinessImpl implements ReservationBusiness {
         return this.saveReservation(reservation, groups);
 
     }
-    
-    private Set<Resource> getNecesaryResourcesFromGroups(List<ResourceGroupCustom> groups, Set<ReservationInstance> instances) throws NotAvaliableException{
-        
-        List<NotAvaliable> notAvaliableResources = new ArrayList<>();
+
+    private Set<Resource> getNecesaryResourcesFromGroups(List<ResourceGroupCustom> groups, Set<ReservationInstance> instances) throws NotAvaliableException {
+
+        List<NotAvaliableResources> notAvaliableResources = new ArrayList<>();
         Set<Resource> resources = new LinkedHashSet<>();
         if (groups != null) {
             for (ResourceGroupCustom resourceToReserve : groups) {
@@ -231,7 +244,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
 
                     //Build error if ther aren't enough avaliable resources
                     if (avaliablePerInstance.size() < resourceToReserve.getQuantity()) {
-                        notAvaliableResources.add(new NotAvaliable(resourceToReserve.getName(), instance, avaliablePerInstance.size()));
+                        notAvaliableResources.add(new NotAvaliableResources(resourceToReserve.getName(), instance, avaliablePerInstance.size()));
                         break;
                     }
                 }
@@ -253,13 +266,13 @@ public class ReservationBusinessImpl implements ReservationBusiness {
                 throw new NotAvaliableException(notAvaliableResources);
             }
         }
-        
+
         return resources;
     }
-    
-    private Reservation saveInvitations(Reservation reservation, Set<Invitation> invitations) 
-            throws UnknownResourceException{
-        
+
+    private Reservation saveInvitations(Reservation reservation, Set<Invitation> invitations)
+            throws UnknownResourceException {
+
         if (invitations != null && !invitations.isEmpty()) {
             for (Invitation invitation : invitations) {
                 Invitation found = null;
@@ -281,12 +294,12 @@ public class ReservationBusinessImpl implements ReservationBusiness {
                     found.setState(InvitationState.WAITING);
                     found.setReservation(reservation);
                 }
-                
+
                 //this.invitationBusiness.save(invitation);
                 reservation.getInvitations().add(found);
             }
         }
-        
+
         return this.rr.save(reservation);
     }
 
@@ -296,7 +309,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
 
         Set<Resource> loaddedResources = new LinkedHashSet<>();
 
-        List<NotAvaliable> notAvaliableResources = new ArrayList<>();
+        List<NotAvaliableResources> notAvaliableResources = new ArrayList<>();
         for (Resource resource : resources) {
             Resource loaddedResource = this.resourceBusiness.read(resource.getId());
             if (loaddedResource == null) {
@@ -307,7 +320,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
             //Check if resource is avaliable
             for (ReservationInstance instance : instances) {
                 if (!rir.isAvaliable(resource, instance.getStartTimeDate(), instance.getEndTimeDate())) {
-                    notAvaliableResources.add(new NotAvaliable(resource.getName(), instance, 0));
+                    notAvaliableResources.add(new NotAvaliableResources(resource.getName(), instance, 0));
                     break;
                 }
             }
@@ -496,8 +509,8 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     }
 
     @Override
-    public Boolean canEdit(Integer reservationId, String uniqueName) 
-            throws UnknownResourceException{
+    public Boolean canEdit(Integer reservationId, String uniqueName)
+            throws UnknownResourceException {
         return (this.isOwner(reservationId, uniqueName) || accessBusiness.isAdmin());
     }
 
@@ -506,10 +519,63 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     }
 
     @Override
-    public String readAsJson(ObjectMapper mapper, Integer reservation_id) throws IOException{
+    public String readAsJson(ObjectMapper mapper, Integer reservation_id) throws IOException {
         String json = null;
         Reservation reservation = this.read(reservation_id);
         json = mapper.writeValueAsString(reservation);
         return json;
+    }
+
+    private void formatWeekDays(Reservation reservation) {
+        if (reservation.getRepetition().getType().equals(RepetitionType.WEEKLY)) {
+            Collection<DayOfWeek> days = new ArrayList<>();
+
+            Calendar week = Calendar.getInstance();
+
+            for (ReservationInstance instance : reservation.getInstances()) {
+                week.setTime(instance.getStartTimeDate());
+                DayOfWeek day = DayOfWeek.fromCalendarDate(week);
+                if (days.contains(day)) {
+                    break;
+                }
+
+                days.add(day);
+            }
+            reservation.getRepetition().setWeekDays(days);
+        }
+    }
+
+    private void formatWeekDays(Collection<Reservation> reservations) {
+        for (Reservation reservation : reservations) {
+            this.formatWeekDays(reservation);
+        }
+    }
+
+    @Override
+    public List<Reservation> findByResource(Resource resource) throws UnknownResourceException{
+        if(resource.getId()==null)
+            throw new UnknownResourceException();
+        
+        Resource found = this.resourceBusiness.read(resource.getId());
+        if(found==null)
+            throw new UnknownResourceException();
+        
+        List<Reservation> l = this.rr.findByResource(found);
+        
+        return l;
+    }
+
+    @Override
+    public List<Reservation> findByResourceGroup(ResourceGroup resource) throws UnknownResourceException{
+        if(resource.getId()==null)
+            throw new UnknownResourceException();
+        
+        ResourceGroup group = this.resourceGroupBusiness.read(resource.getId());
+        if(group==null)
+            throw new UnknownResourceException();
+        
+        List<Reservation> l = this.rr.findByResourceGroup(group);
+        
+        return l;
     }
 }

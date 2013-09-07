@@ -9,25 +9,25 @@ import java.util.List;
  */
 public class NotAvaliableException extends Exception {
 
-    private List<NotAvaliable> notAvaliableResources;
+    private List<NotAvaliableResources> notAvaliableResources;
     
     public NotAvaliableException() {
         this.notAvaliableResources = new ArrayList<>();
     }
     
-    public NotAvaliableException(List<NotAvaliable> notAvaliableResources) {
+    public NotAvaliableException(List<NotAvaliableResources> notAvaliableResources) {
         this.notAvaliableResources = notAvaliableResources;
     }
     
-    public void addNotAvaliableResources(NotAvaliable notAvaliable){
+    public void addNotAvaliableResources(NotAvaliableResources notAvaliable){
         this.notAvaliableResources.add(notAvaliable);
     }
 
-    public List<NotAvaliable> getNotAvaliableResources(){
+    public List<NotAvaliableResources> getNotAvaliableResources(){
         return this.notAvaliableResources;
     }
     
-    public void setNotAvaliableResources(List<NotAvaliable> notAvaliableResources){
+    public void setNotAvaliableResources(List<NotAvaliableResources> notAvaliableResources){
         this.notAvaliableResources=notAvaliableResources;
     }    
    

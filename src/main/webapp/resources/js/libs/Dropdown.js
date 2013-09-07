@@ -43,19 +43,23 @@ Dropdown.removeFromList = function(selector) {
     if (number.text() > 1)
         number.text(number.text() - 1);
     else {
-        number.hide();
-//        $(".dropdown").trigger('click');
+        $('.dropdown_wrapper').remove();
         
-        Dropdown.toggleDropDown.call($('.dropdown_wrapper > .dropdown'));
+//        number.hide();        
+//        Dropdown.toggleDropDown.call($('.dropdown_wrapper > .dropdown'));
     }
 };
 
 Dropdown.hideDropdown = function(e) {
     var wrapper = $(".dropdown_wrapper");
 
+    var dropdownMenu = $(this).parent().children('.dropdown_child');
+    dropdownMenu.removeAttr('style');
+
     if (!wrapper.is(e.target) &&
             wrapper.has(e.target).length === 0) {
-        Dropdown.toggleDropDown.call(wrapper.find('.dropdown'));
+        if($(wrapper).find('.dropdown_child').css('display')!='none')        
+            Dropdown.toggleDropDown.call(wrapper.find('.dropdown'));
         return;
     }
 };
@@ -63,19 +67,20 @@ Dropdown.hideDropdown = function(e) {
 Dropdown.toggleDropDown = function() {
     var dropdownButton = $(this);
     var dropdownMenu = $(this).parent().children('.dropdown_child');
+    
     dropdownMenu.toggle();
     dropdownButton.toggleClass('show');
+    
+    var eventfunction = function(e) {
+            e.stopPropagation();
+            Dropdown.hideDropdown(e);
+        };
+    
     if (dropdownMenu.css('display') != 'none') {
         //Add handler for click outside of dropdown event
-        $('html').bind('click', function(e) {
-            e.stopPropagation();
-            Dropdown.hideDropdown(e);
-        });
+        $('html').bind('click.dropdown', eventfunction);
     } else {
         //Remove handler for click outside of dropdown event
-        $('html').unbind('click', function(e) {
-            e.stopPropagation();
-            Dropdown.hideDropdown(e);
-        });
+        $('html').unbind('click.dropdown');
     }
 };

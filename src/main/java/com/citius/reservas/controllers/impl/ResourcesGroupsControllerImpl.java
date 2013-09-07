@@ -53,11 +53,15 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
     @Override
     public void deleteOnlyGroup(Integer id) {
         rgs.delete(id);
+        logger.debug("Delete only group" + id);
+        
     }
 
     @Override
-    public void delete(Integer id) {
+    public Boolean delete(Integer id) {
         rgs.deleteWithResources(id);
+        logger.debug("Delete grup with childs" + id);
+        return true;
     }
 
 //    @Override

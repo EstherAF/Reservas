@@ -4,13 +4,15 @@
  */
 package com.citius.reservas.business;
 
-import com.citius.reservas.controllers.customModel.ReservationCustom;
-import com.citius.reservas.controllers.customModel.ResourceGroupCustom;
+import com.citius.reservas.controllers.controllerModel.ReservationCustom;
+import com.citius.reservas.controllers.controllerModel.ResourceGroupCustom;
 import com.citius.reservas.exceptions.NotAvaliableException;
 import com.citius.reservas.exceptions.NotPossibleInstancesException;
 import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.Reservation;
 import com.citius.reservas.models.ReservationInstance;
+import com.citius.reservas.models.Resource;
+import com.citius.reservas.models.ResourceGroup;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
@@ -84,6 +86,7 @@ public interface ReservationBusiness {
     public Boolean canEdit(Integer reservationId, String uniqueName) 
             throws UnknownResourceException;
     
-    
+    public List<Reservation> findByResource(Resource resource) throws UnknownResourceException;
+    public List<Reservation> findByResourceGroup(ResourceGroup resource) throws UnknownResourceException;
     
 }

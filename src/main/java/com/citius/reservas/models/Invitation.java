@@ -131,8 +131,16 @@ public class Invitation implements Serializable {
             if (!Objects.equals(this.reservation.getId(), other.reservation.getId())) {
                 return false;
             }
-        }else if(!this.reservation.equals(other.reservation))
+        }else if(!Objects.equals(this.reservation, other.reservation)){
             return false;
+        }
+        
+        
+//        else if(this.reservation==null || other.reservation==null && this.reservation!=other.reservation){
+//            return false;
+//        }else if(!this.reservation.equals(other.reservation)){
+//            return false;
+//        }
         
         return true;
     }

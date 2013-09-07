@@ -294,7 +294,8 @@ select.hour {
   width: 30%;
   right: 35%;
   min-width: 200px;
-  text-align: center; }
+  text-align: center;
+  z-index: 200; }
   #modal-wrapper .simple-modal {
     width: 100%;
     padding: 5px 30px 5px 20px;

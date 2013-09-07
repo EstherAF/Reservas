@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.citius.reservas.controllers.customModel;
+package com.citius.reservas.controllers.controllerModel;
 
 import com.citius.reservas.controllers.i18n.i18nManager;
 import com.citius.reservas.models.*;

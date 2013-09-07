@@ -97,6 +97,10 @@ CalendarAvaliability.prototype.saveState = function() {
 
 //Show resource in fullCalendar. If it doesn't exist in resources[], get it by AJAX and store it in there
 CalendarAvaliability.prototype.selectResource = function(data) {
+    if(data.attr('rel')==='group'){
+        return false;
+    }
+    
     var id = data.attr("id");
     var index = this.selected.indexOf(id);
     if (index == null || index < 0)

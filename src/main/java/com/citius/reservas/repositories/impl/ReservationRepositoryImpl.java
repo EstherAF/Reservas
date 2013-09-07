@@ -4,7 +4,10 @@
  */
 package com.citius.reservas.repositories.impl;
 
+import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.Reservation;
+import com.citius.reservas.models.Resource;
+import com.citius.reservas.models.ResourceGroup;
 import com.citius.reservas.repositories.ReservationRepository;
 import java.util.Calendar;
 import java.util.List;
@@ -58,13 +61,32 @@ public class ReservationRepositoryImpl extends GenericRepositoryImpl<Reservation
         
         return l;
     }
-//    
-//    @Override
-//    public Reservation save(Reservation reservation){
-//        logger.debug("Reservation.save.");
-//        //this.flush();
-//        return super.save(reservation);
-//        
-//        return reservation;
-//    }
+
+    @Override
+    public List<Reservation> findByResource(Resource resource) {
+        logger.debug("Reservation.findByResource:"+resource);
+        
+        Query q = this.em.createNamedQuery("Reservation.findByResource");
+        q.setParameter("resource", resource);
+        List<Reservation> l = this.listQuery(q);
+        
+        logger.debug("Found "+l.size()+" results");
+        
+        return l;
+    }
+
+    @Override
+    public List<Reservation> findByResourceGroup(ResourceGroup group) {
+        logger.debug("Reservation.findByResourceGroup:"+group);
+        
+        Query q = this.em.createNamedQuery("Reservation.findByResourcegroup");
+        q.setParameter("resourceGroup", group);
+        List<Reservation> l = this.listQuery(q);
+        
+        logger.debug("Found "+l.size()+" results");
+        
+        return l;
+    }
+
+    
 }

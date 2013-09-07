@@ -5,7 +5,7 @@
 package com.citius.reservas.exceptions.handler.errorResolver;
 
 import com.citius.reservas.business.AccessBusiness;
-import com.citius.reservas.controllers.customModel.LoginStatus;
+import com.citius.reservas.controllers.controllerModel.LoginStatus;
 import com.citius.reservas.exceptions.handler.RestError;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

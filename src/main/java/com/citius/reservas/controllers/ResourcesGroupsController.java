@@ -47,7 +47,7 @@ public interface ResourcesGroupsController {
     @Secured("ROLE_TIC")
     @ResponseBody
     @RequestMapping(value = "/{id}/all", method = RequestMethod.DELETE)
-    public void delete(@PathVariable(value = "id") Integer id);
+    public Boolean delete(@PathVariable(value = "id") Integer id);
 
 //    /*Exceptions*/
 //    @RequestMapping(value = "/**",

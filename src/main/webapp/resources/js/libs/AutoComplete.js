@@ -66,6 +66,9 @@ Autocomplete.prototype.remove = function(userText) {
     }
 
     var index = (isNaN(userText)) ? this.items.search('uniqueName', userText) : userText;
+    if(!index)
+        return false;
+    
     this.items.remove(index);
     this.itemsText.remove(index);
 

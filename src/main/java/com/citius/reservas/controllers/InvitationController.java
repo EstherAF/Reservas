@@ -41,7 +41,7 @@ public interface InvitationController {
             @PathVariable(value = "uniqueName") String guestUniqueName);
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public Invitation createInvitation(@Valid @RequestBody Invitation invitation,
             BindingResult result) throws InputRequestValidationException;
 

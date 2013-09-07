@@ -56,14 +56,14 @@ CREATE TABLE reservas.reservations (
 	FOREIGN KEY (owner) references reservas.users(unique_name) 
 		ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-CREATE TABLE reservas.reservation_weekdays(
-	reservation_id INTEGER,
-	week_day SMALLINT,
-	PRIMARY KEY (reservation_id, week_day),
-	FOREIGN KEY (reservation_id) references reservas.reservations(id) 
-		ON DELETE CASCADE ON UPDATE CASCADE
-);
+-- 
+-- CREATE TABLE reservas.reservation_weekdays(
+-- 	reservation_id INTEGER,
+-- 	week_day SMALLINT,
+-- 	PRIMARY KEY (reservation_id, week_day),
+-- 	FOREIGN KEY (reservation_id) references reservas.reservations(id) 
+-- 		ON DELETE CASCADE ON UPDATE CASCADE
+-- );
 
 -- -----------------------------------------------------
 -- Table scheduling_reservation
@@ -117,8 +117,10 @@ CREATE TABLE reservas.invitations (
 	reservation_id INTEGER,
 	state VARCHAR(10) NOT NULL DEFAULT 0,
 	PRIMARY KEY ("user", reservation_id) ,
-	FOREIGN KEY (reservation_id) references reservas.reservations (id),
+	FOREIGN KEY (reservation_id) references reservas.reservations (id)
+            ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY ("user") references reservas.users (unique_name)
+            ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 

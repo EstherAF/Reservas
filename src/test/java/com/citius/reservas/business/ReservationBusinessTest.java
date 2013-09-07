@@ -57,7 +57,7 @@ public class ReservationBusinessTest{
 
     @Before
     public void initTest() {
-        owner = this.access.findUser("perico");
+        owner = this.access.findUserFromDB("perico");
         resources = new LinkedHashSet<>();
 
         if (resourceGroupB.read(1) == null) {
@@ -82,19 +82,29 @@ public class ReservationBusinessTest{
             resources.add(resourceB.readByName("test2"));
         }
         invitations = new LinkedHashSet<>();
-        User guest1 = new User("paquito", null, null);
+        User guest1 = this.access.findUserFromDB("paquito");
         invitations.add(new Invitation(guest1, InvitationState.WAITING, null));
+        days.add(DayOfWeek.MONDAY);
+        days.add(DayOfWeek.TUESDAY);
     }
 
+    @Test
+    public void readReservation(){
+        Reservation r = this.rs.read(174);
+        assertNotNull("Encontrada" , r);
+        assertNotNull("Con array de días de la semana" , r.getRepetition().getWeekDays());
+        assertFalse("Con días de la semana" , r.getRepetition().getWeekDays().isEmpty());
+    }
+    
     @Test
     public void createOnceReservation() throws NotAvaliableException, NotPossibleInstancesException, UnknownResourceException {
         Reservation r;
 
         start = new GregorianCalendar(2013, 10, 22, 15, 00);
         end = new GregorianCalendar(2013, 10, 24, 8, 00);
-        endRepetition = new GregorianCalendar(2013, 8, 30);
+        endRepetition = new GregorianCalendar(2013, 12, 30);
 
-        Repetition repetition = new Repetition(RepetitionType.ONCE, 1, days, endRepetition.getTime());
+        Repetition repetition = new Repetition(RepetitionType.WEEKLY, 1, days, endRepetition.getTime());
         r = new Reservation("name2", "description", owner, start.getTime(), end.getTime(), repetition, resources);
         
         r.setInvitations(invitations);
@@ -103,23 +113,8 @@ public class ReservationBusinessTest{
 
         assertNotNull("Id nulo", r.getId());
         assertNotNull("No se han creado instancias", r.getInstances());
+        assertFalse("No se han almacenado los días de la semana", r.getRepetition().getWeekDays().isEmpty());
         assertFalse("No se han creado instancias", r.getInstances().isEmpty());
-        assertTrue("El número de instancias está mal", r.getInstances().size() == 1);
-        
-        ReservationInstance i=null;
-        for(ReservationInstance i2: r.getInstances()){
-            if(i2.getReservation().getName().equals("name2"))
-                i=i2;
-            else 
-                i=null;
-        }
-        
-        assertNotNull(i);
-
-        assertEquals(end.getTime(), i.getEndTimeDate());
-        assertEquals(start.getTime(), i.getStartTimeDate());
-
-        //rs.deleteReservation(r.getId());
 
     }
 //

@@ -4,8 +4,8 @@
  */
 package com.citius.reservas.controllers.validators;
 
-import com.citius.reservas.controllers.customModel.ReservationCustom;
-import com.citius.reservas.controllers.customModel.ResourceGroupCustom;
+import com.citius.reservas.controllers.controllerModel.ReservationCustom;
+import com.citius.reservas.controllers.controllerModel.ResourceGroupCustom;
 import com.citius.reservas.models.Repetition;
 import com.citius.reservas.models.RepetitionType;
 import com.citius.reservas.models.Reservation;
