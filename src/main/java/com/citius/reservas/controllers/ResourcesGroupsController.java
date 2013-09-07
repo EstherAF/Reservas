@@ -1,6 +1,7 @@
 package com.citius.reservas.controllers;
 
 import com.citius.reservas.exceptions.InputRequestValidationException;
+import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.ResourceGroup;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +48,7 @@ public interface ResourcesGroupsController {
     @Secured("ROLE_TIC")
     @ResponseBody
     @RequestMapping(value = "/{id}/all", method = RequestMethod.DELETE)
-    public Boolean delete(@PathVariable(value = "id") Integer id);
+    public Boolean delete(@PathVariable(value = "id") Integer id) throws UnknownResourceException;
 
 //    /*Exceptions*/
 //    @RequestMapping(value = "/**",

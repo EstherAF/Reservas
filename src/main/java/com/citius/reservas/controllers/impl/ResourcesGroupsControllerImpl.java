@@ -3,6 +3,7 @@ package com.citius.reservas.controllers.impl;
 import com.citius.reservas.controllers.*;
 import com.citius.reservas.business.ResourceGroupBusiness;
 import com.citius.reservas.exceptions.InputRequestValidationException;
+import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.ResourceGroup;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +59,7 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
     }
 
     @Override
-    public Boolean delete(Integer id) {
+    public Boolean delete(Integer id) throws UnknownResourceException{
         rgs.deleteWithResources(id);
         logger.debug("Delete grup with childs" + id);
         return true;
