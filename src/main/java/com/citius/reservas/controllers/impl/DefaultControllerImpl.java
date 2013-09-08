@@ -36,7 +36,7 @@ public class DefaultControllerImpl implements DefaultController{
 //    }
 
     @Override
-    public String errorView(HttpServletRequest request) throws UnknownResourceException{
+    public void errorView(HttpServletRequest request) throws UnknownResourceException{
         throw new UnknownResourceException("There is no resource JSON for path for "+request.getRequestURI());
     }
     

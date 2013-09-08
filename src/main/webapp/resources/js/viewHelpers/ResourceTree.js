@@ -117,7 +117,3 @@ ResourceTree.prototype.toggleCheckBox = function(node) {
 ResourceTree.prototype.getNode = function(atributeName, atributeValue) {
     return this.tree.find('li[' + atributeName + '="' + atributeValue + '"]');
 };
-
-//ResourceTree.prototype.bindOnLoad = function(caller, operation) {
-//    this.tree.bind("loaded.jstree", operation.call(caller));
-//};

@@ -4,10 +4,14 @@
  */
 package com.citius.reservas.business.impl;
 
+import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.business.InvitationBusiness;
+import com.citius.reservas.business.ReservationBusiness;
 import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.Invitation;
 import com.citius.reservas.models.InvitationState;
+import com.citius.reservas.models.Reservation;
+import com.citius.reservas.models.User;
 import com.citius.reservas.repositories.InvitationRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,12 @@ public class InvitationBusinessImpl implements InvitationBusiness{
     @Autowired
     private InvitationRepository ir;
     
+    @Autowired
+    private ReservationBusiness reservationBusiness;
+    
+    @Autowired
+    private AccessBusiness accessBusiness;
+    
     @Override
     public List<Invitation> getPendingInvitationsByGuest(String uniqueName) {
         List<Invitation> l = ir.findByGuestAndState(uniqueName, InvitationState.WAITING);
@@ -30,7 +40,10 @@ public class InvitationBusinessImpl implements InvitationBusiness{
     }
 
     @Override
-    public Invitation createOrSaveInvitation(Invitation invitation) {
+    public Invitation createOrSaveInvitation(Invitation invitation) throws UnknownResourceException {
+        Reservation r = reservationBusiness.read(invitation.getReservation().getId());
+        User u = accessBusiness.findUserFromDB(invitation.getGuest().getUniqueName());
+        
         return ir.save(invitation);
     }
 

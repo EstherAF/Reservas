@@ -47,7 +47,7 @@ public class InvitationControllerImpl implements InvitationController {
 
     @Override
     public Invitation createInvitation(Invitation invitation, BindingResult result)
-            throws InputRequestValidationException {
+            throws InputRequestValidationException, UnknownResourceException {
 
         String uniqueName = access.getUniqueNameOfLoggedUser();
 

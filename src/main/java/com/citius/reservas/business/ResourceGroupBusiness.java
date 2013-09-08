@@ -23,7 +23,7 @@ public interface ResourceGroupBusiness {
     public List<ResourceGroup> readAll();
     
     @Transactional(readOnly = true)
-    public ResourceGroup read(Integer id);
+    public ResourceGroup read(Integer id) throws UnknownResourceException;
     
     @Transactional(readOnly = true)
     public ResourceGroup readByName(String name);
@@ -32,7 +32,7 @@ public interface ResourceGroupBusiness {
     
     public ResourceGroup save(ResourceGroup r);
     
-    public void delete(Integer id);
+    public void delete(Integer id) throws UnknownResourceException;
     
     public void deleteWithResources(Integer id) throws UnknownResourceException;
 }

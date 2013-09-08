@@ -27,11 +27,11 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ReservationBusiness {
         
     @Transactional(readOnly = true)
-    public Reservation read(Integer reservation_id);
+    public Reservation read(Integer reservation_id) throws UnknownResourceException;
     
     @Transactional(readOnly = true)
     public String readAsJson(ObjectMapper mapper, Integer reservation_id) 
-            throws IOException;
+            throws IOException, UnknownResourceException;
     
     @Transactional(readOnly = true)
     public List<ReservationInstance> readAll();

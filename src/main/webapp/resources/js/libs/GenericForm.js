@@ -170,42 +170,42 @@ function Error() {
             ge:function(value) {return "Debe ser menor o igual que " + value[0];}
         },
         "en": {
-            required: "Este campo es obligatorio",
-            selected_required: "Debes seleccionar alguno",
+            required: "This field is required",
+            selected_required: "You must select one",
             max_length: function(value) {
-                return "La longitud máxima es de " + value[0] + " caracteres";
+                return "Max length is " + value[0] + " characters";
             },
             min_length: function(value) {
-                return "La longitud mínima es de " + value[0] + " caracteres";
+                return "Min length is " + value[0] + " characters";
             },
             min_selected_length: function(value) {
-                return "Debes seleccionar al menos " + value[0] + " opción";
+                return "You mus select at least " + value[0] + " option";
             },
-            numeric: "Debe ser un número",
-            date: "No es una fecha válida",
-            gt:function(value) {return "Debe ser mayor que " + value[0];},
-            ge:function(value) {return "Debe ser mayor o igual que " + value[0];},
-            lt:function(value) {return "Debe ser menor que " + value[0];},
-            ge:function(value) {return "Debe ser menor o igual que " + value[0];}
+            numeric: "This field have to be a number",
+            date: "Invalid date",
+            gt:function(value) {return "Must be greater than " + value[0];},
+            ge:function(value) {return "Must be greater or equals " + value[0];},
+            lt:function(value) {return "Must be less than " + value[0];},
+            ge:function(value) {return "Must be less or equals than" + value[0];}
         },
         "ga": {
-            required: "Este campo es obligatorio",
-            selected_required: "Debes seleccionar alguno",
+            required: "Este campo é obligatorio",
+            selected_required: "Debes seleccionar algún",
             max_length: function(value) {
-                return "La longitud máxima es de " + value[0] + " caracteres";
+                return "A lonxitude máxima é de " + value[0] + " caracteres";
             },
             min_length: function(value) {
-                return "La longitud mínima es de " + value[0] + " caracteres";
+                return "A longitude mínima é de " + value[0] + " caracteres";
             },
             min_selected_length: function(value) {
-                return "Debes seleccionar al menos " + value[0] + " opción";
+                return "Debes seleccionar a lo menos " + value[0] + " opción";
             },
             numeric: "Debe ser un número",
-            date: "No es una fecha válida",
-            gt:function(value) {return "Debe ser mayor que " + value[0];},
-            ge:function(value) {return "Debe ser mayor o igual que " + value[0];},
+            date: "Non é unha fecha válida",
+            gt:function(value) {return "Debe ser maior que " + value[0];},
+            ge:function(value) {return "Debe ser maior ou igual que " + value[0];},
             lt:function(value) {return "Debe ser menor que " + value[0];},
-            ge:function(value) {return "Debe ser menor o igual que " + value[0];}
+            ge:function(value) {return "Debe ser menor ou igual que " + value[0];}
         }
     };
 

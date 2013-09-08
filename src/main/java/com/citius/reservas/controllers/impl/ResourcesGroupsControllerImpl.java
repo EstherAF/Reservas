@@ -6,14 +6,10 @@ import com.citius.reservas.exceptions.InputRequestValidationException;
 import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.ResourceGroup;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 @Controller
 public class ResourcesGroupsControllerImpl implements ResourcesGroupsController {
@@ -28,7 +24,7 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
     }
 
     @Override
-    public ResourceGroup read(Integer id) {
+    public ResourceGroup read(Integer id) throws UnknownResourceException{
         return rgs.read(id);
     }
 
@@ -52,9 +48,10 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
     }
 
     @Override
-    public void deleteOnlyGroup(Integer id) {
+    public Boolean deleteOnlyGroup(Integer id) throws UnknownResourceException{
         rgs.delete(id);
         logger.debug("Delete only group" + id);
+        return true;
         
     }
 

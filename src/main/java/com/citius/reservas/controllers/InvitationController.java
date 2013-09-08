@@ -29,10 +29,22 @@ import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMeth
 @Secured("IS_AUTHENTICATED_FULLY")
 public interface InvitationController {
 
+    /*
+     * Content: JSON
+     * @return Lista de invitaciones con estado WAITING del usuario validado
+     * @see Invitation, InvitationState
+     */
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET)
     public List<Invitation> readPendingInvitations();
 
+    
+    /*
+     * Content: JSON
+     * @param userName nombre de usuario
+     * @return Lista de invitaciones con estado WAITING del usuario pasado por parámetro
+     * @see Invitation, InvitationState
+     */
     @Secured("ROLE_TIC")
     @ResponseBody
     @RequestMapping(value = "/{uniqueName}",
@@ -40,11 +52,32 @@ public interface InvitationController {
     public List<Invitation> readPendingInvitations(
             @PathVariable(value = "uniqueName") String guestUniqueName);
 
+    /*
+     * Content: JSON
+     * Description: Crea una invitación, si el usuario es administrador o el Owner de la reserva de la invitación
+     * @param invitation invitación a crear
+     * @return Invitation invitacion creada
+     * @throws InputRequestvalidationException Error de validez de los datos de la invitación
+     * @throws AccessDeniedException El usuario no es administrador ni el propietario de la reserva
+     * @throws UnknownResourceException La reserva no existe
+     * @see Invitation
+     */
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
     public Invitation createInvitation(@Valid @RequestBody Invitation invitation,
-            BindingResult result) throws InputRequestValidationException;
+            BindingResult result) throws InputRequestValidationException, UnknownResourceException;
 
+    /*
+     * Content: JSON
+     * Description: Cambia el estado de una invitación del usuario validado
+     * @param reservationId id de la reserva
+     * @param state nuevo estado de la invitación
+     * @return Invitation invitación con el estado cambiado
+     * @throws InputRequestvalidationException Error de validez de los datos de la invitación
+     * @throws AccessDeniedException El usuario no es ni administrador ni el propietario de la reserva
+     * @throws UnknownResourceException La reserva no existe
+     * @see Invitation
+     */
     @ResponseBody
     @RequestMapping(value = "/{reservationId}/{state}",
             method = RequestMethod.PUT)
@@ -53,6 +86,16 @@ public interface InvitationController {
             @PathVariable(value = "state") InvitationState state)
             throws UnknownResourceException;
 
+    /*
+     * Content: JSON
+     * Description: Cambia le estado de una invitación
+     * @param reservationId id de la reserva
+     * @param state nuevo estado de la invitación
+     * @param guestUniqueName UniqueName del usuario al que invitar
+     * @return Invitation invitación con el estado cambiado
+     * @throws UnknownResourceException La reserva o el usuario no existen
+     * @see Invitation
+     */
     @Secured("ROLE_TIC")
     @ResponseBody
     @RequestMapping(value = "/{reservationId}/{guestUniqueName}/{state}",
@@ -63,8 +106,4 @@ public interface InvitationController {
             @PathVariable(value = "state") InvitationState state)
             throws UnknownResourceException;
 
-//    /*Exceptions*/
-//    @RequestMapping(value = "/**",
-//            method = RequestMethod.GET)
-//    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException;
 }

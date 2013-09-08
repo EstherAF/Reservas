@@ -73,7 +73,7 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public Reservation read(Integer id) {
+    public Reservation read(Integer id) throws UnknownResourceException{
         return rb.read(id);
     }
 
@@ -111,7 +111,7 @@ public class ReservationControllerImpl implements ReservationController {
         String uniqueName = access.getUniqueNameOfLoggedUser();
 
         if (!rb.canEdit(r.getId(), uniqueName)) {
-            throw new UnknownResourceException("");
+            throw new AccessDeniedException("");
         } else if (!result.getAllErrors().isEmpty()) {
             throw new InputRequestValidationException(result.getAllErrors());
         }
@@ -272,7 +272,7 @@ public class ReservationControllerImpl implements ReservationController {
 
     @Override
     public String updateReservationView(Model model, Integer id) 
-            throws IOException, UnknownResourceException {
+            throws IOException, UnknownResourceException, AccessDeniedException {
         String uniqueName = access.getUniqueNameOfLoggedUser();
 
         Boolean canEdit = (access.isAdmin() || rb.isOwner(id, uniqueName));
@@ -285,7 +285,7 @@ public class ReservationControllerImpl implements ReservationController {
             model.addAttribute("operation", "update");
             return "new_reservation";
         } else {
-            return "redirect:/reservations/" + id;
+            throw new AccessDeniedException("");
         }
     }
 

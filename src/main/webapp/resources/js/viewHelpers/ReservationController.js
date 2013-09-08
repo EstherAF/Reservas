@@ -141,7 +141,10 @@ var ReservationController = function(users, resources, precheckedResources) {
                                 validation: function(value) {
                                     return (value >= this.argumentsArray[0]);
                                 },
-                                messages: {es: 'La fecha de fin de la repetición debe ser posterior a la de fin de la reserva', en: 'End repetition date must be greater than reservation end date', ga: 'A data de fin da repetición debe ser maior ca de fin da reserva'}
+                                messages: {
+                                    es: 'La fecha de fin de la repetición debe ser posterior a la de fin de la reserva', 
+                                    en: 'End repetition date must be greater than reservation end date', 
+                                    ga: 'A data de fin da repetición debe ser maior ca de fin da reserva'}
                             }
                         ]
                     }

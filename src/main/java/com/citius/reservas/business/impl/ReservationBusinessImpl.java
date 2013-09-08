@@ -66,8 +66,12 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     }
 
     @Override
-    public Reservation read(Integer reservation_id) {
+    public Reservation read(Integer reservation_id) throws UnknownResourceException{
         Reservation reservation = rr.find(reservation_id);
+        
+        if(reservation == null)
+            throw new UnknownResourceException();
+        
         this.formatWeekDays(reservation);
         return reservation;
     }
@@ -519,7 +523,7 @@ public class ReservationBusinessImpl implements ReservationBusiness {
     }
 
     @Override
-    public String readAsJson(ObjectMapper mapper, Integer reservation_id) throws IOException {
+    public String readAsJson(ObjectMapper mapper, Integer reservation_id) throws IOException, UnknownResourceException {
         String json = null;
         Reservation reservation = this.read(reservation_id);
         json = mapper.writeValueAsString(reservation);

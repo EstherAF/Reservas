@@ -56,7 +56,7 @@ public class ReservationBusinessTest{
     }
 
     @Before
-    public void initTest() {
+    public void initTest() throws UnknownResourceException {
         owner = this.access.findUserFromDB("perico");
         resources = new LinkedHashSet<>();
 
@@ -89,7 +89,7 @@ public class ReservationBusinessTest{
     }
 
     @Test
-    public void readReservation(){
+    public void readReservation() throws UnknownResourceException{
         Reservation r = this.rs.read(174);
         assertNotNull("Encontrada" , r);
         assertNotNull("Con array de días de la semana" , r.getRepetition().getWeekDays());

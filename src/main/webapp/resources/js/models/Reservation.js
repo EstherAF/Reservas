@@ -77,8 +77,4 @@ Reservation.getReservationsByMonthResource = function(year, month, resourceId, s
 Reservation.getReservationsByWeekResource = function(year, month, resourceId, success_cb, error_cb){
     Ajax.requestInUrl("GET", "/reservations/week/", "json")(year+'/'+month+'/resource/'+resourceId, success_cb, error_cb);
 };
-//
-//Reservation.deleteReservation = function(id, success_cb, error_cb){
-//    Ajax.requestInUrl("DELETE", "/reservations/", "json")(id, success_cb, error_cb);
-//};
     

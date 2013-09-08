@@ -5,6 +5,7 @@
 package com.citius.reservas.business;
 
 import com.citius.reservas.controllers.controllerModel.LoginStatus;
+import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.User;
 import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,7 +30,7 @@ public interface AccessBusiness {
     public User findUser(String uniqueName);   
 
     @Transactional(readOnly = true)
-    public User findUserFromDB(String uniqueName);   
+    public User findUserFromDB(String uniqueName) throws UnknownResourceException;   
     
     @Transactional(readOnly = true)
     public LoginStatus getLoginStatus();

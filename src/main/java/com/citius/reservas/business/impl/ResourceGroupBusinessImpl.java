@@ -9,15 +9,10 @@ import com.citius.reservas.models.ResourceGroup;
 import com.citius.reservas.business.ResourceBusiness;
 import com.citius.reservas.business.ResourceGroupBusiness;
 import com.citius.reservas.exceptions.UnknownResourceException;
-import com.citius.reservas.models.ReservationInstance;
 import com.citius.reservas.repositories.ResourceGroupRepository;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -40,8 +35,11 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
 
 
     @Override
-    public ResourceGroup read(Integer id) {
-        return resourceGroupRepository.find(id);
+    public ResourceGroup read(Integer id) throws UnknownResourceException{
+        ResourceGroup group = resourceGroupRepository.find(id);
+        if(group == null)
+            throw new UnknownResourceException();
+        return group;
     }
 
 
@@ -64,10 +62,10 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
 
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id) throws UnknownResourceException{
         ResourceGroup g = resourceGroupRepository.find(id);
         if (g == null) {
-            throw new IllegalArgumentException(id + " can't be found");
+            throw new UnknownResourceException();
         } else {
             ResourceGroup def = resourceGroupRepository.findByName("default");
             for (Resource r : g.getResources()) {
@@ -82,7 +80,7 @@ public class ResourceGroupBusinessImpl implements ResourceGroupBusiness {
     public void deleteWithResources(Integer id) throws UnknownResourceException{
         ResourceGroup g = resourceGroupRepository.find(id);
         if (g == null) {
-            throw new IllegalArgumentException(id + " can't be found");
+            throw new UnknownResourceException();
         } else {
             for (Resource r : g.getResources()) {
                 resourceBusiness.delete(r.getId());

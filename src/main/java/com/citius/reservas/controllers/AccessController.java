@@ -21,19 +21,34 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @RequestMapping("/login")
 public interface AccessController {
-
-    /*---------JSON---------*/
+    
+    /*
+     * Content: JSON
+     * Description: Función de validación por AJAX
+     * @param userName nombre de usuario
+     * @param password contraseña
+     * @return Estado de validación en el sistema
+     * @see LoginStatus
+     */
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
     @ResponseBody
     public LoginStatus login(@RequestParam("username") String username, 
         @RequestParam("password") String password);
 
+    
+    /*
+     * Content: JSON
+     * Description: Obtener estado de validación
+     * @return Estado de validación en el sistema
+     * @see LoginStatus
+     */
     @RequestMapping(value = "/status",
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.GET)
     @ResponseBody
     public LoginStatus getStatus();
+    
     
     @RequestMapping(value = {"/",""},
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -41,12 +56,19 @@ public interface AccessController {
     @ResponseBody
     public String getTimeOut() throws HttpSessionRequiredException;
 
-    /*---------HTML---------*/
+    /*
+     * Content: HTML
+     * Description: Obtener vista para la validación del usuario
+     */
     @RequestMapping(
             produces = MediaType.TEXT_HTML_VALUE,
             method = RequestMethod.GET)
     public String loginView(HttpServletRequest request, Model model);
 
+    /*
+     * Content: HTML
+     * Description: Obtener vista de error de validación del usuario
+     */
     @RequestMapping(value = "/failure",
             produces = MediaType.TEXT_HTML_VALUE,
             method = RequestMethod.GET)

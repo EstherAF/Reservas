@@ -23,7 +23,7 @@ public interface ResourceBusiness {
     public List<Resource> readAll();
     
     @Transactional(readOnly = true)
-    public Resource read(Integer id);
+    public Resource read(Integer id) throws UnknownResourceException;
     
     @Transactional(readOnly = true)
     public Resource readByName(String name);

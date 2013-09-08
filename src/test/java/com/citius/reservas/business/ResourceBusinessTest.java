@@ -1,5 +1,6 @@
 package com.citius.reservas.business;
 
+import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.Resource;
 import com.citius.reservas.models.ResourceGroup;
 import com.citius.reservas.repositories.ResourceGroupRepository;
@@ -67,7 +68,7 @@ public class ResourceBusinessTest{
     }
 
     @Test
-    public void testRead() {
+    public void testRead() throws UnknownResourceException {
         Resource r = rb.read(res1.getId());
         
         assertNotNull(r);
@@ -109,7 +110,7 @@ public class ResourceBusinessTest{
     }
 
     @Test
-    public void testDelete() {
+    public void testDelete() throws UnknownResourceException {
         assertNotNull(rr.find(this.res1.getId()));
         
         rb.delete(this.res1.getId());

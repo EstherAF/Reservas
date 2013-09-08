@@ -23,7 +23,7 @@ public interface InvitationBusiness {
     
     public Invitation changeStateInvitation(Integer reservationId, String guestUniqueName, InvitationState state) throws UnknownResourceException;
     
-    public Invitation createOrSaveInvitation(Invitation invitation);
+    public Invitation createOrSaveInvitation(Invitation invitation) throws UnknownResourceException;
     
     public List<Invitation> findByGuestAndState(String uniqueName, InvitationState state);
     

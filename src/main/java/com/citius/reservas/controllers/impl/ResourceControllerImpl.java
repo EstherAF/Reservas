@@ -47,7 +47,7 @@ public class ResourceControllerImpl implements ResourceController {
     }
 
     @Override
-    public Resource read(Integer id) {
+    public Resource read(Integer id) throws UnknownResourceException{
         Resource r = rb.read(id);
         logger.debug("Read " + id + ": " + r);
         return r;

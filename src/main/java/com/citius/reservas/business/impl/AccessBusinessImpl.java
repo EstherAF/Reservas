@@ -9,6 +9,7 @@ import com.citius.reservas.repositories.LdapRepository;
 import com.citius.reservas.repositories.UserRepository;
 import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.controllers.controllerModel.LoginStatus;
+import com.citius.reservas.exceptions.UnknownResourceException;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,9 +152,10 @@ public class AccessBusinessImpl implements AccessBusiness {
     }
 
     @Override
-    public User findUserFromDB(String uniqueName) {
+    public User findUserFromDB(String uniqueName) throws UnknownResourceException {
         User user = this.userRepository.findByUniqueName(uniqueName);
-        //this.userRepository.detach(user);
+        if(user==null)
+            throw new UnknownResourceException();
                 
         return user;
     }

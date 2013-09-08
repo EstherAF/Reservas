@@ -40,17 +40,21 @@ public class ResourceBusinessImpl implements ResourceBusiness {
     }
 
     @Override
-    public Resource read(Integer id) {
-        return resourceRepository.find(id);
+    public Resource read(Integer id) throws UnknownResourceException{
+        Resource resource = resourceRepository.find(id);
+        if(resource==null)
+            throw new UnknownResourceException();
+        
+        return resource;
     }
     
     @Override
     public Resource createOrSave(Resource resource){
         
         //Check group
-        if(resource.getGroup()==null)
-            resource.setGroup(resourceGroupBusiness.readByName("default"));
+        String name = (resource.getGroup()==null)? "default" : resource.getGroup().getName();
         
+        resource.setGroup(resourceGroupBusiness.readByName(name));
         resource = resourceRepository.save(resource);
         
         ResourceGroup group = resource.getGroup();
