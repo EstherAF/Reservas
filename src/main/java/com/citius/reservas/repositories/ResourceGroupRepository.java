@@ -12,6 +12,11 @@ import com.citius.reservas.models.ResourceGroup;
  */
 public interface ResourceGroupRepository extends GenericRepository<ResourceGroup>{
     
+    /**
+     *
+     * @param name
+     * @return
+     */
     public ResourceGroup findByName(String name);
     
 }

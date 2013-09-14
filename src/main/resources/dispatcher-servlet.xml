@@ -23,6 +23,11 @@
             type="annotation"/>
     </context:component-scan>
     
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+            <property name="defaultContentType" value="text/html"/>
+    </bean>
+    
     <!--Habilitar anotaciones-->
     <s:global-method-security secured-annotations="enabled" />
     <tx:annotation-driven />

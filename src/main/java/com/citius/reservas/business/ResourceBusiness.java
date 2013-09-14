@@ -19,19 +19,57 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ResourceBusiness {
     
     /* Lista ordenada de recursos (finales y grupos)*/
+    /**
+     *
+     * @return
+     */
     @Transactional(readOnly = true)
     public List<Resource> readAll();
     
+    /**
+     *
+     * @param id
+     * @return
+     * @throws UnknownResourceException
+     */
     @Transactional(readOnly = true)
     public Resource read(Integer id) throws UnknownResourceException;
     
+    /**
+     *
+     * @param name
+     * @return
+     */
     @Transactional(readOnly = true)
     public Resource readByName(String name);
     
+    /**
+     *
+     * @param groupId
+     * @param start
+     * @param end
+     * @return
+     */
     @Transactional(readOnly=true)
     public List<Resource> readAvaliableByGroupBetweenDates(Integer groupId, Date start, Date end);
     
+    /**
+     *
+     * @param resource
+     * @param quantity
+     * @return
+     */
     public List<Resource> create(Resource resource, Integer quantity);
+    /**
+     *
+     * @param resource
+     * @return
+     */
     public Resource createOrSave(Resource resource);
+    /**
+     *
+     * @param id
+     * @throws UnknownResourceException
+     */
     public void delete(Integer id) throws UnknownResourceException;
 }

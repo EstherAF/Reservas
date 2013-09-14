@@ -15,9 +15,30 @@ import java.util.Set;
  */
 public interface ResourceRepository extends GenericRepository<Resource>{
     
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Resource findByName(String name);
+    /**
+     *
+     * @param group_name
+     * @return
+     */
     public List<Resource> findByGroup(String group_name);
+    /**
+     *
+     * @return
+     */
     public List<Resource> findWithoutGroup();
+    /**
+     *
+     * @param groupId
+     * @param start
+     * @param end
+     * @return
+     */
     public List<Resource> findAvaliableByGroupDates(Integer groupId, Date start, Date end);
     
 }

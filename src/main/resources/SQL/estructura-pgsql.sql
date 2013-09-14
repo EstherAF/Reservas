@@ -1,10 +1,10 @@
 DROP SCHEMA IF EXISTS reservas CASCADE;
-DROP DATABASE IF EXISTS reservas;
-DROP ROLE IF EXISTS admin;
+--DROP DATABASE IF EXISTS reservas;
+--DROP ROLE IF EXISTS admin;
 
-CREATE ROLE admin LOGIN PASSWORD 'adminpassword' VALID UNTIL 'infinity';
-CREATE DATABASE reservas WITH ENCODING='UTF8' OWNER=admin CONNECTION LIMIT=-1;
-CREATE SCHEMA "reservas" AUTHORIZATION admin;
+--CREATE USER admin PASSWORD 'adminpassword';
+--CREATE DATABASE reservas WITH ENCODING='UTF8' OWNER=admin CONNECTION LIMIT=-1;
+CREATE SCHEMA reservas AUTHORIZATION admin;
 
 -- CREATE TABLE reservas.roles (
 -- 	name VARCHAR(50), 
@@ -16,7 +16,7 @@ CREATE TABLE reservas.users (
 	full_name VARCHAR(150) NOT NULL, 
 	email VARCHAR(100) NOT NULL,
         --role VARCHAR(50) NOT NULL DEFAULT 1,
-	PRIMARY KEY(unique_name),
+	PRIMARY KEY(unique_name)
 --         FOREIGN KEY (role) references reservas.roles(name)
 --             ON UPDATE CASCADE
 );
@@ -102,7 +102,7 @@ CREATE TABLE reservas.reserved_resources (
 	PRIMARY KEY (resource_id, reservation_id),
 	FOREIGN KEY (resource_id) references reservas.resources (id)
             ON DELETE CASCADE 
-            UPDATE CASCADE,
+            ON UPDATE CASCADE,
 	FOREIGN KEY (reservation_id) references reservas.reservations (id)
             ON DELETE CASCADE 
             ON UPDATE CASCADE 
@@ -133,21 +133,5 @@ CREATE TABLE reservas.invitations (
 -- FOR EACH ROW 
 --	SET NEW.end_date = IF(ISNULL(NEW.end_date), NEW.start_date, NEW.end_date);
 
-
-
-
-
-INSERT INTO reservas.roles (name) VALUES ('tic');
-INSERT INTO reservas.roles (name) VALUES ('user');
-
-INSERT INTO reservas."users" (unique_name, full_name, email, role) VALUES ('admin', 'Todopoderoso', 'admin@gmail.com', 'tic');
-INSERT INTO reservas."users" (unique_name, full_name, email, role) VALUES ('perico', 'Perico Palotes', 'periquito@gmail.com', 'user');
-
 -- Recursos de ejemplo:
 INSERT INTO reservas.resources_groups (name) VALUES ('default');
-INSERT INTO reservas.resources_groups (name, description) VALUES ('videoconferencia', 'salas con videoconferencia');
-
-INSERT INTO reservas.resources (description, name) VALUES ('recurso ejemplo', 'recurso');
-INSERT INTO reservas.resources (description, name) VALUES ('recurso ejemplo 2', 'recurso2');
-INSERT INTO reservas.resources (description, group_id, name) VALUES ('sala de videoconferencia 1', '2', 'sala#01');
-INSERT INTO reservas.resources (description, group_id, name) VALUES ('sala de videoconferencia 2', '2', 'sala#02');

@@ -49,8 +49,14 @@ public interface AccessController {
     @ResponseBody
     public LoginStatus getStatus();
     
-    
-    @RequestMapping(value = {"/",""},
+
+    /*
+     * Content: JSON
+     * @return HttpSessionRequiredException parseada al formato solicitado (JSON o Vista de Login)
+     * @throws HttpSessionRequiredException
+     * @see LoginStatus
+     */
+    @RequestMapping(value = {"/timeout"},
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.GET)
     @ResponseBody

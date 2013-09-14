@@ -15,8 +15,20 @@ import org.springframework.stereotype.Repository;
  */
 public interface InvitationRepository extends GenericRepository<Invitation>{
     
+    /**
+     *
+     * @param uniqueName
+     * @param state
+     * @return
+     */
     public List<Invitation> findByGuestAndState(String uniqueName, InvitationState state);
     
+    /**
+     *
+     * @param reservationId
+     * @param guestUniqueName
+     * @return
+     */
     public Invitation find(Integer reservationId, String guestUniqueName);
     
 }

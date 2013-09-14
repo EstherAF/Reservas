@@ -13,9 +13,24 @@ import java.util.List;
  */
 public interface UserRepository extends GenericRepository<User> {
 
+    /**
+     *
+     * @param uniqueName
+     * @return
+     */
     User findByUniqueName(String uniqueName);
     
+    /**
+     *
+     * @param fullName
+     * @return
+     */
     List<User> findByFullName(String fullName);
 
+    /**
+     *
+     * @param email
+     * @return
+     */
     List<User> findByEmail(String email);
 }
