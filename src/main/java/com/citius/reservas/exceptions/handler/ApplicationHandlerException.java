@@ -8,7 +8,6 @@ import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.controllers.controllerModel.LoginStatus;
 import com.citius.reservas.exceptions.*;
 import com.citius.reservas.exceptions.handler.errorResolver.*;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -147,11 +146,13 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
         else
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         
-        if (acceptedMediaTypes.contains(MediaType.APPLICATION_JSON)) {
-            return this.generateJsonView(error);
-        } else {
+        if (acceptedMediaTypes.contains(MediaType.TEXT_HTML)) {
             return this.generateJspView(error, request);
+        } else {
+            return this.generateJsonView(error);
         }
+        
+        
     }
 
     private ModelAndView generateJsonView(Object error) {
