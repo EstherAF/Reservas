@@ -16,6 +16,7 @@ import com.citius.reservas.repositories.ResourceRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.LinkedHashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,17 +50,28 @@ public class ResourceBusinessImpl implements ResourceBusiness {
     }
     
     @Override
-    public Resource createOrSave(Resource resource){
+    public Resource createOrSave(Resource resource) throws UnknownResourceException{
         
         //Check group
         String name = (resource.getGroup()==null)? "default" : resource.getGroup().getName();
         
-        resource.setGroup(resourceGroupBusiness.readByName(name));
-        resource = resourceRepository.save(resource);
-        
+        if(name!=null){
+            resource.setGroup(resourceGroupBusiness.readByName(name));
+        }else{
+            Integer id = resource.getGroup().getId();
+            resource.setGroup(resourceGroupBusiness.read(id));
+        }
+
+        resource = resourceRepository.save(resource);        
         ResourceGroup group = resource.getGroup();
         
-        if(! group.getResources().contains(resource)){
+        if(group==null)
+            throw new UnknownResourceException("Group "+name+" can't be found");
+
+        if(group.getResources()==null)
+            group.setResources(new LinkedHashSet<Resource>());
+        
+        if(!group.getResources().contains(resource)){
             group.getResources().add(resource);
             resourceGroupBusiness.save(group);
         }
@@ -68,7 +80,7 @@ public class ResourceBusinessImpl implements ResourceBusiness {
     }
     
     @Override
-    public List<Resource> create(Resource resource, Integer quantity){
+    public List<Resource> create(Resource resource, Integer quantity) throws UnknownResourceException{
         
         List<Resource> resources= new ArrayList<>();
         Resource iterator = new Resource(resource);

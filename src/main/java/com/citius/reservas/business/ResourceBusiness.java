@@ -59,13 +59,13 @@ public interface ResourceBusiness {
      * @param quantity
      * @return
      */
-    public List<Resource> create(Resource resource, Integer quantity);
+    public List<Resource> create(Resource resource, Integer quantity) throws UnknownResourceException;
     /**
      *
      * @param resource
      * @return
      */
-    public Resource createOrSave(Resource resource);
+    public Resource createOrSave(Resource resource) throws UnknownResourceException;
     /**
      *
      * @param id
