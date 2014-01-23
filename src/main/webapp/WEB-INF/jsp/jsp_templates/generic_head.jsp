@@ -70,8 +70,12 @@
     var loggedUniqueName = '';
 
     <c:if test="${pageContext['request'].userPrincipal != null}">
-    loggedUniqueName = '<sec:authentication property="principal.username" />';
+        <c:set var="username">
+            <sec:authentication property="principal.username" /> 
+        </c:set>
+        loggedUniqueName = '<c:out value="${username}" />';
     </c:if>
+
     $(function() {
         <c:if test="${error != null}">
             var modal = new Modal(Modal.type.fail, "${error.message}", "${error.status}-${error.code}-${error.developerMessage}");
