@@ -76,7 +76,7 @@ public class ResourceBusinessTest{
     }
 
     @Test
-    public void testCreate() {
+    public void testCreate() throws UnknownResourceException{
         Resource r = new Resource("nuevo", def);
         Integer quantity = 4;
         List<Resource> created = rb.create(r, quantity);
@@ -93,7 +93,7 @@ public class ResourceBusinessTest{
     }
 
     @Test
-    public void testCreateOrSave() {
+    public void testCreateOrSave() throws UnknownResourceException{
         Resource r = new Resource("nuevo2", def);
         Resource created = rb.createOrSave(r);
         
