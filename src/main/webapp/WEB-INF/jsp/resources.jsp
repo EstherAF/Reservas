@@ -45,7 +45,7 @@
                             <s:message code="resources.form.add.label"/>
                         </h1>
                     </header>
-                    <form name="new_resource" action="/Reservas/j_spring_security_check" method="POST">
+                    <form name="new_resource" method="POST">
                         <div id="type_selector">
                             <label for="is_group"><s:message code="resources.form.type.label"/></label>
                             <p class="radio">
