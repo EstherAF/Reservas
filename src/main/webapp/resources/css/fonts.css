@@ -28,7 +28,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-untitled, .icon-in, .icon-paperclip, .icon-cancel-circle, .icon-x, .icon-close, .icon-checkmark-circle, .icon-checkmark, .icon-plus, .icon-plus-2, .icon-plus-3, .icon-plus-4, .icon-minus, .icon-calendar, .icon-user, .icon-notice, .icon-notice-2, .icon-envelope, .icon-arrow-left, .icon-arrow-right, .icon-caret-right, .icon-caret-left, .icon-clock, .icon-remove, .icon-double-angle-left, .icon-double-angle-right, .icon-reply, .icon-forward, .icon-undo, .icon-redo, .icon-arrow-left-2, .icon-arrow-right-2, .icon-arrow-left-3, .icon-untitled-2 {
+.icon-untitled, .icon-untitled-2, .icon-in, .icon-paperclip, .icon-cancel-circle, .icon-x, .icon-close, .icon-checkmark-circle, .icon-checkmark, .icon-plus, .icon-plus-2, .icon-plus-3, .icon-plus-4, .icon-minus, .icon-calendar, .icon-user, .icon-notice, .icon-notice-2, .icon-envelope, .icon-arrow-left, .icon-arrow-right, .icon-caret-right, .icon-caret-left, .icon-clock, .icon-remove, .icon-double-angle-left, .icon-double-angle-right, .icon-reply, .icon-forward, .icon-undo, .icon-redo, .icon-arrow-left-2, .icon-arrow-right-2, .icon-arrow-left-3, .icon-untitled-3, .icon-disk, .icon-save {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -39,6 +39,9 @@ you can use the generic selector below, but it's slower:
 	-webkit-font-smoothing: antialiased;
 }
 .icon-untitled:before {
+	content: "\f001";
+}
+.icon-untitled-2:before {
 	content: "\f000";
 }
 .icon-in:before {
@@ -137,6 +140,12 @@ you can use the generic selector below, but it's slower:
 .icon-arrow-left-3:before {
 	content: "\e01b";
 }
-.icon-untitled-2:before {
+.icon-untitled-3:before {
 	content: "\e01c";
+}
+.icon-disk:before {
+	content: "\e01d";
+}
+.icon-save:before {
+	content: "\f0c7";
 }

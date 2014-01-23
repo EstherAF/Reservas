@@ -38,6 +38,16 @@
           color: white;
           margin-left: 5px;
           margin-right: 0; }
+
+      #reservation_nav nav a.reservas_btn.save, #reservation_nav a.reservas_btn.save {
+        background-color: ##6B6; }
+        #reservation_nav nav a.reservas_btn.save:hover, #reservation_nav a.reservas_btn.save:hover {
+          background-color: #333333; }
+        #reservation_nav nav a.reservas_btn.save span[class|=icon], #reservation_nav a.reservas_btn.save span[class|=icon] {
+          color: white;
+          margin-left: 5px;
+          margin-right: 0; }
+
       #reservation_nav nav a.reservas_btn.return span[class|=icon], #reservation_nav a.reservas_btn.return span[class|=icon] {
         color: white;
         margin-left: 0px;
