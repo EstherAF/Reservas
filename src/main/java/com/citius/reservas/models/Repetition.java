@@ -21,6 +21,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
@@ -49,38 +50,10 @@ public class Repetition implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
     
-    @ElementCollection(targetClass = DayOfWeek.class, fetch = FetchType.EAGER)
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "week_day", table = "reservation_weekdays", insertable = true, updatable = true)
-//    @JoinTable(
-//        name = "reservation_weekdays",
-//        joinColumns = @JoinColumn(name = "reservation_id", referencedColumnName = "id")
-//    ) 
-    @CollectionTable(
-            name = "reservation_weekdays",
-            joinColumns =
-            @JoinColumn(name = "reservation_id", referencedColumnName = "id"))
+    @Transient
     private Collection<DayOfWeek> weekDays;
     
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @CollectionTable(name = "reservation_weekdays", 
-//            joinColumns = @JoinColumn(name = "reservation_id"))
-//    @ElementCollection(fetch = FetchType.EAGER, targetClass = DayOfWeekWrapper.class)
-//    @JoinTable(name = "reservation_weekdays", joinColumns = @Join)
-//    @JoinColumn(name = "reservation_id")
-//    private Collection<DayOfWeekWrapper> weekDays;
-    
-    
-//        @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "reserved_resources",
-//            joinColumns = {
-//                @JoinColumn(name = "reservation_id")},
-//            inverseJoinColumns = {
-//                @JoinColumn(name = "resource_id")})
-//    private Set<Resource> resources;
 
-//    private int monthlyRelativeWeek;
     public Repetition() {
     }
 
