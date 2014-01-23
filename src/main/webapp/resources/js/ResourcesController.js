@@ -134,9 +134,9 @@ var resourcesView = function(resources) {
             Resource.createResource(resource,
                     function(response) {
                         for(var i=0; i<response.length; i++){
-                            response[0].group = new Object();
-                            response[0].group.id = resource.group.id;
-                            self.resTree.addResourceNode(response[0]);
+                            response[i].group = new Object();
+                            response[i].group.id = resource.group.id;
+                            self.resTree.addResourceNode(response[i]);
                         }
                         Notifications.showMessage("create_resource_ok");
                     },ajaxError);
