@@ -6,10 +6,13 @@ import com.citius.reservas.exceptions.InputRequestValidationException;
 import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.ResourceGroup;
 import java.util.List;
+import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class ResourcesGroupsControllerImpl implements ResourcesGroupsController {
@@ -24,12 +27,13 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
     }
 
     @Override
-    public ResourceGroup read(Integer id) throws UnknownResourceException{
+    public ResourceGroup read(@PathVariable(value = "id") Integer id) throws UnknownResourceException{
         return rgs.read(id);
     }
 
     @Override
-    public ResourceGroup create(ResourceGroup resourceGroup, BindingResult result) throws InputRequestValidationException {
+    public ResourceGroup create(@Valid @RequestBody ResourceGroup resourceGroup,
+            BindingResult result) throws InputRequestValidationException {
         if (!result.getAllErrors().isEmpty()) {
             throw new InputRequestValidationException(result.getAllErrors());
         }
@@ -38,7 +42,9 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
     }
 
     @Override
-    public ResourceGroup update(ResourceGroup resourceGroup, BindingResult result) throws InputRequestValidationException {
+    public ResourceGroup update(@Valid @RequestBody ResourceGroup resourceGroup,
+            BindingResult result) throws InputRequestValidationException {
+        
         if (!result.getAllErrors().isEmpty()) {
             throw new InputRequestValidationException(result.getAllErrors());
         }
@@ -48,7 +54,8 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
     }
 
     @Override
-    public Boolean deleteOnlyGroup(Integer id) throws UnknownResourceException{
+    public Boolean deleteOnlyGroup(@PathVariable(value = "id") Integer id) 
+            throws UnknownResourceException{
         rgs.delete(id);
         logger.debug("Delete only group" + id);
         return true;
@@ -56,7 +63,8 @@ public class ResourcesGroupsControllerImpl implements ResourcesGroupsController 
     }
 
     @Override
-    public Boolean delete(Integer id) throws UnknownResourceException{
+    public Boolean delete(@PathVariable(value = "id") Integer id) 
+            throws UnknownResourceException{
         rgs.deleteWithResources(id);
         logger.debug("Delete grup with childs" + id);
         return true;

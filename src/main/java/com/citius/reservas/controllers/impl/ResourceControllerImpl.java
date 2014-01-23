@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 @Controller
@@ -36,7 +39,7 @@ public class ResourceControllerImpl implements ResourceController {
     private ResourceValidator validator;
     private static final Logger logger = Logger.getLogger(ResourceControllerImpl.class);
 
-       /**
+    /**
      * ****************** JSON ************************
      */
     @Override
@@ -47,17 +50,20 @@ public class ResourceControllerImpl implements ResourceController {
     }
 
     @Override
-    public Resource read(Integer id) throws UnknownResourceException{
+    public Resource read(@PathVariable(value = "id") Integer id)
+            throws UnknownResourceException {
         Resource r = rb.read(id);
         logger.debug("Read " + id + ": " + r);
         return r;
     }
 
     @Override
-    public List<Resource> create(ResourceCustom resourceCustom, BindingResult result)
-            throws InputRequestValidationException, UnknownResourceException{
-        validator.validate(resourceCustom, result);
+    public List<Resource> create(@Valid @RequestBody ResourceCustom resourceCustom, 
+            BindingResult result)
+            throws InputRequestValidationException, UnknownResourceException {
         
+        validator.validate(resourceCustom, result);
+
         if (!result.getAllErrors().isEmpty()) {
             throw new InputRequestValidationException(result.getAllErrors());
         }
@@ -76,21 +82,24 @@ public class ResourceControllerImpl implements ResourceController {
     }
 
     @Override
-    public Resource update(Resource resource, BindingResult result) 
-            throws InputRequestValidationException, UnknownResourceException{
-        validator.validate(resource, result);
+    public Resource update(@Valid @RequestBody Resource resource, BindingResult result)
+            throws InputRequestValidationException, UnknownResourceException {
         
+        validator.validate(resource, result);
+
         if (!result.getAllErrors().isEmpty()) {
             throw new InputRequestValidationException(result.getAllErrors());
         }
-        
+
         Resource r = rb.createOrSave(resource);
         logger.debug("Save: " + r);
         return r;
     }
 
     @Override
-    public Boolean delete(Integer id) throws UnknownResourceException{
+    public Boolean delete(@PathVariable(value = "id") Integer id) 
+            throws UnknownResourceException {
+        
         rb.delete(id);
         logger.debug("Delete " + id);
         return true;
@@ -116,7 +125,9 @@ public class ResourceControllerImpl implements ResourceController {
     }
 
     @Override
-    public String resourcesMonth(Model model, Integer year, Integer month) {
+    public String resourcesMonth(Model model, @PathVariable(value = "year") Integer year, 
+            @PathVariable(value = "month") Integer month) {
+        
         model.addAttribute("year", year);
         model.addAttribute("month", month);
 
@@ -133,9 +144,11 @@ public class ResourceControllerImpl implements ResourceController {
 
         return "redirect:" + url;
     }
-    
+
     @Override
-    public String resourcesWeek(Model model, Integer year, Integer week) {
+    public String resourcesWeek(Model model, @PathVariable(value = "year") Integer year, 
+            @PathVariable(value = "week") Integer week) {
+        
         model.addAttribute("year", year);
         model.addAttribute("week", week);
         model.addAttribute("view", "agendaWeek");
@@ -157,7 +170,6 @@ public class ResourceControllerImpl implements ResourceController {
         model.addAttribute("resourcesJson", json);
         return "resources";
     }
-
 //    @Override
 //    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException {
 //        throw new NoSuchRequestHandlingMethodException(request);

@@ -12,13 +12,13 @@ import com.citius.reservas.exceptions.UnknownResourceException;
 import com.citius.reservas.models.Invitation;
 import com.citius.reservas.models.InvitationState;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
@@ -40,13 +40,16 @@ public class InvitationControllerImpl implements InvitationController {
 
     //Role Admin
     @Override
-    public List<Invitation> readPendingInvitations(String guestUniqueName) {
+    public List<Invitation> readPendingInvitations(
+            @PathVariable(value = "uniqueName") String guestUniqueName) {
+        
         return ib.getPendingInvitationsByGuest(guestUniqueName);
 
     }
 
     @Override
-    public Invitation createInvitation(Invitation invitation, BindingResult result)
+    public Invitation createInvitation(@Valid @RequestBody Invitation invitation,
+            BindingResult result)
             throws InputRequestValidationException, UnknownResourceException {
 
         String uniqueName = access.getUniqueNameOfLoggedUser();
@@ -65,22 +68,27 @@ public class InvitationControllerImpl implements InvitationController {
 
     //Admin
     @Override
-    public Invitation changeStateInvitation(Integer reservationId, String guestUniqueName, InvitationState state)
+    public Invitation changeStateInvitation(
+            @PathVariable(value = "reservationId") Integer reservationId,
+            @PathVariable(value = "uniqueName") String guestUniqueName,
+            @PathVariable(value = "state") InvitationState state)
             throws UnknownResourceException {
+
         Invitation invitation = ib.changeStateInvitation(reservationId, guestUniqueName, state);
         return invitation;
     }
 
     @Override
-    public Invitation changeStateInvitation(Integer reservationId, InvitationState state)
+    public Invitation changeStateInvitation(@PathVariable(value = "reservationId") Integer reservationId,
+            @PathVariable(value = "state") InvitationState state)
             throws UnknownResourceException {
+        
         String uniqueName = access.getUniqueNameOfLoggedUser();
 
         Invitation invitation = ib.changeStateInvitation(reservationId, uniqueName, state);
 
         return invitation;
     }
-
 //    @Override
 //    public String mismatch(HttpServletRequest request, Model model) throws NoSuchRequestHandlingMethodException {
 //        throw new NoSuchRequestHandlingMethodException(request);

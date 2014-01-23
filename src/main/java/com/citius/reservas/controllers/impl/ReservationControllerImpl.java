@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class ReservationControllerImpl implements ReservationController {
@@ -55,12 +58,18 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public List<ReservationInstance> readAllMonth(Integer year, Integer month, Integer id) {
+    public List<ReservationInstance> readAllMonth(
+            @PathVariable(value = "year") Integer year,
+            @PathVariable(value = "month") Integer month,
+            @PathVariable(value = "id") Integer id) {
         return rb.readByMonthByResource(id, month, year);
     }
 
     @Override
-    public List<ReservationInstance> readAllWeek(Integer year, Integer week, Integer id) {
+    public List<ReservationInstance> readAllWeek(
+            @PathVariable(value = "year") Integer year,
+            @PathVariable(value = "week") Integer week,
+            @PathVariable(value = "id") Integer id) {
         Calendar c = Calendar.getInstance();
         c.set(year, 0, 0, 0, 0, 0);
         c.set(Calendar.WEEK_OF_YEAR, week);
@@ -68,23 +77,27 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public List<ReservationInstance> readAll(Integer year, Integer month) {
+    public List<ReservationInstance> readAll(
+            @PathVariable(value = "year") Integer year,
+            @PathVariable(value = "month") Integer month) {
         return rb.readByMonth(month, year);
     }
 
     @Override
-    public Reservation read(Integer id) throws UnknownResourceException{
+    public Reservation read(@PathVariable(value = "id") Integer id) throws UnknownResourceException {
         return rb.read(id);
     }
 
     @Override
-    public List<ReservationInstance> readAllByLoggedUser(Integer year, Integer month) {
+    public List<ReservationInstance> readAllByLoggedUser(
+            @PathVariable(value = "year") Integer year,
+            @PathVariable(value = "month") Integer month) {
         String uniqueName = access.getUniqueNameOfLoggedUser();
         return rb.readByMonthByUser(uniqueName, month - 1, year);
     }
 
     @Override
-    public Reservation create(ReservationCustom r, BindingResult result)
+    public Reservation create(@Valid @RequestBody ReservationCustom r, BindingResult result)
             throws NotAvaliableException, NotPossibleInstancesException,
             InputRequestValidationException, UnknownResourceException {
 
@@ -104,7 +117,7 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public Reservation update(ReservationCustom r, BindingResult result)
+    public Reservation update(@Valid @RequestBody ReservationCustom r, BindingResult result)
             throws NotAvaliableException, NotPossibleInstancesException,
             InputRequestValidationException, UnknownResourceException {
 
@@ -121,7 +134,7 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public Boolean delete(Integer id) throws AccessDeniedException, UnknownResourceException {
+    public Boolean delete(@PathVariable(value = "id") Integer id) throws AccessDeniedException, UnknownResourceException {
         String uniqueName = access.getUniqueNameOfLoggedUser();
 
         if (!rb.canEdit(id, uniqueName)) {
@@ -167,7 +180,9 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public String monthlyReservation(Model model, Integer year, Integer month) {
+    public String monthlyReservation(Model model, 
+            @PathVariable(value = "year") Integer year,
+            @PathVariable(value = "month") Integer month) {
         model.addAttribute("year", year);
         model.addAttribute("month", month);
         return "monthly_reservations";
@@ -175,7 +190,8 @@ public class ReservationControllerImpl implements ReservationController {
 
     @Override
     public String weeklyReservationView(Model model, HttpServletRequest request,
-            Integer year, Integer week) {
+            @PathVariable(value = "year") Integer year,
+            @PathVariable(value = "week") Integer week) {
 
         //String uniqueName = ab.getLoggedUser();
         this.logger.debug("Year:" + year + ". Week:" + week);
@@ -189,7 +205,6 @@ public class ReservationControllerImpl implements ReservationController {
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
-
 
         c.setMinimalDaysInFirstWeek(1);
         c.set(Calendar.YEAR, year);
@@ -250,8 +265,10 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public String createReservationView(Model model, Integer year, Integer month,
-            Integer day) throws IOException {
+    public String createReservationView(Model model, 
+            @PathVariable(value = "year") Integer year,
+            @PathVariable(value = "month") Integer month,
+            @PathVariable(value = "day") Integer day) throws IOException {
 
         Calendar now = Calendar.getInstance();
         Integer yearNow = now.get(Calendar.YEAR);
@@ -271,7 +288,8 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public String updateReservationView(Model model, Integer id) 
+    public String updateReservationView(Model model, 
+            @PathVariable(value = "id") Integer id)
             throws IOException, UnknownResourceException, AccessDeniedException {
         String uniqueName = access.getUniqueNameOfLoggedUser();
 
@@ -290,17 +308,18 @@ public class ReservationControllerImpl implements ReservationController {
     }
 
     @Override
-    public String viewReservation(Model model, Integer id) throws UnknownResourceException{
+    public String viewReservation(Model model, 
+        @PathVariable(value = "id") Integer id) throws UnknownResourceException {
         Reservation reservation = rb.read(id);
         if (reservation != null) {
             String uniqueName = access.getUniqueNameOfLoggedUser();
             Boolean canEdit = (access.isAdmin() || rb.isOwner(id, uniqueName));
-            
-            model.addAttribute("canEdit",canEdit);
-            
-            String invitation="";
-            for(Invitation inv:reservation.getInvitations()){
-                if(inv.getGuest().getUniqueName().equals(uniqueName)){
+
+            model.addAttribute("canEdit", canEdit);
+
+            String invitation = "";
+            for (Invitation inv : reservation.getInvitations()) {
+                if (inv.getGuest().getUniqueName().equals(uniqueName)) {
                     model.addAttribute("invitation", inv.getState().toString());
                     break;
                 }
