@@ -19,7 +19,8 @@ ResourcePopUp.buildResourceDialog = function(selected) {
     }
     if (type === 'group_popup') {
         //Create selector
-        var max_number = selected.children.length;
+//        var max_number = selected.find('li').length;
+        var max_number = $('#resourcesTree li#'+id + ' li').length;
         var selector = $("<select></select>").attr({
             "id": id,
             "class": "resource_group_selector"
@@ -54,7 +55,7 @@ ResourcePopUp.buildGroupDialog = function(selected) {
     var id = selected.attr('id');
     var description = selected.attr('description');
     var name = selected.attr('name');
-    var max_number = selected.children.length;
+    var max_number = selected.find('li').length;
 
     //Create selector
     var selector = $("<select></select>").attr({
