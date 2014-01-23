@@ -4,6 +4,13 @@ var ReservationController = function(users, resources, precheckedResources) {
             ReservedResource.fromResourceList(precheckedResources) : [];
 
     this.guests = [];
+    
+/*    for(var i=0; i<resources.length; i++){
+        var resource = resources[i];
+        if(resource.resources && resource.resources.length===0)
+            delete resources[i];
+    }*/
+    
     this.resourceTree = new ResourceTree(resources, 'checkbox', this.resources);
 
     this.autoComplete = new Autocomplete(users,
