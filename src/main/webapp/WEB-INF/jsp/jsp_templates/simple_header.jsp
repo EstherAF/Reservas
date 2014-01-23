@@ -9,7 +9,7 @@
         <ul>
             <li><a href="?lang=en">en</a></li>
             <li><a href="?lang=es">es</a></li>
-            <li><a href="?lang=gl">ga</a></li>
+            <li><a href="?lang=gl">gl</a></li>
         </ul>
 
         <sec:authorize access="isFullyAuthenticated()">
