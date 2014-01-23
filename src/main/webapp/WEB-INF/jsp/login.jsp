@@ -29,7 +29,7 @@
             <jsp:include page="/WEB-INF/jsp/jsp_templates/simple_header.jsp" flush="true"/>
             <div id="main_body">
                 <section id="login">
-                    <form name="f" action="/Reservas/j_spring_security_check" method="POST">
+                    <form name="f" action="<c:url value="/j_spring_security_check" />" method="POST">
                         <fieldset>
                             <legend><s:message code="login.form.title"/></legend>
                             <p>
