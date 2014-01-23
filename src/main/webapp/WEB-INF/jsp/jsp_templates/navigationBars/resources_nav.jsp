@@ -18,10 +18,11 @@
                     </a>
                 </li>
                 
-                <li><a href="#" class="reservas_btn" name="submit" type="button"
+                <li><a href="#" class="reservas_btn save" name="submit" type="button"
                        create="<s:message code="resources.form.create"/>" 
                        update="<s:message code="resources.form.update"/>">
                         <s:message code="resources.form.create"/>
+                        <span class="icon-disk"></span>
                     </a></li>
                 
             </ul>
