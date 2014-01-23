@@ -35,6 +35,20 @@
                     margin-right: 0;
                 }
             }
+
+            &.save{
+                background-color:$green_ok;
+                
+                &:hover{
+                    background-color:$black;
+                }
+                
+                span[class|=icon]{                
+                    color:$white;
+                    margin-left:5px;
+                    margin-right: 0;
+                }
+            }
             
             &.return{
                 span[class|=icon]{                
