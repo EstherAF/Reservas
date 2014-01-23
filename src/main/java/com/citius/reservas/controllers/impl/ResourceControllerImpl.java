@@ -55,7 +55,7 @@ public class ResourceControllerImpl implements ResourceController {
 
     @Override
     public List<Resource> create(ResourceCustom resourceCustom, BindingResult result)
-            throws InputRequestValidationException{
+            throws InputRequestValidationException, UnknownResourceException{
         validator.validate(resourceCustom, result);
         
         if (!result.getAllErrors().isEmpty()) {
@@ -77,7 +77,7 @@ public class ResourceControllerImpl implements ResourceController {
 
     @Override
     public Resource update(Resource resource, BindingResult result) 
-            throws InputRequestValidationException{
+            throws InputRequestValidationException, UnknownResourceException{
         validator.validate(resource, result);
         
         if (!result.getAllErrors().isEmpty()) {

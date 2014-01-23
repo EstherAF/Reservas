@@ -66,7 +66,7 @@ public interface ResourceController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Resource> create(@Valid @RequestBody ResourceCustom resourceCustom,
-            BindingResult result) throws InputRequestValidationException;
+            BindingResult result) throws InputRequestValidationException, UnknownResourceException;
 
     /*
      * Content: JSON
@@ -85,7 +85,7 @@ public interface ResourceController {
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Resource update(@Valid @RequestBody Resource resource,
-            BindingResult result) throws InputRequestValidationException;
+            BindingResult result) throws InputRequestValidationException, UnknownResourceException;
     /*
      * Content: JSON
      * Description: Elimina un recurso del sistema y de las reservas. Si alguna reserva queda sin recursos se elimina también.
