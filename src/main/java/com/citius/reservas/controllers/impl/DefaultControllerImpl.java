@@ -4,6 +4,7 @@
  */
 package com.citius.reservas.controllers.impl;
 
+import com.citius.reservas.business.AccessBusiness;
 import com.citius.reservas.controllers.DefaultController;
 import com.citius.reservas.exceptions.UnknownResourceException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,21 +24,11 @@ public class DefaultControllerImpl implements DefaultController{
     @Override
     public String index(Model model) {
         return "redirect:/reservations/";
-    }
-
-//    @Override
-//    public String unmappedHTMLRequest(HttpServletRequest request) throws UnknownResourceException {
-//        throw new UnknownResourceException("There is no resource HTML for path for "+request.getRequestURI());
-//    }
-//
-//    @Override
-//    public String unmappedJSONRequest(HttpServletRequest request) throws UnknownResourceException {
-//        throw new UnknownResourceException("There is no resource JSON for path for "+request.getRequestURI());
-//    }
+        }
 
     @Override
     public void errorView(HttpServletRequest request) throws UnknownResourceException{
-        throw new UnknownResourceException("There is no resource JSON for path for "+request.getRequestURI());
+        throw new UnknownResourceException("There isn't resources for this request ("+request.getRequestURI()+")");
     }
     
 }

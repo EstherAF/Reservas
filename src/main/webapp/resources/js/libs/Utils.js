@@ -1,4 +1,4 @@
-var applicationPath = location.protocol + "//" + location.host+"/Reservas/";
+var applicationPath = location.protocol + "//" + location.host+"/reservas/";
 
 Array.prototype.remove = function(index) {
     this.splice(index, 1);

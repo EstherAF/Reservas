@@ -15,7 +15,7 @@ NavigationBar.invitationMenu = function() {
 
         var reservationLink = $('<a></a>').attr({
             'class': 'text',
-            'href': '/Reservas/reservations/' + invitation.reservation.id
+            'href': '/reservas/reservations/' + invitation.reservation.id
         });
         var reservationDescription = invitation.reservation.name + ' ';
         var reservationOwner = $('<span></span>').css('font-style', 'italic').
