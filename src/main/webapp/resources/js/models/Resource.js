@@ -19,11 +19,22 @@ Resource.prototype.serialize = function(){
 };
 /*AJAX*/
 Resource.serializeResourceToTree = function(resource){
+    var rel="resource";
+    
+    //Check if it's a group. If it's, check that id starts with 'g'
+    if(resource.id[0]==='g' || !resource.group || !resource.group.id){
+        if(resource.id[0]!=='g'){
+            resource.id='g'+resource.id;
+        }
+        rel="group";
+    }
+    
     return {
-        "attr": {"id": ((resource.id[0]!=='g')? 'g'+resource.id: resource.id),
+        "attr": {
+            "id": resource.id,
             "name": resource.name,
             "description": resource.description,
-            "rel": "group"},
+            "rel": rel},
         "data": resource.name,
         "children": []
     };

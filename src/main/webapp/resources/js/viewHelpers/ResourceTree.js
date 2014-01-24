@@ -79,6 +79,10 @@ ResourceTree.prototype.addResourceNode = function(resource) {
 
 ResourceTree.prototype.addGroupNode = function(resource) {
     var data = Resource.serializeResourceToTree(resource);
+    data.attr.rel = "group";
+    if(data.attr.id[0]!=='g'){
+        data.attr.id='g'+data.attr.id;
+    }
     this.tree.jstree("create", "#resourcesTree", "last", data, false, true);
 };
 

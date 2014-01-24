@@ -67,12 +67,17 @@ var resourcesView = function(resources) {
             }
     );
 
-    /*PRIVATE*/
+    /* ---------------------------------------
+     * Remove all dialogs of success or error 
+     * -------------------------------------- */
     var cleanMessages = function(){
         self.updateResourceForm.removeErrors();
         self.createResourceForm.removeErrors();
     };
 
+    /* ----------------------------------------------------------
+     * Create, fill and append to the body the Group's <select> 
+     * -------------------------------------------------------- */
     var generateSelectorGroup = function(resources) {
         var selector = $('select[name="group"]');
         selector.empty();
@@ -85,6 +90,16 @@ var resourcesView = function(resources) {
         });
     };
 
+
+    /* --------------------------------------------------------
+     * Change UI, depending of operation type (create, modify) 
+     * and resource type (resource or group):
+     *      Title
+     *      Buttons' label
+     *      Showed inputs (text, select, textarea...)
+     *      Clear inputs
+     *      update this.op (operation [create | update])
+     * ------------------------------------------------------- */
     var changeInterface = function(op, newTypeResource) {
         //Cambio del título
         cleanMessages();
@@ -117,6 +132,12 @@ var resourcesView = function(resources) {
         operation = op;
     };
 
+    
+    /* -----------------------------------------------------------------------
+     * Create new resource, getting resource object as arg, and changes UI
+     *      If it's a group, append it to group's <select> 
+     *      Append it to resource tree and show dialog message [success|error] 
+     * ----------------------------------------------------------------------- */
     var createResource = function(resource) {
         if (!resource.group) {
             //Is group
@@ -143,6 +164,15 @@ var resourcesView = function(resources) {
         }
     };
 
+
+    /* -----------------------------------------------------------------------
+     * Update existing resource, getting changed resource object as arg, and changes UI
+     *      If it's a group, append it to group's <select> 
+     *      Append it to resource tree and show dialog message [success|error] 
+     * ----------------------------------------------------------------------- */
+    
+    /* TODO: if a group's name is changed, its group's selector option 
+     * should change too, but it's NOT implemented*/
     var updateResource = function(resource) {
         var success = function() {
             //self.resTree.updateNode(resource);
@@ -214,6 +244,10 @@ var resourcesView = function(resources) {
             }
         }
     };
+
+    /*
+     * TODO: After removing it from resources tree, change UI to "Create resource", to avoid showing removed resource's data
+     */
 
     this.remove = function() {
         var selectedNode = self.resTree.getSelectedNode();
