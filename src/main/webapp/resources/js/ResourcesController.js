@@ -167,27 +167,24 @@ var resourcesView = function(resources) {
 
     /* -----------------------------------------------------------------------
      * Update existing resource, getting changed resource object as arg, and changes UI
-     *      If it's a group, append it to group's <select> 
-     *      Append it to resource tree and show dialog message [success|error] 
+     *      If it's a group, changes its name in group's <select> 
+     *      It changes its data in the resource tree and show dialog message [success|error] 
      * ----------------------------------------------------------------------- */
-    
-    /* TODO: if a group's name is changed, its group's selector option 
-     * should change too, but it's NOT implemented*/
+
     var updateResource = function(resource) {
-        var success = function() {
-            //self.resTree.updateNode(resource);
-            Notifications.showMessage('update_resource_ok'); 
-        };
 
         if (resource.group) {
+            //It's a resource
             delete resource.quantity;
             Resource.updateResource(resource, function() {
                 self.resTree.updateNode(resource);
                 Notifications.showMessage("update_resource_ok");
             }, ajaxError);
         } else {
+            //It's a group
             Resource.updateGroup(resource, function() {
                 self.resTree.updateNode(resource);
+                $("[name='group'] > option[value=\'g" + resource.id + "\']").text(resource.name);
                 Notifications.showMessage("update_resource_ok");
             }, ajaxError);
         }
@@ -292,6 +289,8 @@ var resourcesView = function(resources) {
     };
 
     this.loadUpdateResourceInterface = function(resource) {
+        $('#quantity').hide();
+        
         //name & description
         $('[name="name"]').val(resource.attr('name'));
         $('[name="description"]').val(resource.attr('description'));
