@@ -1,9 +1,9 @@
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
-<%@ page import="com.citius.reservas.controllers.controllerModel.ReservationInstanceCustom" %>
+<%@page import="com.citius.reservas.controllers.controllerModel.ReservationInstanceCustom" %>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <!DOCTYPE html>
