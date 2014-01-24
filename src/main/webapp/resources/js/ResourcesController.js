@@ -248,28 +248,30 @@ var resourcesView = function(resources) {
     /*
      * TODO: After removing it from resources tree, change UI to "Create resource", to avoid showing removed resource's data
      */
-
     this.remove = function() {
         var selectedNode = self.resTree.getSelectedNode();
         var id = selectedNode.attr('id');
         var resourceType = selectedNode.attr('rel');
 
-        //var is_group = (id.charAt(1) === 'g') ? true : false;
         var messageName = (resourceType === 'group') ? "confirm_remove_group" : "confirm_remove_resource";
         
         var r = confirm(Notifications.getMessage(messageName));
         if(r){
         
-            var success = function() {
+            var onSuccess = function() {
                 self.resTree.removeNode(selectedNode);
                 Notifications.showMessage("delete_resource_ok");
             };
 
-            if (resourceType === "group") {
+            if (resourceType == "group") {
                 id = id.substr(1);
-                Resource.deleteGroup(id + '/all', success, ajaxError);
+                Resource.deleteGroup(id + '/all', 
+                    function(){
+                        $("[name='group'] > option[value=\'g" + id + "\']").remove();
+                        onSuccess();
+                    }, ajaxError);
             } else {
-                Resource.deleteResource(id, success, ajaxError);
+                Resource.deleteResource(id, onSsuccess, ajaxError);
             }
         }
     };
