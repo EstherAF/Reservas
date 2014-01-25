@@ -92,9 +92,11 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
         exceptionMappings.put(org.springframework.dao.DataIntegrityViolationException.class.getName(), new RestError(HttpStatus.CONFLICT, 10102, "error.db.dataIntegrityViolation", "error.dev.dataIntegrityViolation"));
         exceptionMappings.put(org.hibernate.exception.ConstraintViolationException.class.getName(), new RestError(HttpStatus.CONFLICT, 10102, "error.db.dataIntegrityViolation", "error.dev.dataIntegrityViolation"));
         exceptionMappings.put(javax.validation.ConstraintViolationException.class.getName(), new RestError(HttpStatus.CONFLICT, 10102, "error.db.dataIntegrityViolation", "error.dev.dataIntegrityViolation"));
+        exceptionMappings.put(javax.persistence.PersistenceException.class.getName(), new RestError(HttpStatus.CONFLICT, 10102, "error.db.dataIntegrityViolation", "error.dev.dataIntegrityViolation"));
 
         // 500
         exceptionMappings.put(javax.servlet.ServletException.class.getName(), new RestError(HttpStatus.INTERNAL_SERVER_ERROR, 10601, "error.default", "error.dev.ServletException"));
+        exceptionMappings.put(Exception.class.getName(), new RestError(HttpStatus.INTERNAL_SERVER_ERROR, 10600, "error.default", "error.dev.default"));
         exceptionMappings.put(Throwable.class.getName(), new RestError(HttpStatus.INTERNAL_SERVER_ERROR, 10600, "error.default", "error.dev.default"));
 
         //AccessDenied
@@ -143,9 +145,9 @@ public class ApplicationHandlerException extends AbstractHandlerExceptionResolve
             response.setStatus(((RestError)error).getStatus().value());
         else if(error.getClass().equals(List.class))
             response.setStatus(((List<RestError>)error).get(0).getStatus().value());
-        else
+        else{
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        
+        }
         if (acceptedMediaTypes.contains(MediaType.TEXT_HTML)) {
             return this.generateJspView(error, request);
         } else {
