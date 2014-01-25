@@ -226,6 +226,10 @@ var resourcesView = function(resources) {
 
                 if (resourceType === "resource") {
                     var id_group = validated.group;
+                    
+                    //Remove prefix
+                    if(id_group[0]==='g')
+                        id_group=id_group.substr(1);
                 }
             }
         }
