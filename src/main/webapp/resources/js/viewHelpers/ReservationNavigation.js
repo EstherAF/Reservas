@@ -16,6 +16,9 @@ ReservationNavigation.goToWeek = function(date, success) {
             function() {
                 window.history.pushState(null, null, urlRedirect);
                 Modals.bindCloseEvent();
+                ResourcePopUp.onLoad();
+                ReservationNavigation.onLoad();
+                WeeklyCalendarByOwnControler.updateMonthlyViewLink(); 
                 success();
             }
     );
