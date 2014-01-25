@@ -1,9 +1,9 @@
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
-<%@ page import="com.citius.reservas.controllers.controllerModel.ReservationInstanceCustom" %>
+<%@page import="com.citius.reservas.controllers.controllerModel.ReservationInstanceCustom" %>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <!DOCTYPE html>
@@ -15,11 +15,7 @@
         <jsp:include page="/WEB-INF/jsp/jsp_templates/generic_head.jsp" />
 
         <link rel="stylesheet" href="<c:url value="/resources/css/weekly_reservations.css" />" type="text/css" /> 
-        <script type="text/javascript" src="<c:url value="/resources/js/WeeklyCalendarByOwnController.js" />" /> 
-        
-        <script type="text/javascript">
-        </script>
-        
+        <script type="text/javascript" src="<c:url value="/resources/js/WeeklyCalendarByOwnController.js" />" ></script>
         
         <script type="text/javascript">
             $(function() {
